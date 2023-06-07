@@ -11,14 +11,14 @@
     - [**Wireframe**](#wireframe)
     - [**Use Case Diagram**](#use-case-diagram)
   - [**Implementation**](#implementation)
-    - [**Table Representations**](#table-representations)
-      - [**Internal Table Model**](#internal-table-model)
-        - [**Class Diagram**](#class-diagram)
-        - [**Internal Table Representation**](#internal-table-representation)
-        - [**Types**](#types)
-          - [**TitleContent**](#titlecontent)
-          - [**TextContent**](#textcontent)
-          - [**ImageContent**](#imagecontent)
+    - [**Internal Table Model**](#internal-table-model)
+      - [**Class Diagram**](#class-diagram)
+      - [**Internal Table Representation**](#internal-table-representation)
+      - [**Types**](#types)
+        - [**TitleContent**](#titlecontent)
+        - [**TextContent**](#textcontent)
+        - [**ImageContent**](#imagecontent)
+        - [**LinkContent**](#linkcontent)
 
 <br>
 <br>
@@ -51,11 +51,6 @@
 
 ## **Implementation**
 <br>
-<br>
-<br> 
-
-### **Table Representations**
-<br>
 
 ```mermaid
 flowchart LR
@@ -72,20 +67,23 @@ flowchart LR
 <br>
 <br> 
 
-#### **Internal Table Model**
+### **Internal Table Model**
 <br>
 <br>
 
-##### **Class Diagram**
+#### **Class Diagram**
 <br>
 
 ```mermaid
 
 classDiagram
     class InternalTableModel {
-        -table: [null | TitleContent | TextContent | ImageContent]\[][]
+        -table: [null | TitleContent | TextContent | ImageContent | LinkContent][][]
+        -rowCount: number
+        -columnCount: number
 
-        +constructor(rowNumber: number, columnNumber: number)
+        +constructor(rowNumber?: number, columnNumber?: number)
+        +parseMarkdownInput(input: string)
         +addRowAt(index: number)
         +addColumnAt(index: number)
         +removeRowAt(index: number)
@@ -103,7 +101,7 @@ classDiagram
 <br>
 <br>
 
-##### **Internal Table Representation**
+#### **Internal Table Representation**
 <br>
 
 The table is internally represented as a zero based two-dimensional array.
@@ -119,9 +117,9 @@ flowchart BT
 
 <br>
 
-The first row holds references to [TitleContent](#titlecontent) objects.
+The first element of each column array holds a reference to a [TitleContent](#titlecontent) object.
 
-All subsequent rows can hold references to either [TextContent](#textcontent) or [ImageContent](#imagecontent) objects. Empty cells are represented by _Null_ reference.
+All subsequent elements can hold references to either [TextContent](#textcontent), [ImageContent](#imagecontent) or [LinkContent](#linkcontent) objects. Empty cells are represented by _Null_ reference.
 
 <br>
 
@@ -135,47 +133,61 @@ All subsequent rows can hold references to either [TextContent](#textcontent) or
 <br>
 <br>
 
-##### **Types**
+#### **Types**
 <br>
 <br>
 
-###### **TitleContent**
+##### **TitleContent**
 <br>
 
 ```typescript
 type TitleContent = {
-    title: string,
-    columnAlignment: "left" | "right" | "center"
+   type: "link",
+   title: string,
+   columnAlignment: "left" | "right" | "center"
 }
 ```
 
 <br>
 <br>
 
-###### **TextContent**
+##### **TextContent**
 <br>
 
 ```typescript
 type TextContent = {
-    text: string,
-    href: string,
-    target: "_blank" | "_parent"
+   type: "text",
+   text: string
 }
 ```
 
 <br>
 <br>
 
-###### **ImageContent**
+##### **ImageContent**
 <br>
 
 ```typescript
 type ImageContent =  {
-    src: string,
-    alt: string,
-    width: string,
-    heigh: string,
-    href: string,
-    target: "_blank" | "_parent"
+   type: "image",
+   src: string,
+   alt: string,
+   width: string,
+   heigh: string,
+}
+```
+
+<br>
+<br>
+
+##### **LinkContent**
+<br>
+
+```typescript
+type LinkContent = {
+   type: "link",
+   href: string,
+   target: "_blank" | "_parent",
+   content: TextContent | ImageContent
 }
 ```
