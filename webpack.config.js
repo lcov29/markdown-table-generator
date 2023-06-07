@@ -5,25 +5,33 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const config = {
    mode: 'development',
    devtool: 'eval-source-map',
+   entry: path.resolve('src', 'index.tsx'),
+   output: {
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'bundle.js',
+   },
+   resolve: {
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
+   },
    module: {
       rules: [
          {
             test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: { loader: 'babel-loader' }
+            use: { loader: 'babel-loader' },
+            exclude: /node_modules/
          },
          {
             test: /\.(ts|tsx)$/,
-            exclude: /node_modules/,
-            use: { loader: 'ts-loader' }
+            use: { loader: 'ts-loader' },
+            exclude: /node_modules/
          },
          {
             test: /\.css$/i,
-            exclude: /node_modules/,
             use: [
                { loader: 'style-loader' },
                { loader: 'css-loader' }
-            ]
+            ],
+            exclude: /node_modules/
          },
          {
             test: /\.(png|jpeg|svg)$/,
@@ -31,44 +39,14 @@ const config = {
          }
       ]
    },
-   resolve: {
-      extensions: ['.js', '.jsx', '.ts', '.tsx']
-   }
-};
-
-
-const configFrontend = {
-   ...config,
-   name: 'configFrontend',
-   entry: path.resolve('src', 'frontend', 'index.tsx'),
-   output: {
-      path: path.resolve(__dirname, 'dist', 'public'),
-      filename: 'index.js',
-   },
    plugins: [
       new HtmlWebPackPlugin({
-         template: path.join(__dirname, 'src', 'frontend', 'index.html'),
+         template: path.join(__dirname, 'src', 'index.html'),
          filename: 'index.html',
-         favicon: path.join(__dirname, 'src', 'frontend', 'icons', 'groceryItemIcon.svg')
+         favicon: path.join(__dirname, 'src', 'icons', 'favIcon.svg')
       })
    ]
 };
 
 
-const configBackend = {
-   ...config,
-   name: 'configBackend',
-   target: 'node',
-   entry: path.resolve('src', 'backend', 'webserver', 'server.ts'),
-   output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'server.js'
-   }
-};
-
-
-module.exports = (env) => {
-   // returning array results in invalid configuration for component tests in cypress
-   const result = (env && env.notCypress) ? [configFrontend, configBackend] : configFrontend;
-   return result;
-};
+module.exports = config;
