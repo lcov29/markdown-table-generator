@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "module": "CommonJS",
+    "target": "ES2022",
+    "jsx": "react-jsxdev",
+    "strict": true,
+    "esModuleInterop": true,
+    "typeRoots": ["types", "node_modules/@types"]
+  }
+}
