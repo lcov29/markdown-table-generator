@@ -4,7 +4,8 @@
   "author": "voss29",
   "license": "MITS",
   "scripts": {
-    "start": "webpack server"
+    "start": "webpack server",
+    "compile": "webpack"
   },
   "repository": {
     "type": "git",
