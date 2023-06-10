@@ -142,9 +142,9 @@ All subsequent elements can hold references to either [TextContent](#textcontent
 
 ```typescript
 type TitleContent = {
-   type: "link",
+   type: 'title',
    title: string,
-   columnAlignment: "left" | "right" | "center"
+   columnAlignment: 'left' | 'right' | 'center'
 }
 ```
 
@@ -156,7 +156,7 @@ type TitleContent = {
 
 ```typescript
 type TextContent = {
-   type: "text",
+   type: 'text',
    text: string
 }
 ```
@@ -169,7 +169,7 @@ type TextContent = {
 
 ```typescript
 type ImageContent =  {
-   type: "image",
+   type: 'image',
    src: string,
    alt: string,
    width: string,
@@ -185,9 +185,9 @@ type ImageContent =  {
 
 ```typescript
 type LinkContent = {
-   type: "link",
+   type: 'link',
    href: string,
-   target: "_blank" | "_parent",
+   target: '_blank' | '_parent',
    content: TextContent | ImageContent
 }
 ```
