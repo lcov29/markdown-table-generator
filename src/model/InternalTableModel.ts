@@ -3,17 +3,27 @@ import { TitleContent, LinkContent, TextContent, ImageContent } from './types';
 
 class InternalTableModel {
 
-   private table: (TitleContent | LinkContent | TextContent | ImageContent | null)[][] = [];
+   #table: (TitleContent | LinkContent | TextContent | ImageContent | null)[][] = [];
 
-   private rowTotal: number;
+   #rowTotal: number;
 
-   private columnTotal: number;
+   #columnTotal: number;
 
 
    constructor(rowTotal = 0, columnTotal = 0) {
-      this.rowTotal = rowTotal;
-      this.columnTotal = columnTotal;
+      this.#rowTotal = rowTotal;
+      this.#columnTotal = columnTotal;
       this.initializeTable(rowTotal, columnTotal);
+   }
+
+
+   public get rowTotal(): number {
+      return this.#rowTotal;
+   }
+
+
+   public get columnTotal(): number {
+      return this.#columnTotal;
    }
 
 
@@ -22,17 +32,27 @@ class InternalTableModel {
 
       if (isValidTableSize) {
          const table = [];
-         const columnArray = new Array(rowTotal);
-         columnArray.fill(null);
+         const columnArray = new Array(rowTotal).fill(null);
 
          for (let i = 1; i <= columnTotal; i++) {
-            table.push(columnArray.slice());
+            const columnArrayCopy = columnArray.slice();
+            table.push(columnArrayCopy);
          }
 
-         this.table = table;
+         this.#table = table;
       } else {
          throw new RangeError('Arguments rowTotal and columnTotal must be greater than zero');
       }
+   }
+
+
+   public getTableClone(): (TitleContent | LinkContent | TextContent | ImageContent | null)[][] {
+      const clone = this.#table.map(
+         (columnArray) => columnArray.map(
+            (cellElement) => ((cellElement) ? JSON.parse(JSON.stringify(cellElement)) : null)
+         )
+      );
+      return clone;
    }
 
 
