@@ -27,6 +27,22 @@ class InternalTableModel {
    }
 
 
+   public addRowAt(index: number) {
+      const isValidIndex = index > 0;
+
+      if (isValidIndex) {
+         const rowIndex = (index > this.#rowTotal) ? this.#rowTotal : index;
+         this.#table.forEach((columnArray) => {
+            columnArray.splice(rowIndex, 0, null);
+         });
+      } else {
+         const message1 = 'Can not add new first row due to it being reserved for title objects';
+         const message2 = 'Index must not be negative';
+         throw new RangeError((index === 0) ? message1 : message2);
+      }
+   }
+
+
    private initializeTable(rowTotal = 0, columnTotal = 0): void {
       const isValidTableSize = rowTotal > 0 && columnTotal > 0;
 
@@ -36,6 +52,7 @@ class InternalTableModel {
 
          for (let i = 1; i <= columnTotal; i++) {
             const columnArrayCopy = columnArray.slice();
+            columnArrayCopy[0] = { type: 'title', title: '', columnAlignment: 'left' };
             table.push(columnArrayCopy);
          }
 
