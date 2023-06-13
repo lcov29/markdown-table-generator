@@ -193,3 +193,52 @@ describe('InternalTableModel.removeRowAt()', () => {
    });
 
 });
+
+
+
+describe('InternalTableModel.removeColumnAt()', () => {
+
+   it('remove column between existing columns', () => {
+      const obj = new InternalTableModel(4, 3);
+      assert.equal(obj.columnTotal, 3);
+      obj.removeColumnAt(1);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.columnTotal, 2);
+   });
+
+
+   it('remove last column with index matching array length', () => {
+      const obj = new InternalTableModel(4, 3);
+      assert.equal(obj.columnTotal, 3);
+      obj.removeColumnAt(2);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.columnTotal, 2);
+   });
+
+
+   it('remove last column with index exceeding array length', () => {
+      const obj = new InternalTableModel(4, 3);
+      assert.equal(obj.columnTotal, 3);
+      obj.removeColumnAt(345);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.columnTotal, 2);
+   });
+
+
+   it('throws a range error for negative row index argument', () => {
+      expect(() => new InternalTableModel(2, 2).removeColumnAt(-1)).to.throw(RangeError, 'Index must not be negative');
+   });
+
+});
