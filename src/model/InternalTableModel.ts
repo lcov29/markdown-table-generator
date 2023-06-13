@@ -79,6 +79,22 @@ class InternalTableModel {
    }
 
 
+   public removeColumnAt(index: number) {
+      const isValidIndex = index >= 0;
+
+      if (isValidIndex) {
+         const columnIndex = (index > this.#columnTotal) ? this.#columnTotal - 1 : index;
+         const mutatedTable = this.#table.filter(
+            (element, currentColumnIndex) => currentColumnIndex !== columnIndex
+         );
+         this.#table = mutatedTable;
+         this.#columnTotal--;
+      } else {
+         throw new RangeError('Index must not be negative');
+      }
+   }
+
+
    private initializeTable(rowTotal = 0, columnTotal = 0): void {
       const isValidTableSize = rowTotal > 0 && columnTotal > 0;
 
