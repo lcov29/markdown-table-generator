@@ -1,6 +1,7 @@
 /* eslint-disable no-new */
 import { assert, expect } from 'chai';
 import { InternalTableModel } from '../../src/model/InternalTableModel';
+import { TitleContent } from '../../src/model/types';
 
 
 describe('InternalTableModel', () => {
@@ -9,10 +10,10 @@ describe('InternalTableModel', () => {
    it('instantiates an empty table of specified size for valid size arguments', () => {
       const rowTotal = 4;
       const columnTotal = 3;
-      const table = [
-         [null, null, null, null],
-         [null, null, null, null],
-         [null, null, null, null]
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
       ];
       const obj = new InternalTableModel(rowTotal, columnTotal);
       assert.equal(obj.rowTotal, rowTotal);
