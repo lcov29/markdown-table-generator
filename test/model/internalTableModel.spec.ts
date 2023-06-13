@@ -242,3 +242,26 @@ describe('InternalTableModel.removeColumnAt()', () => {
    });
 
 });
+
+
+
+describe('InternalTableModel.swapRows()', () => {
+
+   it('swaps rows', () => {
+      const obj = new InternalTableModel(4, 2);
+      assert.equal(obj.rowTotal, 4);
+      obj.swapRows(1, 2);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.rowTotal, 4);
+   });
+
+
+   it('throws a range error for negative row index argument', () => {
+      expect(() => new InternalTableModel(2, 2).swapRows(0, 1)).to.throw(RangeError, 'First row can not be swapped due to it being reserved for title objects');
+   });
+
+});
