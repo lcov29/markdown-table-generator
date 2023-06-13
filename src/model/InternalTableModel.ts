@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { TitleContent, LinkContent, TextContent, ImageContent } from './types';
 
 
@@ -91,6 +92,21 @@ class InternalTableModel {
          this.#columnTotal--;
       } else {
          throw new RangeError('Index must not be negative');
+      }
+   }
+
+
+   public swapRows(row1Index: number, row2Index: number) {
+      const isValidIndex = row1Index !== 0 && row2Index !== 0;
+
+      if (isValidIndex) {
+         this.#table.forEach((columnArray) => {
+            const tempElement = columnArray[row1Index];
+            columnArray[row1Index] = columnArray[row2Index];
+            columnArray[row2Index] = tempElement;
+         });
+      } else {
+         throw new RangeError('First row can not be swapped due to it being reserved for title objects');
       }
    }
 
