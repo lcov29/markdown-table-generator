@@ -83,6 +83,7 @@ classDiagram
         -columnCount: number
 
         +constructor(rowNumber?: number, columnNumber?: number)
+        +getTableClone()
         +parseMarkdownInput(input: string)
         +addRowAt(index: number)
         +addColumnAt(index: number)
@@ -93,6 +94,7 @@ classDiagram
         +addContentAt(position: [rowIndex: number, columnIndex: number], content: TextContent | ImageContent[])
         +removeContentAt(position: [rowIndex: number, columnIndex: number])
         +swapContent(content1: [rowIndex: number, columnIndex: number], content2: [rowIndex: number, columnIndex: number])
+        -initializeTable(rowTotal: number, columnTotal: number)
     }
 
 ```
