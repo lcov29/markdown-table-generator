@@ -59,6 +59,26 @@ class InternalTableModel {
    }
 
 
+   public removeRowAt(index: number) {
+      const isValidIndex = index > 0;
+
+      if (isValidIndex) {
+         const rowIndex = (index > this.#rowTotal) ? this.#rowTotal - 1 : index;
+         const mutatedTable = this.#table.map(
+            (columnArray) => columnArray.filter(
+               (element, currentRowIndex) => currentRowIndex !== rowIndex
+            )
+         );
+         this.#table = mutatedTable;
+         this.#rowTotal--;
+      } else {
+         const message1 = 'First row can not be removed due to it being reserved for title objects';
+         const message2 = 'Index must not be negative';
+         throw new RangeError((index === 0) ? message1 : message2);
+      }
+   }
+
+
    private initializeTable(rowTotal = 0, columnTotal = 0): void {
       const isValidTableSize = rowTotal > 0 && columnTotal > 0;
 
