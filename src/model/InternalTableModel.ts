@@ -35,10 +35,26 @@ class InternalTableModel {
          this.#table.forEach((columnArray) => {
             columnArray.splice(rowIndex, 0, null);
          });
+         this.#rowTotal++;
       } else {
          const message1 = 'Can not add new first row due to it being reserved for title objects';
          const message2 = 'Index must not be negative';
          throw new RangeError((index === 0) ? message1 : message2);
+      }
+   }
+
+
+   public addColumnAt(index: number) {
+      const isValidIndex = index >= 0;
+
+      if (isValidIndex) {
+         const columnIndex = (index > this.#columnTotal) ? this.#columnTotal : index;
+         const columnArray = new Array(this.#rowTotal).fill(null);
+         columnArray[0] = { type: 'title', title: '', columnAlignment: 'left' };
+         this.#table.splice(columnIndex, 0, columnArray);
+         this.#columnTotal++;
+      } else {
+         throw new RangeError('Index must not be negative');
       }
    }
 
