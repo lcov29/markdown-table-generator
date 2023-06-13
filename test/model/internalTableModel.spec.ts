@@ -139,3 +139,57 @@ describe('InternalTableModel.addColumnAt()', () => {
    });
 
 });
+
+
+
+describe('InternalTableModel.removeRowAt()', () => {
+
+   it('remove row between existing rows', () => {
+      const obj = new InternalTableModel(4, 2);
+      assert.equal(obj.rowTotal, 4);
+      obj.removeRowAt(1);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.rowTotal, 3);
+   });
+
+
+   it('remove last row with index matching array length', () => {
+      const obj = new InternalTableModel(4, 2);
+      assert.equal(obj.rowTotal, 4);
+      obj.removeRowAt(3);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.rowTotal, 3);
+   });
+
+
+   it('remove last row with index exceeding array length', () => {
+      const obj = new InternalTableModel(4, 2);
+      assert.equal(obj.rowTotal, 4);
+      obj.removeRowAt(345);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.rowTotal, 3);
+   });
+
+
+   it('throws a range error for negative row index argument', () => {
+      expect(() => new InternalTableModel(2, 2).removeRowAt(-1)).to.throw(RangeError, 'Index must not be negative');
+   });
+
+
+   it('throws a range error for trying to add new first line (reserved for title elements)', () => {
+      expect(() => new InternalTableModel(2, 2).removeRowAt(0)).to.throw(RangeError, 'First row can not be removed due to it being reserved for title objects');
+   });
+
+});
