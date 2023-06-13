@@ -35,17 +35,20 @@ describe('InternalTableModel.addRowAt()', () => {
 
    it('add new row between existing rows', () => {
       const obj = new InternalTableModel(3, 2);
+      assert.equal(obj.rowTotal, 3);
       obj.addRowAt(1);
       const table: (TitleContent | null)[][] = [
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
       ];
       assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.rowTotal, 4);
    });
 
 
    it('add new row at end of existing rows with index matching array length', () => {
       const obj = new InternalTableModel(4, 3);
+      assert.equal(obj.rowTotal, 4);
       obj.addRowAt(3);
       const table: (TitleContent | null)[][] = [
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null],
@@ -53,11 +56,13 @@ describe('InternalTableModel.addRowAt()', () => {
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null]
       ];
       assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.rowTotal, 5);
    });
 
 
    it('add new row at end of existing rows with index exceeding array length', () => {
       const obj = new InternalTableModel(4, 3);
+      assert.equal(obj.rowTotal, 4);
       obj.addRowAt(102);
       const table: (TitleContent | null)[][] = [
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null],
@@ -65,6 +70,7 @@ describe('InternalTableModel.addRowAt()', () => {
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null]
       ];
       assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.rowTotal, 5);
    });
 
 
@@ -75,6 +81,61 @@ describe('InternalTableModel.addRowAt()', () => {
 
    it('throws a range error for trying to add new first line (reserved for title elements)', () => {
       expect(() => new InternalTableModel(2, 2).addRowAt(0)).to.throw(RangeError, 'Can not add new first row due to it being reserved for title objects');
+   });
+
+});
+
+
+
+describe('InternalTableModel.addColumnAt()', () => {
+
+   it('add new first column', () => {
+      const obj = new InternalTableModel(3, 2);
+      assert.equal(obj.columnTotal, 2);
+      obj.addColumnAt(0);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.columnTotal, 3);
+   });
+
+
+   it('add new column between existing columns', () => {
+      const obj = new InternalTableModel(3, 4);
+      assert.equal(obj.columnTotal, 4);
+      obj.addColumnAt(2);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.columnTotal, 5);
+   });
+
+
+   it('add new last column', () => {
+      const obj = new InternalTableModel(3, 3);
+      assert.equal(obj.columnTotal, 3);
+      obj.addColumnAt(3);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.columnTotal, 4);
+   });
+
+
+   it('throws a range error for negative column index argument', () => {
+      expect(() => new InternalTableModel(2, 2).addColumnAt(-1)).to.throw(RangeError, 'Index must not be negative');
    });
 
 });
