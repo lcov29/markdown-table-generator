@@ -31,6 +31,26 @@ describe('InternalTableModel constructor', () => {
 
 
 
+describe('InternalTableMode.table', () => {
+
+   it('sets table attribute to user input', () => {
+      const obj = new InternalTableModel(2, 2);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+      ];
+      obj.table = table;
+
+      assert.deepEqual(obj.getTableClone(), table);
+      assert.equal(obj.columnTotal, 3);
+      assert.equal(obj.rowTotal, 4);
+   });
+
+});
+
+
+
 describe('InternalTableModel.addRowAt()', () => {
 
    it('add new row between existing rows', () => {
