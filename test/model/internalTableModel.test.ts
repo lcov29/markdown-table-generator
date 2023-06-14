@@ -110,44 +110,59 @@ describe('InternalTableModel.addRowAt()', () => {
 describe('InternalTableModel.addColumnAt()', () => {
 
    it('add new first column', () => {
-      const obj = new InternalTableModel(3, 2);
-      assert.equal(obj.columnTotal, 2);
+      const obj = new InternalTableModel(2, 2);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
+      ];
+      assert.equal(obj.columnTotal, 3);
       obj.addColumnAt(0);
       const table: (TitleContent | null)[][] = [
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
       ];
       assert.deepEqual(obj.getTableClone(), table);
-      assert.equal(obj.columnTotal, 3);
+      assert.equal(obj.columnTotal, 4);
    });
 
 
    it('add new column between existing columns', () => {
-      const obj = new InternalTableModel(3, 4);
-      assert.equal(obj.columnTotal, 4);
-      obj.addColumnAt(2);
+      const obj = new InternalTableModel(2, 2);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
+      ];
+      assert.equal(obj.columnTotal, 3);
+      obj.addColumnAt(1);
       const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
       ];
       assert.deepEqual(obj.getTableClone(), table);
-      assert.equal(obj.columnTotal, 5);
+      assert.equal(obj.columnTotal, 4);
    });
 
 
    it('add new last column', () => {
-      const obj = new InternalTableModel(3, 3);
+      const obj = new InternalTableModel(2, 2);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
+      ];
       assert.equal(obj.columnTotal, 3);
       obj.addColumnAt(3);
       const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null],
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
       ];
       assert.deepEqual(obj.getTableClone(), table);
       assert.equal(obj.columnTotal, 4);
