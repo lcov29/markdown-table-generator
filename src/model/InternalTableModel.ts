@@ -1,10 +1,13 @@
 /* eslint-disable no-param-reassign */
-import { TitleContent, LinkContent, TextContent, ImageContent } from './types';
+import { TablePosition, TitleContent, LinkContent, TextContent, ImageContent } from './types';
+
+
+type Content = TitleContent | LinkContent | TextContent | ImageContent | null;
 
 
 class InternalTableModel {
 
-   #table: (TitleContent | LinkContent | TextContent | ImageContent | null)[][] = [];
+   #table: Content[][] = [];
 
    #rowTotal: number;
 
@@ -28,7 +31,7 @@ class InternalTableModel {
    }
 
 
-   public set table(table: (TitleContent | LinkContent | TextContent | ImageContent | null)[][]) {
+   public set table(table: Content[][]) {
       this.#table = table;
       this.#columnTotal = table.length;
       this.#rowTotal = table[0].length;
