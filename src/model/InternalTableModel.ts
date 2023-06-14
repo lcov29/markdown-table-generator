@@ -107,10 +107,13 @@ class InternalTableModel {
       const isValidIndex = row1Index !== 0 && row2Index !== 0;
 
       if (isValidIndex) {
+         const index1 = (row1Index > this.#rowTotal) ? this.#rowTotal - 1 : row1Index;
+         const index2 = (row2Index > this.#rowTotal) ? this.#rowTotal - 1 : row2Index;
+
          this.#table.forEach((columnArray) => {
-            const tempElement = columnArray[row1Index];
-            columnArray[row1Index] = columnArray[row2Index];
-            columnArray[row2Index] = tempElement;
+            const tempElement = columnArray[index1];
+            columnArray[index1] = columnArray[index2];
+            columnArray[index2] = tempElement;
          });
       } else {
          throw new RangeError('First row can not be swapped due to it being reserved for title objects');
