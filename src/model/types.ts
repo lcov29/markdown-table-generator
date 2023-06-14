@@ -7,6 +7,12 @@ type ColumnAlignmentOption = 'left' | 'right' | 'center';
 type LinkTargetOption = '_blank' | '_parent';
 
 
+type TablePosition = {
+   rowIndex: number,
+   columnIndex: number
+};
+
+
 type TitleContent = {
    type: 'title',
    title: string,
@@ -41,6 +47,7 @@ export {
    ContentType,
    ColumnAlignmentOption,
    LinkTargetOption,
+   TablePosition,
    TitleContent,
    TextContent,
    ImageContent,
