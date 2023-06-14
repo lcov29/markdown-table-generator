@@ -140,6 +140,14 @@ class InternalTableModel {
    }
 
 
+   public getContentAt(position: TablePosition): Content {
+      if (this.isValidPosition(position)) {
+         return this.#table[position.columnIndex][position.rowIndex];
+      }
+      throw new RangeError('Position is not valid');
+   }
+
+
    private initializeTable(rowTotal = 0, columnTotal = 0): void {
       const isValidTableSize = rowTotal > 0 && columnTotal > 0;
 
@@ -157,6 +165,14 @@ class InternalTableModel {
       } else {
          throw new RangeError('Arguments rowTotal and columnTotal must be greater than zero');
       }
+   }
+
+
+   private isValidPosition(position: TablePosition): boolean {
+      const { rowIndex, columnIndex } = position;
+      const isValidRowIndex = rowIndex >= 0 && rowIndex < this.#rowTotal;
+      const isValidColumnIndex = columnIndex >= 0 && columnIndex < this.#columnTotal;
+      return isValidRowIndex && isValidColumnIndex;
    }
 
 
