@@ -303,16 +303,68 @@ describe('InternalTableModel.removeColumnAt()', () => {
 
 describe('InternalTableModel.swapRows()', () => {
 
-   it('swaps rows', () => {
+   it('swaps rows for valid indices', () => {
       const obj = new InternalTableModel(4, 2);
-      assert.equal(obj.rowTotal, 4);
+      obj.table = [
+         [
+            { type: 'title', title: 'Row1', columnAlignment: 'left' },
+            { type: 'title', title: 'Row2', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+            null
+         ],
+         [
+            { type: 'title', title: 'Row1', columnAlignment: 'left' },
+            { type: 'title', title: 'Row2', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+            null]
+      ];
       obj.swapRows(1, 2);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+      const table : (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: 'Row1', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+            { type: 'title', title: 'Row2', columnAlignment: 'left' },
+            null
+         ],
+         [
+            { type: 'title', title: 'Row1', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+            { type: 'title', title: 'Row2', columnAlignment: 'left' },
+            null
+         ]
       ];
       assert.deepEqual(obj.getTableClone(), table);
-      assert.equal(obj.rowTotal, 4);
+   });
+
+
+   it('swaps rows for indices above maximum valid index', () => {
+      const obj = new InternalTableModel(4, 2);
+      obj.table = [
+         [
+            { type: 'title', title: 'Row1', columnAlignment: 'left' },
+            { type: 'title', title: 'Row2', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+         ],
+         [
+            { type: 'title', title: 'Row1', columnAlignment: 'left' },
+            { type: 'title', title: 'Row2', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+         ]
+      ];
+      obj.swapRows(1, 345);
+      const table : (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: 'Row1', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+            { type: 'title', title: 'Row2', columnAlignment: 'left' },
+         ],
+         [
+            { type: 'title', title: 'Row1', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+            { type: 'title', title: 'Row2', columnAlignment: 'left' },
+         ]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
    });
 
 
