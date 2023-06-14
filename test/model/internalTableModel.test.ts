@@ -427,3 +427,31 @@ describe('InternalTableModel.swapColumns()', () => {
    });
 
 });
+
+
+
+describe('InternalTableModel.getContentAt()', () => {
+
+   it('get content for valid position', () => {
+      const obj = new InternalTableModel(3, 3);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, { type: 'title', title: 'Column3', columnAlignment: 'left' }]
+      ];
+      let position = { rowIndex: 0, columnIndex: 0 };
+      assert.deepEqual(obj.getContentAt(position), { type: 'title', title: 'Column1', columnAlignment: 'left' });
+
+      position = { rowIndex: 3, columnIndex: 2 };
+      assert.deepEqual(obj.getContentAt(position), { type: 'title', title: 'Column3', columnAlignment: 'left' });
+   });
+
+
+   it('throws a range error for invalid position', () => {
+      let position = { rowIndex: -1, columnIndex: 0 };
+      expect(() => new InternalTableModel(2, 2).getContentAt(position)).to.throw(RangeError, 'Position is not valid');
+      position = { rowIndex: 5, columnIndex: 0 };
+      expect(() => new InternalTableModel(2, 2).getContentAt(position)).to.throw(RangeError, 'Position is not valid');
+   });
+
+});
