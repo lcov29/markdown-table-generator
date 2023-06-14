@@ -246,41 +246,50 @@ describe('InternalTableModel.removeRowAt()', () => {
 describe('InternalTableModel.removeColumnAt()', () => {
 
    it('remove column between existing columns', () => {
-      const obj = new InternalTableModel(4, 3);
-      assert.equal(obj.columnTotal, 3);
+      const obj = new InternalTableModel(2, 2);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+      ];
       obj.removeColumnAt(1);
       const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
       ];
       assert.deepEqual(obj.getTableClone(), table);
-      assert.equal(obj.columnTotal, 2);
    });
 
 
    it('remove last column with index matching array length', () => {
-      const obj = new InternalTableModel(4, 3);
-      assert.equal(obj.columnTotal, 3);
+      const obj = new InternalTableModel(2, 2);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+      ];
       obj.removeColumnAt(2);
       const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null]
       ];
       assert.deepEqual(obj.getTableClone(), table);
-      assert.equal(obj.columnTotal, 2);
    });
 
 
    it('remove last column with index exceeding array length', () => {
-      const obj = new InternalTableModel(4, 3);
-      assert.equal(obj.columnTotal, 3);
+      const obj = new InternalTableModel(2, 2);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+      ];
       obj.removeColumnAt(345);
       const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null]
       ];
       assert.deepEqual(obj.getTableClone(), table);
-      assert.equal(obj.columnTotal, 2);
    });
 
 
