@@ -265,3 +265,57 @@ describe('InternalTableModel.swapRows()', () => {
    });
 
 });
+
+
+
+describe('InternalTableModel.swapColumns()', () => {
+
+   it('swaps columns for valid indices', () => {
+      const obj = new InternalTableModel(1, 1);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+      ];
+      obj.swapColumns(0, 2);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null]
+
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+   });
+
+
+   it('swaps columns for indices above maximum valid index', () => {
+      const obj = new InternalTableModel(1, 1);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+      ];
+      obj.swapColumns(0, 6);
+      const table1: (TitleContent | null)[][] = [
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null]
+
+      ];
+      assert.deepEqual(obj.getTableClone(), table1);
+      obj.swapColumns(2134, 0);
+      const table2: (TitleContent | null)[][] = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+
+      ];
+      assert.deepEqual(obj.getTableClone(), table2);
+   });
+
+
+   it('throws a range error for negative column index arguments', () => {
+      expect(() => new InternalTableModel(2, 2).swapColumns(0, -2)).to.throw(RangeError, 'Indices must not be negative');
+   });
+
+});
