@@ -28,6 +28,13 @@ class InternalTableModel {
    }
 
 
+   public set table(table: (TitleContent | LinkContent | TextContent | ImageContent | null)[][]) {
+      this.#table = table;
+      this.#columnTotal = table.length;
+      this.#rowTotal = table[0].length;
+   }
+
+
    public addRowAt(index: number) {
       const isValidIndex = index > 0;
 
@@ -107,6 +114,22 @@ class InternalTableModel {
          });
       } else {
          throw new RangeError('First row can not be swapped due to it being reserved for title objects');
+      }
+   }
+
+
+   public swapColumns(column1Index: number, column2Index: number) {
+      const isValidIndex = column1Index >= 0 && column2Index >= 0;
+
+      if (isValidIndex) {
+         const index1 = (column1Index > this.#columnTotal) ? this.#columnTotal - 1 : column1Index;
+         const index2 = (column2Index > this.#columnTotal) ? this.#columnTotal - 1 : column2Index;
+
+         const temp = this.#table[index1];
+         this.#table[index1] = this.#table[index2];
+         this.#table[index2] = temp;
+      } else {
+         throw new RangeError('Indices must not be negative');
       }
    }
 
