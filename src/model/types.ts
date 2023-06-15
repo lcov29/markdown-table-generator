@@ -32,6 +32,7 @@ type ImageContent = {
    alt: string,
    width: string,
    height: string,
+   title?: string
 };
 
 
