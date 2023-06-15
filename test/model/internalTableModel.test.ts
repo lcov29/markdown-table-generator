@@ -646,3 +646,71 @@ describe('InternalTableModel.removeContentAt()', () => {
    });
 
 });
+
+
+
+describe('InternalTableModel.swapContent()', () => {
+
+   it('swap title content', () => {
+      const obj = new InternalTableModel(3, 3);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, { type: 'text', text: 'Column1' }],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, { type: 'text', text: 'Column2' }],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, { type: 'text', text: 'Column3' }]
+      ];
+      const position1 = { rowIndex: 0, columnIndex: 0 };
+      const position2 = { rowIndex: 0, columnIndex: 2 };
+      obj.swapContent(position1, position2);
+
+      const table: (TitleContent | TextContent | null)[][] = [
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, { type: 'text', text: 'Column1' }],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, { type: 'text', text: 'Column2' }],
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, { type: 'text', text: 'Column3' }]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+   });
+
+
+   it('swap non title content', () => {
+      const obj = new InternalTableModel(3, 3);
+      obj.table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, { type: 'text', text: 'Column1' }],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, { type: 'text', text: 'Column2' }],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, { type: 'text', text: 'Column3' }]
+      ];
+      const position1 = { rowIndex: 1, columnIndex: 2 };
+      const position2 = { rowIndex: 1, columnIndex: 1 };
+      obj.swapContent(position1, position2);
+
+      const table: (TitleContent | TextContent | null)[][] = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, { type: 'text', text: 'Column1' }],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, { type: 'text', text: 'Column3' }],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, { type: 'text', text: 'Column2' }]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+   });
+
+
+   it('throws an error for attempting to swap title content with non title content', () => {
+      const obj = new InternalTableModel(3, 3);
+      const position1: TablePosition = { rowIndex: 0, columnIndex: 1 };
+      const position2: TablePosition = { rowIndex: 1, columnIndex: 1 };
+      expect(() => obj.swapContent(position1, position2)).to.throw(Error, 'Title content in first row can not be swapped with non title content');
+   });
+
+
+   it('throws a range error for invalid position', () => {
+      const obj = new InternalTableModel(3, 3);
+      let position1: TablePosition = { rowIndex: -1, columnIndex: 1 };
+      const position2: TablePosition = { rowIndex: 0, columnIndex: 0 };
+
+      expect(() => obj.swapContent(position1, position2)).to.throw(RangeError, 'Position is not valid');
+      position1 = { rowIndex: 1, columnIndex: -1 };
+      expect(() => obj.swapContent(position1, position2)).to.throw(RangeError, 'Position is not valid');
+      position1 = { rowIndex: 5, columnIndex: 1 };
+      expect(() => obj.swapContent(position1, position2)).to.throw(RangeError, 'Position is not valid');
+      position1 = { rowIndex: 1, columnIndex: 5 };
+      expect(() => obj.swapContent(position1, position2)).to.throw(RangeError, 'Position is not valid');
+   });
+
+});
