@@ -1,7 +1,7 @@
 /* eslint-disable no-new */
 import { assert, expect } from 'chai';
 import { InternalTableModel } from '../../src/model/InternalTableModel';
-import { TitleContent, TextContent, ImageContent, LinkContent } from '../../src/model/types';
+import { TitleContent, TextContent, ImageContent, LinkContent, TablePosition } from '../../src/model/types';
 
 
 describe('InternalTableModel constructor', () => {
@@ -548,6 +548,101 @@ describe('InternalTableModel.addContentAt()', () => {
 
       const position2 = { rowIndex: 0, columnIndex: -1 };
       expect(() => obj.addContentAt(position2, textContent)).to.throw(RangeError, 'Position is not valid');
+   });
+
+});
+
+
+
+describe('InternalTableModel.removeContentAt()', () => {
+
+   it('removes content at valid position', () => {
+      const obj = new InternalTableModel(3, 3);
+      obj.table = [
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'text', text: '(0, 1)' },
+            null,
+            null
+         ],
+         [
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            null,
+            { type: 'text', text: '(1, 2)' },
+            null
+         ],
+         [
+            { type: 'title', title: 'Column3', columnAlignment: 'left' },
+            null,
+            null,
+            { type: 'text', text: '(2, 3)' }
+         ]
+      ];
+
+      let position: TablePosition;
+      let table: (TitleContent | TextContent | null)[][];
+
+      position = { rowIndex: 1, columnIndex: 0 };
+      table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            null,
+            { type: 'text', text: '(1, 2)' },
+            null
+         ],
+         [
+            { type: 'title', title: 'Column3', columnAlignment: 'left' },
+            null,
+            null,
+            { type: 'text', text: '(2, 3)' }
+         ]
+      ];
+      obj.removeContentAt(position);
+      assert.deepEqual(obj.getTableClone(), table);
+
+      position = { rowIndex: 2, columnIndex: 1 };
+      table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [
+            { type: 'title', title: 'Column3', columnAlignment: 'left' },
+            null,
+            null,
+            { type: 'text', text: '(2, 3)' }
+         ]
+      ];
+      obj.removeContentAt(position);
+      assert.deepEqual(obj.getTableClone(), table);
+
+      position = { rowIndex: 3, columnIndex: 2 };
+      table = [
+         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+      ];
+      obj.removeContentAt(position);
+      assert.deepEqual(obj.getTableClone(), table);
+   });
+
+
+   it('throws an error for attempting to remove title content from first row', () => {
+      const obj = new InternalTableModel(3, 3);
+      const position: TablePosition = { rowIndex: 0, columnIndex: 1 };
+      expect(() => obj.removeContentAt(position)).to.throw(Error, 'Title content must not be removed');
+   });
+
+
+   it('throws a range error for invalid position', () => {
+      const obj = new InternalTableModel(3, 3);
+      let position: TablePosition = { rowIndex: -1, columnIndex: 1 };
+      expect(() => obj.removeContentAt(position)).to.throw(RangeError, 'Position is not valid');
+      position = { rowIndex: 1, columnIndex: -1 };
+      expect(() => obj.removeContentAt(position)).to.throw(RangeError, 'Position is not valid');
+      position = { rowIndex: 5, columnIndex: 1 };
+      expect(() => obj.removeContentAt(position)).to.throw(RangeError, 'Position is not valid');
+      position = { rowIndex: 1, columnIndex: 5 };
+      expect(() => obj.removeContentAt(position)).to.throw(RangeError, 'Position is not valid');
    });
 
 });
