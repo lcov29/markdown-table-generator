@@ -91,10 +91,12 @@ classDiagram
         +removeColumnAt(index: number)
         +swapRows(row1Index: number, row2Index: number)
         +swapColumns(column1Index: number, column2Index: number)
+        +getContentAt(position: [rowIndex: number, columnIndex: number])
         +addContentAt(position: [rowIndex: number, columnIndex: number], content: TextContent | ImageContent[])
         +removeContentAt(position: [rowIndex: number, columnIndex: number])
         +swapContent(content1: [rowIndex: number, columnIndex: number], content2: [rowIndex: number, columnIndex: number])
         -initializeTable(rowTotal: number, columnTotal: number)
+        -isValidPosition(position: [rowIndex: number, columnIndex: number])
     }
 
 ```
