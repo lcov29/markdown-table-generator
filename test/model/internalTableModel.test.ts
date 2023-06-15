@@ -1,7 +1,7 @@
 /* eslint-disable no-new */
 import { assert, expect } from 'chai';
 import { InternalTableModel } from '../../src/model/InternalTableModel';
-import { TitleContent } from '../../src/model/types';
+import { TitleContent, TextContent, ImageContent, LinkContent } from '../../src/model/types';
 
 
 describe('InternalTableModel constructor', () => {
@@ -452,6 +452,102 @@ describe('InternalTableModel.getContentAt()', () => {
       expect(() => new InternalTableModel(2, 2).getContentAt(position)).to.throw(RangeError, 'Position is not valid');
       position = { rowIndex: 5, columnIndex: 0 };
       expect(() => new InternalTableModel(2, 2).getContentAt(position)).to.throw(RangeError, 'Position is not valid');
+   });
+
+});
+
+
+
+describe('InternalTableModel.addContentAt()', () => {
+
+   it('add title content in first row', () => {
+      const obj = new InternalTableModel(3, 3);
+      const position = { rowIndex: 0, columnIndex: 1 };
+      const titleContent: TitleContent = { type: 'title', title: 'Column2', columnAlignment: 'right' };
+      obj.addContentAt(position, titleContent);
+      const table: (TitleContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: 'Column2', columnAlignment: 'right' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+   });
+
+
+   it('add text content', () => {
+      const obj = new InternalTableModel(3, 3);
+      const position = { rowIndex: 1, columnIndex: 1 };
+      const titleContent: TextContent = { type: 'text', text: 'Content' };
+      obj.addContentAt(position, titleContent);
+      const table: (TitleContent | TextContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, titleContent, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+   });
+
+
+   it('add image content', () => {
+      const obj = new InternalTableModel(3, 3);
+      const position = { rowIndex: 1, columnIndex: 1 };
+      const imageContent: ImageContent = { type: 'image', src: 'src', alt: 'alt', width: 'width', height: 'height' };
+      obj.addContentAt(position, imageContent);
+      const table: (TitleContent | ImageContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, imageContent, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+   });
+
+
+   it('add link content', () => {
+      const obj = new InternalTableModel(3, 3);
+      const position = { rowIndex: 1, columnIndex: 1 };
+      const linkContent: LinkContent = {
+         type: 'link',
+         href: 'href',
+         target: '_blank',
+         content: {
+            type: 'text',
+            text: 'text'
+         }
+      };
+      obj.addContentAt(position, linkContent);
+      const table: (TitleContent | LinkContent | null)[][] = [
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, linkContent, null],
+         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      ];
+      assert.deepEqual(obj.getTableClone(), table);
+   });
+
+
+   it('throws an error for attempting to add title content in other row than first', () => {
+      const obj = new InternalTableModel(3, 3);
+      const position = { rowIndex: 1, columnIndex: 0 };
+      const titleContent: TitleContent = { type: 'title', title: 'Column1', columnAlignment: 'left' };
+      expect(() => obj.addContentAt(position, titleContent)).to.throw(Error, 'Title content objects are restricted to first row');
+   });
+
+
+   it('throws an error for attempting to add non title content to first row', () => {
+      const obj = new InternalTableModel(3, 3);
+      const position = { rowIndex: 0, columnIndex: 0 };
+      const textContent: TextContent = { type: 'text', text: 'Content' };
+      expect(() => obj.addContentAt(position, textContent)).to.throw(Error, 'Content of first row is reserved to title content objects');
+   });
+
+
+   it('throws a range error for attempting to add content at non valid position', () => {
+      const obj = new InternalTableModel(3, 3);
+      const position1 = { rowIndex: -1, columnIndex: 0 };
+      const textContent: TextContent = { type: 'text', text: 'Content' };
+      expect(() => obj.addContentAt(position1, textContent)).to.throw(RangeError, 'Position is not valid');
+
+      const position2 = { rowIndex: 0, columnIndex: -1 };
+      expect(() => obj.addContentAt(position2, textContent)).to.throw(RangeError, 'Position is not valid');
    });
 
 });
