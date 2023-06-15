@@ -458,13 +458,13 @@ describe('InternalTableModel.getContentAt()', () => {
 
 
 
-describe('InternalTableModel.addContentAt()', () => {
+describe('InternalTableModel.setContentAt()', () => {
 
    it('add title content in first row', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 0, columnIndex: 1 };
       const titleContent: TitleContent = { type: 'title', title: 'Column2', columnAlignment: 'right' };
-      obj.addContentAt(position, titleContent);
+      obj.setContentAt(position, titleContent);
       const table: (TitleContent | null)[][] = [
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
          [{ type: 'title', title: 'Column2', columnAlignment: 'right' }, null, null],
@@ -478,7 +478,7 @@ describe('InternalTableModel.addContentAt()', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 1, columnIndex: 1 };
       const titleContent: TextContent = { type: 'text', text: 'Content' };
-      obj.addContentAt(position, titleContent);
+      obj.setContentAt(position, titleContent);
       const table: (TitleContent | TextContent | null)[][] = [
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
          [{ type: 'title', title: '', columnAlignment: 'left' }, titleContent, null],
@@ -492,7 +492,7 @@ describe('InternalTableModel.addContentAt()', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 1, columnIndex: 1 };
       const imageContent: ImageContent = { type: 'image', src: 'src', alt: 'alt', width: 'width', height: 'height' };
-      obj.addContentAt(position, imageContent);
+      obj.setContentAt(position, imageContent);
       const table: (TitleContent | ImageContent | null)[][] = [
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
          [{ type: 'title', title: '', columnAlignment: 'left' }, imageContent, null],
@@ -514,7 +514,7 @@ describe('InternalTableModel.addContentAt()', () => {
             text: 'text'
          }
       };
-      obj.addContentAt(position, linkContent);
+      obj.setContentAt(position, linkContent);
       const table: (TitleContent | LinkContent | null)[][] = [
          [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
          [{ type: 'title', title: '', columnAlignment: 'left' }, linkContent, null],
@@ -528,7 +528,7 @@ describe('InternalTableModel.addContentAt()', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 1, columnIndex: 0 };
       const titleContent: TitleContent = { type: 'title', title: 'Column1', columnAlignment: 'left' };
-      expect(() => obj.addContentAt(position, titleContent)).to.throw(Error, 'Title content objects are restricted to first row');
+      expect(() => obj.setContentAt(position, titleContent)).to.throw(Error, 'Title content objects are restricted to first row');
    });
 
 
@@ -536,7 +536,7 @@ describe('InternalTableModel.addContentAt()', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 0, columnIndex: 0 };
       const textContent: TextContent = { type: 'text', text: 'Content' };
-      expect(() => obj.addContentAt(position, textContent)).to.throw(Error, 'Content of first row is reserved to title content objects');
+      expect(() => obj.setContentAt(position, textContent)).to.throw(Error, 'Content of first row is reserved to title content objects');
    });
 
 
@@ -544,10 +544,10 @@ describe('InternalTableModel.addContentAt()', () => {
       const obj = new InternalTableModel(3, 3);
       const position1 = { rowIndex: -1, columnIndex: 0 };
       const textContent: TextContent = { type: 'text', text: 'Content' };
-      expect(() => obj.addContentAt(position1, textContent)).to.throw(RangeError, 'Position is not valid');
+      expect(() => obj.setContentAt(position1, textContent)).to.throw(RangeError, 'Position is not valid');
 
       const position2 = { rowIndex: 0, columnIndex: -1 };
-      expect(() => obj.addContentAt(position2, textContent)).to.throw(RangeError, 'Position is not valid');
+      expect(() => obj.setContentAt(position2, textContent)).to.throw(RangeError, 'Position is not valid');
    });
 
 });

@@ -148,7 +148,7 @@ class InternalTableModel {
    }
 
 
-   public addContentAt(position: TablePosition, content: Content) {
+   public setContentAt(position: TablePosition, content: Content) {
       if (this.isValidPosition(position)) {
          const isTitleRowAffected = position.rowIndex === 0;
          const isNonTitleContent = content === null || content.type !== 'title';
@@ -194,8 +194,8 @@ class InternalTableModel {
 
       if (isSwapValid) {
          const temp = this.getContentAt(position1);
-         this.addContentAt(position1, this.getContentAt(position2));
-         this.addContentAt(position2, temp);
+         this.setContentAt(position1, this.getContentAt(position2));
+         this.setContentAt(position2, temp);
       } else {
          throw new Error('Title content in first row can not be swapped with non title content');
       }
