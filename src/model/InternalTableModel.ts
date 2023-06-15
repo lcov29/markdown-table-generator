@@ -168,6 +168,20 @@ class InternalTableModel {
    }
 
 
+   public removeContentAt(position: TablePosition) {
+      if (!this.isValidPosition(position)) {
+         throw new RangeError('Position is not valid');
+      }
+
+      const isTitleContent = position.rowIndex === 0;
+      if (isTitleContent) {
+         throw new Error('Title content must not be removed');
+      } else {
+         this.#table[position.columnIndex][position.rowIndex] = null;
+      }
+   }
+
+
    private initializeTable(rowTotal = 0, columnTotal = 0): void {
       const isValidTableSize = rowTotal > 0 && columnTotal > 0;
 
