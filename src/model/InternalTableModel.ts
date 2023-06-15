@@ -148,6 +148,26 @@ class InternalTableModel {
    }
 
 
+   public addContentAt(position: TablePosition, content: Content) {
+      if (this.isValidPosition(position)) {
+         const isTitleRowAffected = position.rowIndex === 0;
+         const isNonTitleContent = content === null || content.type !== 'title';
+         const isValidTitle = isTitleRowAffected && content?.type === 'title';
+         const isValidNonTitle = !isTitleRowAffected && isNonTitleContent;
+
+         if (isValidTitle || isValidNonTitle) {
+            this.#table[position.columnIndex][position.rowIndex] = content;
+         } else {
+            const message1 = 'Content of first row is reserved to title content objects';
+            const message2 = 'Title content objects are restricted to first row';
+            throw new Error((isTitleRowAffected) ? message1 : message2);
+         }
+      } else {
+         throw new RangeError('Position is not valid');
+      }
+   }
+
+
    private initializeTable(rowTotal = 0, columnTotal = 0): void {
       const isValidTableSize = rowTotal > 0 && columnTotal > 0;
 
