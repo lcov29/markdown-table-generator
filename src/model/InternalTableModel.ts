@@ -182,6 +182,26 @@ class InternalTableModel {
    }
 
 
+   public swapContent(position1: TablePosition, position2: TablePosition) {
+      const isPositionValid = this.isValidPosition(position1) && this.isValidPosition(position2);
+      if (!isPositionValid) {
+         throw new RangeError('Position is not valid');
+      }
+
+      const isTitleContentSwap = position1.rowIndex === 0 && position2.rowIndex === 0;
+      const isNonTitleContentSwap = position1.rowIndex > 0 && position2.rowIndex > 0;
+      const isSwapValid = isTitleContentSwap || isNonTitleContentSwap;
+
+      if (isSwapValid) {
+         const temp = this.getContentAt(position1);
+         this.addContentAt(position1, this.getContentAt(position2));
+         this.addContentAt(position2, temp);
+      } else {
+         throw new Error('Title content in first row can not be swapped with non title content');
+      }
+   }
+
+
    private initializeTable(rowTotal = 0, columnTotal = 0): void {
       const isValidTableSize = rowTotal > 0 && columnTotal > 0;
 
