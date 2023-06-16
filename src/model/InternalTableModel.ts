@@ -1,13 +1,10 @@
 /* eslint-disable no-param-reassign */
-import { TablePosition, TitleContent, LinkContent, TextContent, ImageContent } from './types';
-
-
-type Content = TitleContent | LinkContent | TextContent | ImageContent | null;
+import { TablePosition, TitleContent, LinkContent, TextContent, ImageContent, TableContent } from './types';
 
 
 class InternalTableModel {
 
-   #table: Content[][] = [];
+   #table: TableContent[][] = [];
 
    #rowTotal: number;
 
@@ -31,7 +28,7 @@ class InternalTableModel {
    }
 
 
-   public set table(table: Content[][]) {
+   public set table(table: TableContent[][]) {
       this.#table = table;
       this.#columnTotal = table.length;
       this.#rowTotal = table[0].length;
@@ -140,7 +137,7 @@ class InternalTableModel {
    }
 
 
-   public getContentAt(position: TablePosition): Content {
+   public getContentAt(position: TablePosition): TableContent {
       if (this.isValidPosition(position)) {
          return this.#table[position.columnIndex][position.rowIndex];
       }
@@ -148,7 +145,7 @@ class InternalTableModel {
    }
 
 
-   public setContentAt(position: TablePosition, content: Content) {
+   public setContentAt(position: TablePosition, content: TableContent) {
       if (this.isValidPosition(position)) {
          const isTitleRowAffected = position.rowIndex === 0;
          const isNonTitleContent = content === null || content.type !== 'title';
@@ -238,7 +235,6 @@ class InternalTableModel {
       );
       return clone;
    }
-
 
 }
 
