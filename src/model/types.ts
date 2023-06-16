@@ -44,6 +44,9 @@ type LinkContent = {
 };
 
 
+type TableContent = TitleContent | LinkContent | TextContent | ImageContent | null;
+
+
 export {
    ContentType,
    ColumnAlignmentOption,
@@ -52,5 +55,6 @@ export {
    TitleContent,
    TextContent,
    ImageContent,
-   LinkContent
+   LinkContent,
+   TableContent
 };
