@@ -1,4 +1,4 @@
-import { TitleContent, ColumnAlignmentOption } from '../model/types';
+import { TitleContent, ColumnAlignmentOption, TextContent } from '../model/types';
 
 
 function parseMarkdownTableIntoArray(markdownTable: string): string[][] {
@@ -38,4 +38,17 @@ function parseTitleSeparator(separator: string): ColumnAlignmentOption {
 }
 
 
-export { parseMarkdownTableIntoArray, parseTitleSeparator };
+function parseTitleContent(title: string, separator: string): TitleContent {
+   return {
+      type: 'title',
+      title,
+      columnAlignment: parseTitleSeparator(separator)
+   };
+}
+
+
+export {
+   parseMarkdownTableIntoArray,
+   parseTitleSeparator,
+   parseTitleContent
+};
