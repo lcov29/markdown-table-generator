@@ -47,8 +47,14 @@ function parseTitleContent(title: string, separator: string): TitleContent {
 }
 
 
+function isImageString(string: string): boolean {
+   return /<img\s*src="\w*".*>/g.test(string);
+}
+
+
 export {
    parseMarkdownTableIntoArray,
    parseTitleSeparator,
-   parseTitleContent
+   parseTitleContent,
+   isImageString
 };
