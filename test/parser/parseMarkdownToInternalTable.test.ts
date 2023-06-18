@@ -2,7 +2,8 @@ import { assert } from 'chai';
 import {
    parseMarkdownTableIntoArray,
    parseTitleSeparator,
-   isImageString
+   isImageString,
+   extractAttributeValue
 } from '../../src/parser/parseMarkdownToInternalTable';
 
 
@@ -71,6 +72,26 @@ describe('parseMarkdownToInternalTable.isImageString()', () => {
    it('detects non image string', () => {
       assert.equal(isImageString(''), false);
       assert.equal(isImageString('FooBar'), false);
+   });
+
+});
+
+
+
+describe('parseMarkdownToInternalTable.extractAttributeValue()', () => {
+
+   it('extracts value of existing attribute', () => {
+      assert.equal(extractAttributeValue('src', '<img src="image/source/name.jpg" alt="altText" title="title" width="40" height="30">'), 'image/source/name.jpg');
+      assert.equal(extractAttributeValue('alt', '<img src="image/source/name.jpg" alt="altText" title="title" width="40" height="30">'), 'altText');
+      assert.equal(extractAttributeValue('title', '<img src="image/source/name.jpg" alt="altText" title="title" width="40" height="30">'), 'title');
+      assert.equal(extractAttributeValue('width', '<img src="image/source/name.jpg" alt="altText" title="title" width="40" height="30">'), '40');
+      assert.equal(extractAttributeValue('height', '<img src="image/source/name.jpg" alt="altText" title="title" width="40" height="30">'), '30');
+      assert.equal(extractAttributeValue('height', '<img src="image/source/name.jpg" alt="altText" title="title" width="40" height="">'), '');
+   });
+
+
+   it('returns empty string for nonexisting attribute', () => {
+      assert.equal(extractAttributeValue('title', '<img src="image/source/name.jpg" alt="altText">'), '');
    });
 
 });
