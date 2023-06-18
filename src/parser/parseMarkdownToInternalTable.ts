@@ -1,4 +1,4 @@
-import { TitleContent, ColumnAlignmentOption, TextContent } from '../model/types';
+import { TitleContent, ColumnAlignmentOption, TextContent, ImageContent } from '../model/types';
 
 
 function parseMarkdownTableIntoArray(markdownTable: string): string[][] {
@@ -47,6 +47,20 @@ function parseTitleContent(title: string, separator: string): TitleContent {
 }
 
 
+function extractAttributeValue(attribute: string, string: string): string {
+   const regExp = new RegExp(`${attribute}=".*?"`, 'i');
+   const attributeMatch = regExp.exec(string);
+
+   if (attributeMatch) {
+      let value = attributeMatch[0];
+      value = value.replace(`${attribute}=`, '');
+      value = value.replaceAll('"', '');
+      return value;
+   }
+   return '';
+}
+
+
 function isImageString(string: string): boolean {
    return /<img\s*src="\w*".*>/g.test(string);
 }
@@ -56,5 +70,6 @@ export {
    parseMarkdownTableIntoArray,
    parseTitleSeparator,
    parseTitleContent,
+   extractAttributeValue,
    isImageString
 };
