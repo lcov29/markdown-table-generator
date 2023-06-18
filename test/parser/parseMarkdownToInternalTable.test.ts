@@ -3,6 +3,7 @@ import {
    parseMarkdownTableIntoArray,
    parseTitleSeparator,
    isImageString,
+   isLinkString,
    extractAttributeValue
 } from '../../src/parser/parseMarkdownToInternalTable';
 
@@ -58,6 +59,7 @@ describe('parseMarkdownToInternalTable.isImageString()', () => {
       assert.equal(isImageString('<img src="SRC" alt="ALT"/>'), true);
    });
 
+
    it('detects invalid image string', () => {
       assert.equal(isImageString('<im src="SRC" alt="ALT" >'), false);
       assert.equal(isImageString('img src="SRC" alt="ALT">'), false);
@@ -69,9 +71,34 @@ describe('parseMarkdownToInternalTable.isImageString()', () => {
       assert.equal(isImageString('<img alt="ALT/>"'), false);
    });
 
+
    it('detects non image string', () => {
       assert.equal(isImageString(''), false);
       assert.equal(isImageString('FooBar'), false);
+   });
+
+});
+
+
+
+describe('parseMarkdownToInternalTable.isLinkString()', () => {
+
+   it('detects valid link string', () => {
+      assert.equal(isLinkString('<a href="https://test.com">Text</a>'), true);
+      assert.equal(isLinkString('<a href="https://test.com" target="_blank">Text</a>'), true);
+      assert.equal(isLinkString('<a href="https://test.com" target="_blank"><img src="source" alt="ALT"></a>'), true);
+   });
+
+
+   it('detects invalid link string', () => {
+      assert.equal(isLinkString('<a>Text</a>'), false);
+   });
+
+
+   it('detects non link string', () => {
+      assert.equal(isLinkString(''), false);
+      assert.equal(isLinkString('FooBar'), false);
+      assert.equal(isLinkString('<im src="SRC" alt="ALT" >'), false);
    });
 
 });
