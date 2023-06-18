@@ -4,8 +4,10 @@ import {
    parseTitleSeparator,
    isImageString,
    isLinkString,
-   extractAttributeValue
+   extractAttributeValue,
+   parseLinkContent
 } from '../../src/parser/parseMarkdownToInternalTable';
+import { LinkContent } from '../../src/model/types';
 
 
 
@@ -119,6 +121,45 @@ describe('parseMarkdownToInternalTable.extractAttributeValue()', () => {
 
    it('returns empty string for nonexisting attribute', () => {
       assert.equal(extractAttributeValue('title', '<img src="image/source/name.jpg" alt="altText">'), '');
+   });
+
+});
+
+
+
+describe('parseMarkdownToInternalTable.parseLinkContent()', () => {
+
+   it('parses valid link with text content', () => {
+      const link1 = '<a href="https://test.com" target="_blank">Link Text</a>';
+      const expectedResult1: LinkContent = {
+         type: 'link',
+         href: 'https://test.com',
+         target: '_blank',
+         content: {
+            type: 'text',
+            text: 'Link Text'
+         }
+      };
+      assert.deepEqual(parseLinkContent(link1), expectedResult1);
+   });
+
+
+   it('parses valid link with image content', () => {
+      const link1 = '<a href="https://test.com" target="_blank"><img src="https://domain.com/picture.jpg" alt="Alternative Description"></a>';
+      const expectedResult1: LinkContent = {
+         type: 'link',
+         href: 'https://test.com',
+         target: '_blank',
+         content: {
+            type: 'image',
+            src: 'https://domain.com/picture.jpg',
+            alt: 'Alternative Description',
+            width: '',
+            height: '',
+            title: ''
+         }
+      };
+      assert.deepEqual(parseLinkContent(link1), expectedResult1);
    });
 
 });
