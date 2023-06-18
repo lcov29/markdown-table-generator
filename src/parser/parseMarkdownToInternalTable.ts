@@ -74,7 +74,12 @@ function parseImageContent(string: string): ImageContent {
 
 
 function isImageString(string: string): boolean {
-   return /<img\s*src="\w*".*>/g.test(string);
+   return /<img\s*src=".*".*>/g.test(string);
+}
+
+
+function isLinkString(string: string): boolean {
+   return /<a\s*href=".*".*>.*<\/a>/g.test(string);
 }
 
 
@@ -84,5 +89,6 @@ export {
    parseTitleContent,
    extractAttributeValue,
    parseImageContent,
-   isImageString
+   isImageString,
+   isLinkString
 };
