@@ -129,31 +129,38 @@ function parseLinkContent(string: string): LinkContent {
 
 
 function parseNonTitleContent(string: string): TableContent {
-   const isImageContent = isImageString(string);
    const isLinkContent = isLinkString(string);
+   const isImageContent = isImageString(string);
    const isTextContent = !isImageContent && !isLinkContent;
 
-   if (isTextContent) {
-      return (string) ? parseTextContent(string) : null;
+   if (isLinkContent) {
+      return parseLinkContent(string);
    }
 
    if (isImageContent) {
       return parseImageContent(string);
    }
 
-   if (isLinkContent) {
-      return parseLinkContent(string);
+   if (isTextContent) {
+      return (string) ? parseTextContent(string) : null;
    }
 
    return null;
 }
 
 
-/*
-function parseMarkdownToInternalTable(markdownTable: string): TableContent[][] {
-   const table = parseMarkdownTableIntoArray(markdownTable);
+function parseContentRows(markdownTable: string[][]): TableContent[][] {
+   const parsedContentRowList: TableContent[][] = [];
+
+   for (let row = 2; row < markdownTable.length; row++) {
+      const parsedContentRow = markdownTable[row].map(
+         (cellContent) => parseNonTitleContent(cellContent)
+      );
+      parsedContentRowList.push(parsedContentRow);
+   }
+
+   return parsedContentRowList;
 }
-*/
 
 
 export {
@@ -163,6 +170,7 @@ export {
    parseTitleSeparator,
    parseTitleContent,
    parseTitleRow,
+   parseContentRows,
    extractAttributeValue,
    parseImageContent,
    parseLinkContent
