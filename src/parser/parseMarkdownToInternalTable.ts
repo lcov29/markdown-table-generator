@@ -61,6 +61,18 @@ function extractAttributeValue(attribute: string, string: string): string {
 }
 
 
+function parseImageContent(string: string): ImageContent {
+   return {
+      type: 'image',
+      src: extractAttributeValue('src', string),
+      alt: extractAttributeValue('alt', string),
+      width: extractAttributeValue('width', string),
+      height: extractAttributeValue('height', string),
+      title: extractAttributeValue('title', string)
+   };
+}
+
+
 function isImageString(string: string): boolean {
    return /<img\s*src="\w*".*>/g.test(string);
 }
@@ -71,5 +83,6 @@ export {
    parseTitleSeparator,
    parseTitleContent,
    extractAttributeValue,
+   parseImageContent,
    isImageString
 };
