@@ -1,4 +1,4 @@
-import { TitleContent, ColumnAlignmentOption, TextContent, ImageContent, LinkContent, LinkTargetOption } from '../model/types';
+import { TitleContent, ColumnAlignmentOption, TextContent, ImageContent, LinkContent, LinkTargetOption, TableContent } from '../model/types';
 
 
 function isImageString(string: string): boolean {
@@ -54,6 +54,19 @@ function parseTitleContent(title: string, separator: string): TitleContent {
       title,
       columnAlignment: parseTitleSeparator(separator)
    };
+}
+
+
+function parseTitleRow(markdownTable: string[][]): TitleContent[] {
+   const titleRow: TitleContent[] = [];
+
+   for (let i = 0; i < markdownTable[0].length; i++) {
+      const titleElement = markdownTable[0][i];
+      const separatorElement = markdownTable[1][i];
+      titleRow.push(parseTitleContent(titleElement, separatorElement));
+   }
+
+   return titleRow;
 }
 
 
@@ -115,12 +128,41 @@ function parseLinkContent(string: string): LinkContent {
 }
 
 
+function parseNonTitleContent(string: string): TableContent {
+   const isImageContent = isImageString(string);
+   const isLinkContent = isLinkString(string);
+   const isTextContent = !isImageContent && !isLinkContent;
+
+   if (isTextContent) {
+      return (string) ? parseTextContent(string) : null;
+   }
+
+   if (isImageContent) {
+      return parseImageContent(string);
+   }
+
+   if (isLinkContent) {
+      return parseLinkContent(string);
+   }
+
+   return null;
+}
+
+
+/*
+function parseMarkdownToInternalTable(markdownTable: string): TableContent[][] {
+   const table = parseMarkdownTableIntoArray(markdownTable);
+}
+*/
+
+
 export {
    isImageString,
    isLinkString,
    parseMarkdownTableIntoArray,
    parseTitleSeparator,
    parseTitleContent,
+   parseTitleRow,
    extractAttributeValue,
    parseImageContent,
    parseLinkContent
