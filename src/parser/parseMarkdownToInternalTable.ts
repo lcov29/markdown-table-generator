@@ -163,6 +163,15 @@ function parseContentRows(markdownTable: string[][]): TableContent[][] {
 }
 
 
+function parseMarkdownToInternalTable(markdown: string): TableContent[][] {
+   const markdownTableArray = parseMarkdownTableIntoArray(markdown);
+   const titleRow = parseTitleRow(markdownTableArray);
+   const contentRows = parseContentRows(markdownTableArray);
+   contentRows.splice(0, 0, titleRow); // add title row as first row
+   return contentRows;
+}
+
+
 export {
    isImageString,
    isLinkString,
@@ -173,5 +182,6 @@ export {
    parseContentRows,
    extractAttributeValue,
    parseImageContent,
-   parseLinkContent
+   parseLinkContent,
+   parseMarkdownToInternalTable
 };
