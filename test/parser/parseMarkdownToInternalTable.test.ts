@@ -5,9 +5,11 @@ import {
    isImageString,
    isLinkString,
    extractAttributeValue,
-   parseLinkContent
+   parseLinkContent,
+   parseTitleRow,
+   parseContentRows
 } from '../../src/parser/parseMarkdownToInternalTable';
-import { LinkContent } from '../../src/model/types';
+import { LinkContent, TableContent, TitleContent } from '../../src/model/types';
 
 
 
@@ -163,3 +165,94 @@ describe('parseMarkdownToInternalTable.parseLinkContent()', () => {
    });
 
 });
+
+
+
+describe('parseMarkdownToInternalTable.parseTitleRow()', () => {
+
+   it('parses title row of valid markdown table', () => {
+      const table = [
+         ['Title1', 'Title2', 'Title3'],
+         [':-----', '-----:', ':----:'],
+         ['Content1.1', 'Content1.2', 'Content1.3'],
+         ['Content2.1', 'Content2.2', 'Content2.3'],
+         ['Content3.1', 'Content3.2', 'Content3.3']
+      ];
+      const expectedResult: TitleContent[] = [
+         { type: 'title', title: 'Title1', columnAlignment: 'left' },
+         { type: 'title', title: 'Title2', columnAlignment: 'right' },
+         { type: 'title', title: 'Title3', columnAlignment: 'center' }
+      ];
+      assert.deepEqual(parseTitleRow(table), expectedResult);
+   });
+
+});
+
+
+
+describe('parseMarkdownToInternalTable.parseContentRows()', () => {
+
+   it('parses content rows of valid markdown table', () => {
+      const table = [
+         ['Title1', 'Title2', 'Title3'],
+         [':-----', '-----:', ':----:'],
+         [
+            'Content1.1',
+            'Content1.2',
+            'Content1.3'
+         ],
+         [
+            'Content2.1',
+            '<img src="image/source/name.jpg" alt="altText" title="title" width="40" height="30">',
+            'Content2.3'],
+         [
+            '<a href="https://test.com" target="_blank">Link Text</a>',
+            'Content3.2',
+            '<a href="https://test.com" target="_blank"><img src="https://domain.com/picture.jpg" alt="Alternative Description"></a>'
+         ]
+      ];
+      const expectedResult: TableContent[][] = [
+         [
+            { type: 'text', text: 'Content1.1' },
+            { type: 'text', text: 'Content1.2' },
+            { type: 'text', text: 'Content1.3' }
+         ],
+         [
+            { type: 'text', text: 'Content2.1' },
+            { type: 'image', src: 'image/source/name.jpg', alt: 'altText', width: '40', height: '30', title: 'title' },
+            { type: 'text', text: 'Content2.3' }
+         ],
+         [
+            {
+               type: 'link',
+               href: 'https://test.com',
+               target: '_blank',
+               content: {
+                  type: 'text',
+                  text: 'Link Text'
+               }
+            },
+            { type: 'text', text: 'Content3.2' },
+            {
+               type: 'link',
+               href: 'https://test.com',
+               target: '_blank',
+               content: {
+                  type: 'image',
+                  src: 'https://domain.com/picture.jpg',
+                  alt: 'Alternative Description',
+                  width: '',
+                  height: '',
+                  title: ''
+               }
+            }
+         ]
+      ];
+      assert.deepEqual(parseContentRows(table), expectedResult);
+   });
+
+});
+
+
+
+
