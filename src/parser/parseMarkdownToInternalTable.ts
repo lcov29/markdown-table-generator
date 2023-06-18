@@ -1,4 +1,14 @@
-import { TitleContent, ColumnAlignmentOption, TextContent, ImageContent } from '../model/types';
+import { TitleContent, ColumnAlignmentOption, TextContent, ImageContent, LinkContent, LinkTargetOption } from '../model/types';
+
+
+function isImageString(string: string): boolean {
+   return /<img\s*src=".*".*>/g.test(string);
+}
+
+
+function isLinkString(string: string): boolean {
+   return /<a\s*href=".*".*>.*<\/a>/g.test(string);
+}
 
 
 function parseMarkdownTableIntoArray(markdownTable: string): string[][] {
@@ -61,6 +71,11 @@ function extractAttributeValue(attribute: string, string: string): string {
 }
 
 
+function parseTextContent(string: string): TextContent {
+   return { type: 'text', text: string };
+}
+
+
 function parseImageContent(string: string): ImageContent {
    return {
       type: 'image',
@@ -73,22 +88,40 @@ function parseImageContent(string: string): ImageContent {
 }
 
 
-function isImageString(string: string): boolean {
-   return /<img\s*src=".*".*>/g.test(string);
+function parseInnerLinkContent(string: string): TextContent | ImageContent {
+   const temp = />.+</g.exec(string);
+
+   if (!temp) {
+      return parseTextContent('');
+   }
+
+   const innerContent = temp[0].substring(1, temp[0].length - 1);
+
+   if (isImageString(innerContent)) {
+      return parseImageContent(innerContent);
+   }
+
+   return parseTextContent(innerContent);
 }
 
 
-function isLinkString(string: string): boolean {
-   return /<a\s*href=".*".*>.*<\/a>/g.test(string);
+function parseLinkContent(string: string): LinkContent {
+   return {
+      type: 'link',
+      href: extractAttributeValue('href', string),
+      target: extractAttributeValue('target', string) as LinkTargetOption,
+      content: parseInnerLinkContent(string)
+   };
 }
 
 
 export {
+   isImageString,
+   isLinkString,
    parseMarkdownTableIntoArray,
    parseTitleSeparator,
    parseTitleContent,
    extractAttributeValue,
    parseImageContent,
-   isImageString,
-   isLinkString
+   parseLinkContent
 };
