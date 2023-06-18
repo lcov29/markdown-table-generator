@@ -7,7 +7,8 @@ import {
    extractAttributeValue,
    parseLinkContent,
    parseTitleRow,
-   parseContentRows
+   parseContentRows,
+   parseMarkdownToInternalTable
 } from '../../src/parser/parseMarkdownToInternalTable';
 import { LinkContent, TableContent, TitleContent } from '../../src/model/types';
 
@@ -249,6 +250,49 @@ describe('parseMarkdownToInternalTable.parseContentRows()', () => {
          ]
       ];
       assert.deepEqual(parseContentRows(table), expectedResult);
+   });
+
+});
+
+
+
+describe('parseMarkdownToInternalTable.parseMarkdownToInternalTable()', () => {
+
+   it('parses valid markdown table', () => {
+      const expectedResult: TableContent[][] = [
+         [
+            { type: 'title', title: 'Header1', columnAlignment: 'left' },
+            { type: 'title', title: 'Header2', columnAlignment: 'right' },
+         ],
+         [
+            { type: 'text', text: 'Some Text' },
+            {
+               type: 'image',
+               src: 'https://test.com/image.jpg',
+               alt: 'description',
+               width: '40',
+               height: '40',
+               title: 'image title'
+            }
+         ],
+         [
+            null,
+            {
+               type: 'link',
+               href: 'https://test.com/',
+               target: '_blank',
+               content: {
+                  type: 'image',
+                  src: 'https://test.com/image.jpg',
+                  alt: 'description',
+                  width: '40',
+                  height: '40',
+                  title: ''
+               }
+            }
+         ]
+      ];
+      assert.deepEqual(parseMarkdownToInternalTable(markdownTableDefinition), expectedResult);
    });
 
 });
