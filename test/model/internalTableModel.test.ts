@@ -10,9 +10,14 @@ describe('InternalTableModel constructor', () => {
       const rowTotal = 4;
       const columnTotal = 3;
       const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null]
       ];
       const obj = new InternalTableModel(rowTotal, columnTotal);
       assert.equal(obj.rowTotal, rowTotal);
@@ -31,14 +36,19 @@ describe('InternalTableModel constructor', () => {
 
 
 
-describe('InternalTableMode.table', () => {
+describe('InternalTableModel.table', () => {
 
    it('sets table attribute to user input', () => {
       const obj = new InternalTableModel(2, 2);
       const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null]
       ];
       obj.table = table;
 
@@ -57,11 +67,17 @@ describe('InternalTableModel.addRowAt()', () => {
       const obj = new InternalTableModel(3, 2);
       assert.equal(obj.rowTotal, 3);
       obj.addRowAt(1);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null]
+
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null],
+         [null, null],
+         [null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
       assert.equal(obj.rowTotal, 4);
    });
 
@@ -70,12 +86,18 @@ describe('InternalTableModel.addRowAt()', () => {
       const obj = new InternalTableModel(4, 3);
       assert.equal(obj.rowTotal, 4);
       obj.addRowAt(3);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
       assert.equal(obj.rowTotal, 5);
    });
 
@@ -84,12 +106,18 @@ describe('InternalTableModel.addRowAt()', () => {
       const obj = new InternalTableModel(4, 3);
       assert.equal(obj.rowTotal, 4);
       obj.addRowAt(102);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null, null, null]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
       assert.equal(obj.rowTotal, 5);
    });
 
@@ -112,19 +140,27 @@ describe('InternalTableModel.addColumnAt()', () => {
    it('add new first column', () => {
       const obj = new InternalTableModel(2, 2);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null]
       ];
       assert.equal(obj.columnTotal, 3);
       obj.addColumnAt(0);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null, null],
+         [null, null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
       assert.equal(obj.columnTotal, 4);
    });
 
@@ -132,19 +168,27 @@ describe('InternalTableModel.addColumnAt()', () => {
    it('add new column between existing columns', () => {
       const obj = new InternalTableModel(2, 2);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null]
       ];
       assert.equal(obj.columnTotal, 3);
       obj.addColumnAt(1);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null, null],
+         [null, null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
       assert.equal(obj.columnTotal, 4);
    });
 
@@ -152,19 +196,27 @@ describe('InternalTableModel.addColumnAt()', () => {
    it('add new last column', () => {
       const obj = new InternalTableModel(2, 2);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null]
       ];
       assert.equal(obj.columnTotal, 3);
       obj.addColumnAt(3);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null, null, null],
+         [null, null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
       assert.equal(obj.columnTotal, 4);
    });
 
@@ -182,16 +234,28 @@ describe('InternalTableModel.removeRowAt()', () => {
    it('remove row between existing rows', () => {
       const obj = new InternalTableModel(4, 2);
       obj.table = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }, null]
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null],
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null]
       ];
       assert.equal(obj.rowTotal, 4);
       obj.removeRowAt(2);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null],
+         [null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
       assert.equal(obj.rowTotal, 3);
    });
 
@@ -199,16 +263,31 @@ describe('InternalTableModel.removeRowAt()', () => {
    it('remove last row with index matching array length', () => {
       const obj = new InternalTableModel(4, 2);
       obj.table = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }, null]
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null],
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null]
       ];
       assert.equal(obj.rowTotal, 4);
       obj.removeRowAt(3);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null],
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
       assert.equal(obj.rowTotal, 3);
    });
 
@@ -216,16 +295,31 @@ describe('InternalTableModel.removeRowAt()', () => {
    it('remove last row with index exceeding array length', () => {
       const obj = new InternalTableModel(4, 2);
       obj.table = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }, null]
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null],
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null]
       ];
       assert.equal(obj.rowTotal, 4);
       obj.removeRowAt(2435);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, { type: 'title', title: '', columnAlignment: 'left' }]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null],
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
       assert.equal(obj.rowTotal, 3);
    });
 
@@ -248,48 +342,78 @@ describe('InternalTableModel.removeColumnAt()', () => {
    it('remove column between existing columns', () => {
       const obj = new InternalTableModel(2, 2);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null]
       ];
       obj.removeColumnAt(1);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null],
+         [null, null],
+         [null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
    it('remove last column with index matching array length', () => {
       const obj = new InternalTableModel(2, 2);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null]
       ];
       obj.removeColumnAt(2);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+         ],
+         [null, null],
+         [null, null],
+         [null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
    it('remove last column with index exceeding array length', () => {
       const obj = new InternalTableModel(2, 2);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null]
       ];
       obj.removeColumnAt(345);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+         ],
+         [null, null],
+         [null, null],
+         [null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
@@ -310,30 +434,37 @@ describe('InternalTableModel.swapRows()', () => {
             { type: 'title', title: 'Row1', columnAlignment: 'left' },
             { type: 'title', title: 'Row2', columnAlignment: 'left' },
             { type: 'title', title: 'Row3', columnAlignment: 'left' },
-            null
          ],
          [
-            { type: 'title', title: 'Row1', columnAlignment: 'left' },
-            { type: 'title', title: 'Row2', columnAlignment: 'left' },
-            { type: 'title', title: 'Row3', columnAlignment: 'left' },
-            null]
-      ];
-      obj.swapRows(1, 2);
-      const table : (TitleContent | null)[][] = [
-         [
-            { type: 'title', title: 'Row1', columnAlignment: 'left' },
-            { type: 'title', title: 'Row3', columnAlignment: 'left' },
-            { type: 'title', title: 'Row2', columnAlignment: 'left' },
-            null
+            { type: 'text', text: 'Content1.1' },
+            { type: 'text', text: 'Content1.2' },
+            { type: 'text', text: 'Content1.3' },
          ],
          [
-            { type: 'title', title: 'Row1', columnAlignment: 'left' },
-            { type: 'title', title: 'Row3', columnAlignment: 'left' },
-            { type: 'title', title: 'Row2', columnAlignment: 'left' },
-            null
+            { type: 'text', text: 'Content2.1' },
+            { type: 'text', text: 'Content2.2' },
+            { type: 'text', text: 'Content2.3' },
          ]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      obj.swapRows(1, 2);
+      const expectedResult : (TitleContent | TextContent)[][] = [
+         [
+            { type: 'title', title: 'Row1', columnAlignment: 'left' },
+            { type: 'title', title: 'Row2', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+         ],
+         [
+            { type: 'text', text: 'Content2.1' },
+            { type: 'text', text: 'Content2.2' },
+            { type: 'text', text: 'Content2.3' },
+         ],
+         [
+            { type: 'text', text: 'Content1.1' },
+            { type: 'text', text: 'Content1.2' },
+            { type: 'text', text: 'Content1.3' },
+         ],
+      ];
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
@@ -346,25 +477,35 @@ describe('InternalTableModel.swapRows()', () => {
             { type: 'title', title: 'Row3', columnAlignment: 'left' },
          ],
          [
-            { type: 'title', title: 'Row1', columnAlignment: 'left' },
-            { type: 'title', title: 'Row2', columnAlignment: 'left' },
-            { type: 'title', title: 'Row3', columnAlignment: 'left' },
+            { type: 'text', text: 'Content1.1' },
+            { type: 'text', text: 'Content1.2' },
+            { type: 'text', text: 'Content1.3' },
+         ],
+         [
+            { type: 'text', text: 'Content2.1' },
+            { type: 'text', text: 'Content2.2' },
+            { type: 'text', text: 'Content2.3' },
          ]
       ];
       obj.swapRows(1, 345);
-      const table : (TitleContent | null)[][] = [
+      const expectedResult : (TitleContent | TextContent)[][] = [
          [
             { type: 'title', title: 'Row1', columnAlignment: 'left' },
-            { type: 'title', title: 'Row3', columnAlignment: 'left' },
             { type: 'title', title: 'Row2', columnAlignment: 'left' },
+            { type: 'title', title: 'Row3', columnAlignment: 'left' },
          ],
          [
-            { type: 'title', title: 'Row1', columnAlignment: 'left' },
-            { type: 'title', title: 'Row3', columnAlignment: 'left' },
-            { type: 'title', title: 'Row2', columnAlignment: 'left' },
-         ]
+            { type: 'text', text: 'Content2.1' },
+            { type: 'text', text: 'Content2.2' },
+            { type: 'text', text: 'Content2.3' },
+         ],
+         [
+            { type: 'text', text: 'Content1.1' },
+            { type: 'text', text: 'Content1.2' },
+            { type: 'text', text: 'Content1.3' },
+         ],
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
@@ -381,44 +522,87 @@ describe('InternalTableModel.swapColumns()', () => {
    it('swaps columns for valid indices', () => {
       const obj = new InternalTableModel(1, 1);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [
+            { type: 'text', text: 'Content2.1' },
+            { type: 'text', text: 'Content2.2' },
+            { type: 'text', text: 'Content2.3' },
+         ],
+         [null, null, null]
       ];
       obj.swapColumns(0, 2);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null]
-
+      const expectedResult: (TitleContent | TextContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column3', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column1', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [
+            { type: 'text', text: 'Content2.3' },
+            { type: 'text', text: 'Content2.2' },
+            { type: 'text', text: 'Content2.1' },
+         ],
+         [null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
    it('swaps columns for indices above maximum valid index', () => {
       const obj = new InternalTableModel(1, 1);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [
+            { type: 'text', text: 'Content2.1' },
+            { type: 'text', text: 'Content2.2' },
+            { type: 'text', text: 'Content2.3' },
+         ],
+         [null, null, null]
       ];
       obj.swapColumns(0, 6);
-      const table1: (TitleContent | null)[][] = [
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null]
-
+      const expectedResult1: (TitleContent | TextContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column3', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column1', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [
+            { type: 'text', text: 'Content2.3' },
+            { type: 'text', text: 'Content2.2' },
+            { type: 'text', text: 'Content2.1' },
+         ],
+         [null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table1);
+
+      assert.deepEqual(obj.getTableClone(), expectedResult1);
       obj.swapColumns(2134, 0);
-      const table2: (TitleContent | null)[][] = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
-
+      const expectedResult2: (TitleContent | TextContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [
+            { type: 'text', text: 'Content2.1' },
+            { type: 'text', text: 'Content2.2' },
+            { type: 'text', text: 'Content2.3' },
+         ],
+         [null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table2);
+      assert.deepEqual(obj.getTableClone(), expectedResult2);
    });
 
 
@@ -435,9 +619,14 @@ describe('InternalTableModel.getContentAt()', () => {
    it('get content for valid position', () => {
       const obj = new InternalTableModel(3, 3);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, { type: 'title', title: 'Column3', columnAlignment: 'left' }]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, { type: 'title', title: 'Column3', columnAlignment: 'left' }]
       ];
       let position = { rowIndex: 0, columnIndex: 0 };
       assert.deepEqual(obj.getContentAt(position), { type: 'title', title: 'Column1', columnAlignment: 'left' });
@@ -465,26 +654,35 @@ describe('InternalTableModel.setContentAt()', () => {
       const position = { rowIndex: 0, columnIndex: 1 };
       const titleContent: TitleContent = { type: 'title', title: 'Column2', columnAlignment: 'right' };
       obj.setContentAt(position, titleContent);
-      const table: (TitleContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'right' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      const expectedResult: (TitleContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'right' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, null, null],
+         [null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
    it('add text content', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 1, columnIndex: 1 };
-      const titleContent: TextContent = { type: 'text', text: 'Content' };
-      obj.setContentAt(position, titleContent);
-      const table: (TitleContent | TextContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, titleContent, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      const textContent: TextContent = { type: 'text', text: 'Content' };
+      obj.setContentAt(position, textContent);
+
+      const expectedResult: (TitleContent | TextContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, textContent, null],
+         [null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
@@ -493,12 +691,16 @@ describe('InternalTableModel.setContentAt()', () => {
       const position = { rowIndex: 1, columnIndex: 1 };
       const imageContent: ImageContent = { type: 'image', src: 'src', alt: 'alt', width: 'width', height: 'height' };
       obj.setContentAt(position, imageContent);
-      const table: (TitleContent | ImageContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, imageContent, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      const expectedResult: (TitleContent | ImageContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, imageContent, null],
+         [null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
@@ -515,12 +717,16 @@ describe('InternalTableModel.setContentAt()', () => {
          }
       };
       obj.setContentAt(position, linkContent);
-      const table: (TitleContent | LinkContent | null)[][] = [
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, linkContent, null],
-         [{ type: 'title', title: '', columnAlignment: 'left' }, null, null]
+      const expectedResult: (TitleContent | LinkContent | null)[][] = [
+         [
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' },
+            { type: 'title', title: '', columnAlignment: 'left' }
+         ],
+         [null, linkContent, null],
+         [null, null, null]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
@@ -561,68 +767,58 @@ describe('InternalTableModel.removeContentAt()', () => {
       obj.table = [
          [
             { type: 'title', title: 'Column1', columnAlignment: 'left' },
-            { type: 'text', text: '(0, 1)' },
-            null,
-            null
-         ],
-         [
             { type: 'title', title: 'Column2', columnAlignment: 'left' },
-            null,
-            { type: 'text', text: '(1, 2)' },
-            null
-         ],
-         [
             { type: 'title', title: 'Column3', columnAlignment: 'left' },
-            null,
-            null,
-            { type: 'text', text: '(2, 3)' }
-         ]
+         ],
+         [{ type: 'text', text: '(0, 1)' }, null, null],
+         [null, { type: 'text', text: '(1, 2)' }, null],
+         [null, null, { type: 'text', text: '(2, 3)' }]
       ];
 
       let position: TablePosition;
-      let table: (TitleContent | TextContent | null)[][];
+      let expectedResult: (TitleContent | TextContent | null)[][];
 
       position = { rowIndex: 1, columnIndex: 0 };
-      table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
+      expectedResult = [
          [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
             { type: 'title', title: 'Column2', columnAlignment: 'left' },
-            null,
-            { type: 'text', text: '(1, 2)' },
-            null
-         ],
-         [
             { type: 'title', title: 'Column3', columnAlignment: 'left' },
-            null,
-            null,
-            { type: 'text', text: '(2, 3)' }
-         ]
+         ],
+         [null, null, null],
+         [null, { type: 'text', text: '(1, 2)' }, null],
+         [null, null, { type: 'text', text: '(2, 3)' }]
       ];
       obj.removeContentAt(position);
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
 
       position = { rowIndex: 2, columnIndex: 1 };
-      table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
+      expectedResult = [
          [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
             { type: 'title', title: 'Column3', columnAlignment: 'left' },
-            null,
-            null,
-            { type: 'text', text: '(2, 3)' }
-         ]
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, { type: 'text', text: '(2, 3)' }]
       ];
       obj.removeContentAt(position);
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
 
       position = { rowIndex: 3, columnIndex: 2 };
-      table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, null, null, null],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, null, null, null]
+      expectedResult = [
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' },
+         ],
+         [null, null, null],
+         [null, null, null],
+         [null, null, null]
       ];
       obj.removeContentAt(position);
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
@@ -654,40 +850,68 @@ describe('InternalTableModel.swapContent()', () => {
    it('swap title content', () => {
       const obj = new InternalTableModel(3, 3);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, { type: 'text', text: 'Column1' }],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, { type: 'text', text: 'Column2' }],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, { type: 'text', text: 'Column3' }]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [
+            { type: 'text', text: 'Column1' },
+            { type: 'text', text: 'Column2' },
+            { type: 'text', text: 'Column3' }
+         ]
       ];
       const position1 = { rowIndex: 0, columnIndex: 0 };
       const position2 = { rowIndex: 0, columnIndex: 2 };
       obj.swapContent(position1, position2);
 
-      const table: (TitleContent | TextContent | null)[][] = [
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, { type: 'text', text: 'Column1' }],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, { type: 'text', text: 'Column2' }],
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, { type: 'text', text: 'Column3' }]
+      const expectedResult: (TitleContent | TextContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column3', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column1', columnAlignment: 'left' }
+         ],
+         [
+            { type: 'text', text: 'Column1' },
+            { type: 'text', text: 'Column2' },
+            { type: 'text', text: 'Column3' }
+         ]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
    it('swap non title content', () => {
       const obj = new InternalTableModel(3, 3);
       obj.table = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, { type: 'text', text: 'Column1' }],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, { type: 'text', text: 'Column2' }],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, { type: 'text', text: 'Column3' }]
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [
+            { type: 'text', text: 'Column1' },
+            { type: 'text', text: 'Column2' },
+            { type: 'text', text: 'Column3' }
+         ]
       ];
       const position1 = { rowIndex: 1, columnIndex: 2 };
       const position2 = { rowIndex: 1, columnIndex: 1 };
       obj.swapContent(position1, position2);
 
-      const table: (TitleContent | TextContent | null)[][] = [
-         [{ type: 'title', title: 'Column1', columnAlignment: 'left' }, { type: 'text', text: 'Column1' }],
-         [{ type: 'title', title: 'Column2', columnAlignment: 'left' }, { type: 'text', text: 'Column3' }],
-         [{ type: 'title', title: 'Column3', columnAlignment: 'left' }, { type: 'text', text: 'Column2' }]
+      const expectedResult: (TitleContent | TextContent | null)[][] = [
+         [
+            { type: 'title', title: 'Column1', columnAlignment: 'left' },
+            { type: 'title', title: 'Column2', columnAlignment: 'left' },
+            { type: 'title', title: 'Column3', columnAlignment: 'left' }
+         ],
+         [
+            { type: 'text', text: 'Column1' },
+            { type: 'text', text: 'Column3' },
+            { type: 'text', text: 'Column2' }
+         ]
       ];
-      assert.deepEqual(obj.getTableClone(), table);
+      assert.deepEqual(obj.getTableClone(), expectedResult);
    });
 
 
