@@ -30,8 +30,8 @@ class InternalTableModel {
 
    public set table(table: TableContent[][]) {
       this.#table = table;
-      this.#columnTotal = table.length;
-      this.#rowTotal = table[0].length;
+      this.#rowTotal = table.length;
+      this.#columnTotal = table[0].length;
    }
 
 
@@ -40,9 +40,8 @@ class InternalTableModel {
 
       if (isValidIndex) {
          const rowIndex = (index > this.#rowTotal) ? this.#rowTotal : index;
-         this.#table.forEach((columnArray) => {
-            columnArray.splice(rowIndex, 0, null);
-         });
+         const rowArray = new Array(this.#columnTotal).fill(null);
+         this.#table.splice(rowIndex, 0, rowArray);
          this.#rowTotal++;
       } else {
          const message1 = 'Can not add new first row due to it being reserved for title objects';
@@ -57,9 +56,12 @@ class InternalTableModel {
 
       if (isValidIndex) {
          const columnIndex = (index > this.#columnTotal) ? this.#columnTotal : index;
-         const columnArray = new Array(this.#rowTotal).fill(null);
-         columnArray[0] = { type: 'title', title: '', columnAlignment: 'left' };
-         this.#table.splice(columnIndex, 0, columnArray);
+
+         this.#table.forEach((rowArray) => {
+            rowArray.splice(columnIndex, 0, null);
+         });
+         this.#table[0][columnIndex] = { type: 'title', title: '', columnAlignment: 'left' };
+
          this.#columnTotal++;
       } else {
          throw new RangeError('Index must not be negative');
@@ -72,10 +74,8 @@ class InternalTableModel {
 
       if (isValidIndex) {
          const rowIndex = (index > this.#rowTotal) ? this.#rowTotal - 1 : index;
-         const mutatedTable = this.#table.map(
-            (columnArray) => columnArray.filter(
-               (element, currentRowIndex) => currentRowIndex !== rowIndex
-            )
+         const mutatedTable = this.#table.filter(
+            (element, currentRowIndex) => currentRowIndex !== rowIndex
          );
          this.#table = mutatedTable;
          this.#rowTotal--;
@@ -92,8 +92,10 @@ class InternalTableModel {
 
       if (isValidIndex) {
          const columnIndex = (index > this.#columnTotal) ? this.#columnTotal - 1 : index;
-         const mutatedTable = this.#table.filter(
-            (element, currentColumnIndex) => currentColumnIndex !== columnIndex
+         const mutatedTable = this.#table.map(
+            (rowArray) => rowArray.filter(
+               (element, currentRowIndex) => currentRowIndex !== columnIndex
+            )
          );
          this.#table = mutatedTable;
          this.#columnTotal--;
@@ -110,11 +112,9 @@ class InternalTableModel {
          const index1 = (row1Index > this.#rowTotal) ? this.#rowTotal - 1 : row1Index;
          const index2 = (row2Index > this.#rowTotal) ? this.#rowTotal - 1 : row2Index;
 
-         this.#table.forEach((columnArray) => {
-            const tempElement = columnArray[index1];
-            columnArray[index1] = columnArray[index2];
-            columnArray[index2] = tempElement;
-         });
+         const tempElement = this.#table[index1];
+         this.#table[index1] = this.#table[index2];
+         this.#table[index2] = tempElement;
       } else {
          throw new RangeError('First row can not be swapped due to it being reserved for title objects');
       }
@@ -128,9 +128,11 @@ class InternalTableModel {
          const index1 = (column1Index > this.#columnTotal) ? this.#columnTotal - 1 : column1Index;
          const index2 = (column2Index > this.#columnTotal) ? this.#columnTotal - 1 : column2Index;
 
-         const temp = this.#table[index1];
-         this.#table[index1] = this.#table[index2];
-         this.#table[index2] = temp;
+         this.#table.forEach((rowArray) => {
+            const tempElement = rowArray[index1];
+            rowArray[index1] = rowArray[index2];
+            rowArray[index2] = tempElement;
+         });
       } else {
          throw new RangeError('Indices must not be negative');
       }
@@ -139,7 +141,7 @@ class InternalTableModel {
 
    public getContentAt(position: TablePosition): TableContent {
       if (this.isValidPosition(position)) {
-         return this.#table[position.columnIndex][position.rowIndex];
+         return this.#table[position.rowIndex][position.columnIndex];
       }
       throw new RangeError('Position is not valid');
    }
@@ -153,7 +155,7 @@ class InternalTableModel {
          const isValidNonTitle = !isTitleRowAffected && isNonTitleContent;
 
          if (isValidTitle || isValidNonTitle) {
-            this.#table[position.columnIndex][position.rowIndex] = content;
+            this.#table[position.rowIndex][position.columnIndex] = content;
          } else {
             const message1 = 'Content of first row is reserved to title content objects';
             const message2 = 'Title content objects are restricted to first row';
@@ -174,7 +176,7 @@ class InternalTableModel {
       if (isTitleContent) {
          throw new Error('Title content must not be removed');
       } else {
-         this.#table[position.columnIndex][position.rowIndex] = null;
+         this.#table[position.rowIndex][position.columnIndex] = null;
       }
    }
 
@@ -203,16 +205,14 @@ class InternalTableModel {
       const isValidTableSize = rowTotal > 0 && columnTotal > 0;
 
       if (isValidTableSize) {
-         const table = [];
-         const columnArray = new Array(rowTotal).fill(null);
+         const titleObj = { type: 'title', title: '', columnAlignment: 'left' };
+         const titleRow = new Array(columnTotal).fill(titleObj);
+         const contentRow = new Array(columnTotal).fill(null);
 
-         for (let i = 1; i <= columnTotal; i++) {
-            const columnArrayCopy = columnArray.slice();
-            columnArrayCopy[0] = { type: 'title', title: '', columnAlignment: 'left' };
-            table.push(columnArrayCopy);
+         this.#table = [titleRow];
+         for (let row = 1; row < rowTotal; row++) {
+            this.#table.push(contentRow.slice());
          }
-
-         this.#table = table;
       } else {
          throw new RangeError('Arguments rowTotal and columnTotal must be greater than zero');
       }
@@ -229,7 +229,7 @@ class InternalTableModel {
 
    public getTableClone(): (TitleContent | LinkContent | TextContent | ImageContent | null)[][] {
       const clone = this.#table.map(
-         (columnArray) => columnArray.map(
+         (rowArray) => rowArray.map(
             (cellElement) => ((cellElement) ? JSON.parse(JSON.stringify(cellElement)) : null)
          )
       );
