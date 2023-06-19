@@ -228,23 +228,12 @@ describe('parseInternalTableToMarkdown.parseInternalTableTitleRowToMarkdown()', 
       const obj = new InternalTableModel(2, 2);
       obj.table = [
          [
-            {
-               type: 'title',
-               title: 'Header1',
-               columnAlignment: 'left'
-            },
-            {
-               type: 'text',
-               text: 'Some Text'
-            },
-            null
+            { type: 'title', title: 'Header1', columnAlignment: 'left' },
+            { type: 'title', title: 'Header2', columnAlignment: 'right' },
+            { type: 'title', title: 'Header3', columnAlignment: 'center' }
          ],
          [
-            {
-               type: 'title',
-               title: 'Header2',
-               columnAlignment: 'right'
-            },
+            { type: 'text', text: 'Some Text' },
             {
                type: 'image',
                src: 'https://test.com/image.jpg',
@@ -253,6 +242,10 @@ describe('parseInternalTableToMarkdown.parseInternalTableTitleRowToMarkdown()', 
                height: '40',
                title: 'image title'
             },
+         ],
+         [
+            { type: 'text', text: 'Some Text' },
+            null,
             {
                type: 'link',
                href: 'https://test.com/',
@@ -265,19 +258,7 @@ describe('parseInternalTableToMarkdown.parseInternalTableTitleRowToMarkdown()', 
                   height: '40'
                }
             }
-         ],
-         [
-            {
-               type: 'title',
-               title: 'Header3',
-               columnAlignment: 'center'
-            },
-            {
-               type: 'text',
-               text: 'Some Text'
-            },
-            null
-         ],
+         ]
       ];
       const parsedTitleRow = parseInternalTableTitleRowToMarkdown(obj);
       const expectedResult = [
@@ -297,23 +278,11 @@ describe('parseInternalTableToMarkdown.parseInternalTableContentRowsToMarkdown()
       const obj = new InternalTableModel(2, 2);
       obj.table = [
          [
-            {
-               type: 'title',
-               title: 'Header1',
-               columnAlignment: 'left'
-            },
-            {
-               type: 'text',
-               text: 'Some Text'
-            },
-            null
+            { type: 'title', title: 'Header1', columnAlignment: 'left' },
+            { type: 'title', title: 'Header2', columnAlignment: 'right' },
          ],
          [
-            {
-               type: 'title',
-               title: 'Header2',
-               columnAlignment: 'right'
-            },
+            { type: 'text', text: 'Some Text' },
             {
                type: 'image',
                src: 'https://test.com/image.jpg',
@@ -321,7 +290,10 @@ describe('parseInternalTableToMarkdown.parseInternalTableContentRowsToMarkdown()
                width: '40',
                height: '40',
                title: 'image title'
-            },
+            }
+         ],
+         [
+            null,
             {
                type: 'link',
                href: 'https://test.com/',
@@ -336,6 +308,7 @@ describe('parseInternalTableToMarkdown.parseInternalTableContentRowsToMarkdown()
             }
          ]
       ];
+
       const parsedTable = parseInternalTableContentRowsToMarkdown(obj);
       const expectedResult = [
          ['Some Text ', '<img src="https://test.com/image.jpg" alt="description" width="40" height="40" title="image title"/> '],
@@ -366,23 +339,11 @@ describe('parseInternalTableToMarkdown.parseInternalTableToMarkdown()', () => {
       const obj = new InternalTableModel(2, 2);
       obj.table = [
          [
-            {
-               type: 'title',
-               title: 'Header1',
-               columnAlignment: 'left'
-            },
-            {
-               type: 'text',
-               text: 'Some Text'
-            },
-            null
+            { type: 'title', title: 'Header1', columnAlignment: 'left' },
+            { type: 'title', title: 'Header2', columnAlignment: 'right' },
          ],
          [
-            {
-               type: 'title',
-               title: 'Header2',
-               columnAlignment: 'right'
-            },
+            { type: 'text', text: 'Some Text' },
             {
                type: 'image',
                src: 'https://test.com/image.jpg',
@@ -390,7 +351,10 @@ describe('parseInternalTableToMarkdown.parseInternalTableToMarkdown()', () => {
                width: '40',
                height: '40',
                title: 'image title'
-            },
+            }
+         ],
+         [
+            null,
             {
                type: 'link',
                href: 'https://test.com/',
