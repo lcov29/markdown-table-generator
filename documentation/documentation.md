@@ -117,6 +117,10 @@ flowchart BT
     a[RowArray] --> z[TableArray]
     b[RowArray] --> z[TableArray]
     c[RowArray] --> z[TableArray]
+    d[TitleContent] --> a
+    e[TextContent] --> c
+    f[ImageContent] --> c
+    g[LinkContent] --> c
 ```
 
 <br>
