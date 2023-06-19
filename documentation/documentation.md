@@ -114,16 +114,16 @@ The table is internally represented as a zero based two-dimensional array.
 
 ```mermaid
 flowchart BT
-    a[ColumnArray] --> z[TableArray]
-    b[ColumnArray] --> z[TableArray]
-    c[ColumnArray] --> z[TableArray]
+    a[RowArray] --> z[TableArray]
+    b[RowArray] --> z[TableArray]
+    c[RowArray] --> z[TableArray]
 ```
 
 <br>
 
-The first element of each column array holds a reference to a [TitleContent](#titlecontent) object.
+The first row array holds references to [TitleContent](#titlecontent) objects.
 
-All subsequent elements can hold references to either [TextContent](#textcontent), [ImageContent](#imagecontent) or [LinkContent](#linkcontent) objects. Empty cells are represented by _Null_ reference.
+All subsequent arrays can hold references to either [TextContent](#textcontent), [ImageContent](#imagecontent) or [LinkContent](#linkcontent) objects. Empty cells are represented by _Null_ reference.
 
 <br>
 
