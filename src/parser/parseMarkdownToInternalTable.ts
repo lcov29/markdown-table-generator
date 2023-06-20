@@ -1,4 +1,4 @@
-import { TitleContent, ColumnAlignmentOption, TextContent, ImageContent, LinkContent, LinkTargetOption, TableContent } from '../model/types';
+import { TitleContent, ColumnAlignmentOption, TextContent, ImageContent, LinkTargetOption, TableContent } from '../model/types';
 
 
 function isImageString(string: string): boolean {
@@ -84,68 +84,71 @@ function extractAttributeValue(attribute: string, string: string): string {
 }
 
 
+function parseLinkText(string: string): string {
+   const innerContent = />.+</g.exec(string);
+
+   if (innerContent) {
+      const linkText = innerContent[0].substring(1, innerContent[0].length - 1);
+      return linkText;
+   }
+
+   return '';
+}
+
+
 function parseTextContent(string: string): TextContent {
-   return { type: 'text', text: string };
+   if (isLinkString(string)) {
+      return {
+         type: 'text',
+         text: parseLinkText(string),
+         isLink: true,
+         href: extractAttributeValue('href', string),
+         target: extractAttributeValue('target', string) as LinkTargetOption,
+      };
+   }
+   return {
+      type: 'text',
+      text: string,
+      isLink: false,
+      href: '',
+      target: ''
+   };
 }
 
 
 function parseImageContent(string: string): ImageContent {
+   if (isLinkString(string)) {
+      return {
+         type: 'image',
+         src: extractAttributeValue('src', string),
+         alt: extractAttributeValue('alt', string),
+         width: extractAttributeValue('width', string),
+         height: extractAttributeValue('height', string),
+         title: extractAttributeValue('title', string),
+         isLink: true,
+         href: extractAttributeValue('href', string),
+         target: extractAttributeValue('target', string) as LinkTargetOption,
+      };
+   }
    return {
       type: 'image',
       src: extractAttributeValue('src', string),
       alt: extractAttributeValue('alt', string),
       width: extractAttributeValue('width', string),
       height: extractAttributeValue('height', string),
-      title: extractAttributeValue('title', string)
-   };
-}
-
-
-function parseInnerLinkContent(string: string): TextContent | ImageContent {
-   const temp = />.+</g.exec(string);
-
-   if (!temp) {
-      return parseTextContent('');
-   }
-
-   const innerContent = temp[0].substring(1, temp[0].length - 1);
-
-   if (isImageString(innerContent)) {
-      return parseImageContent(innerContent);
-   }
-
-   return parseTextContent(innerContent);
-}
-
-
-function parseLinkContent(string: string): LinkContent {
-   return {
-      type: 'link',
-      href: extractAttributeValue('href', string),
-      target: extractAttributeValue('target', string) as LinkTargetOption,
-      content: parseInnerLinkContent(string)
+      title: extractAttributeValue('title', string),
+      isLink: false,
+      href: '',
+      target: ''
    };
 }
 
 
 function parseNonTitleContent(string: string): TableContent {
-   const isLinkContent = isLinkString(string);
-   const isImageContent = isImageString(string);
-   const isTextContent = !isImageContent && !isLinkContent;
-
-   if (isLinkContent) {
-      return parseLinkContent(string);
-   }
-
-   if (isImageContent) {
+   if (isImageString(string)) {
       return parseImageContent(string);
    }
-
-   if (isTextContent) {
-      return (string) ? parseTextContent(string) : null;
-   }
-
-   return null;
+   return (string) ? parseTextContent(string) : null;
 }
 
 
@@ -182,6 +185,5 @@ export {
    parseContentRows,
    extractAttributeValue,
    parseImageContent,
-   parseLinkContent,
    parseMarkdownToInternalTable
 };
