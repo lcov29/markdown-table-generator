@@ -47,6 +47,12 @@ type LinkContent = {
 type TableContent = TitleContent | LinkContent | TextContent | ImageContent | null;
 
 
+type ImageContentUpdate = {
+   key: 'src' | 'alt' | 'width' | 'height' | 'title',
+   value: string
+};
+
+
 export {
    ContentType,
    ColumnAlignmentOption,
@@ -56,5 +62,6 @@ export {
    TextContent,
    ImageContent,
    LinkContent,
-   TableContent
+   TableContent,
+   ImageContentUpdate
 };
