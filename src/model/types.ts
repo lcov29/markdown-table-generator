@@ -1,4 +1,4 @@
-type ContentType = 'title' | 'text' | 'image' | 'link';
+type ContentType = 'title' | 'text' | 'image';
 
 
 type ColumnAlignmentOption = 'left' | 'right' | 'center';
@@ -36,15 +36,7 @@ type ImageContent = {
 };
 
 
-type LinkContent = {
-   type: 'link',
-   href: string,
-   target: LinkTargetOption,
-   content: TextContent | ImageContent
-};
-
-
-type TableContent = TitleContent | LinkContent | TextContent | ImageContent | null;
+type TableContent = TitleContent | TextContent | ImageContent | null;
 
 
 type ImageContentUpdate = {
@@ -61,7 +53,6 @@ export {
    TitleContent,
    TextContent,
    ImageContent,
-   LinkContent,
    TableContent,
    ImageContentUpdate
 };
