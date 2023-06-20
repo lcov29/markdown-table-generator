@@ -1,7 +1,7 @@
 /* eslint-disable no-new */
 import { assert, expect } from 'chai';
 import { InternalTableModel } from '../../src/model/InternalTableModel';
-import { TitleContent, TextContent, ImageContent, LinkContent, TablePosition } from '../../src/model/types';
+import { TitleContent, TextContent, ImageContent, TablePosition } from '../../src/model/types';
 
 
 describe('InternalTableModel constructor', () => {
@@ -436,14 +436,14 @@ describe('InternalTableModel.swapRows()', () => {
             { type: 'title', title: 'Row3', columnAlignment: 'left' },
          ],
          [
-            { type: 'text', text: 'Content1.1' },
-            { type: 'text', text: 'Content1.2' },
-            { type: 'text', text: 'Content1.3' },
+            { type: 'text', text: 'Content1.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.3', isLink: false, href: '', target: '' },
          ],
          [
-            { type: 'text', text: 'Content2.1' },
-            { type: 'text', text: 'Content2.2' },
-            { type: 'text', text: 'Content2.3' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' },
          ]
       ];
       obj.swapRows(1, 2);
@@ -454,14 +454,14 @@ describe('InternalTableModel.swapRows()', () => {
             { type: 'title', title: 'Row3', columnAlignment: 'left' },
          ],
          [
-            { type: 'text', text: 'Content2.1' },
-            { type: 'text', text: 'Content2.2' },
-            { type: 'text', text: 'Content2.3' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' },
          ],
          [
-            { type: 'text', text: 'Content1.1' },
-            { type: 'text', text: 'Content1.2' },
-            { type: 'text', text: 'Content1.3' },
+            { type: 'text', text: 'Content1.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.3', isLink: false, href: '', target: '' },
          ],
       ];
       assert.deepEqual(obj.getTableClone(), expectedResult);
@@ -477,14 +477,14 @@ describe('InternalTableModel.swapRows()', () => {
             { type: 'title', title: 'Row3', columnAlignment: 'left' },
          ],
          [
-            { type: 'text', text: 'Content1.1' },
-            { type: 'text', text: 'Content1.2' },
-            { type: 'text', text: 'Content1.3' },
+            { type: 'text', text: 'Content1.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.3', isLink: false, href: '', target: '' },
          ],
          [
-            { type: 'text', text: 'Content2.1' },
-            { type: 'text', text: 'Content2.2' },
-            { type: 'text', text: 'Content2.3' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' },
          ]
       ];
       obj.swapRows(1, 345);
@@ -495,14 +495,14 @@ describe('InternalTableModel.swapRows()', () => {
             { type: 'title', title: 'Row3', columnAlignment: 'left' },
          ],
          [
-            { type: 'text', text: 'Content2.1' },
-            { type: 'text', text: 'Content2.2' },
-            { type: 'text', text: 'Content2.3' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' },
          ],
          [
-            { type: 'text', text: 'Content1.1' },
-            { type: 'text', text: 'Content1.2' },
-            { type: 'text', text: 'Content1.3' },
+            { type: 'text', text: 'Content1.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.3', isLink: false, href: '', target: '' },
          ],
       ];
       assert.deepEqual(obj.getTableClone(), expectedResult);
@@ -529,9 +529,9 @@ describe('InternalTableModel.swapColumns()', () => {
          ],
          [null, null, null],
          [
-            { type: 'text', text: 'Content2.1' },
-            { type: 'text', text: 'Content2.2' },
-            { type: 'text', text: 'Content2.3' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' },
          ],
          [null, null, null]
       ];
@@ -544,9 +544,9 @@ describe('InternalTableModel.swapColumns()', () => {
          ],
          [null, null, null],
          [
-            { type: 'text', text: 'Content2.3' },
-            { type: 'text', text: 'Content2.2' },
-            { type: 'text', text: 'Content2.1' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
          ],
          [null, null, null]
       ];
@@ -564,9 +564,9 @@ describe('InternalTableModel.swapColumns()', () => {
          ],
          [null, null, null],
          [
-            { type: 'text', text: 'Content2.1' },
-            { type: 'text', text: 'Content2.2' },
-            { type: 'text', text: 'Content2.3' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' },
          ],
          [null, null, null]
       ];
@@ -579,9 +579,9 @@ describe('InternalTableModel.swapColumns()', () => {
          ],
          [null, null, null],
          [
-            { type: 'text', text: 'Content2.3' },
-            { type: 'text', text: 'Content2.2' },
-            { type: 'text', text: 'Content2.1' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
          ],
          [null, null, null]
       ];
@@ -596,9 +596,9 @@ describe('InternalTableModel.swapColumns()', () => {
          ],
          [null, null, null],
          [
-            { type: 'text', text: 'Content2.1' },
-            { type: 'text', text: 'Content2.2' },
-            { type: 'text', text: 'Content2.3' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' },
          ],
          [null, null, null]
       ];
@@ -670,7 +670,7 @@ describe('InternalTableModel.setContentAt()', () => {
    it('add text content', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 1, columnIndex: 1 };
-      const textContent: TextContent = { type: 'text', text: 'Content' };
+      const textContent: TextContent = { type: 'text', text: 'Content', isLink: false, href: '', target: '' };
       obj.setContentAt(position, textContent);
 
       const expectedResult: (TitleContent | TextContent | null)[][] = [
@@ -689,7 +689,17 @@ describe('InternalTableModel.setContentAt()', () => {
    it('add image content', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 1, columnIndex: 1 };
-      const imageContent: ImageContent = { type: 'image', src: 'src', alt: 'alt', width: 'width', height: 'height' };
+      const imageContent: ImageContent = {
+         type: 'image',
+         src: 'src',
+         alt: 'alt',
+         width: 'width',
+         height: 'height',
+         title: '',
+         isLink: false,
+         href: '',
+         target: ''
+      };
       obj.setContentAt(position, imageContent);
       const expectedResult: (TitleContent | ImageContent | null)[][] = [
          [
@@ -704,6 +714,7 @@ describe('InternalTableModel.setContentAt()', () => {
    });
 
 
+   /*
    it('add link content', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 1, columnIndex: 1 };
@@ -728,6 +739,7 @@ describe('InternalTableModel.setContentAt()', () => {
       ];
       assert.deepEqual(obj.getTableClone(), expectedResult);
    });
+   */
 
 
    it('throws an error for attempting to add title content in other row than first', () => {
@@ -741,7 +753,7 @@ describe('InternalTableModel.setContentAt()', () => {
    it('throws an error for attempting to add non title content to first row', () => {
       const obj = new InternalTableModel(3, 3);
       const position = { rowIndex: 0, columnIndex: 0 };
-      const textContent: TextContent = { type: 'text', text: 'Content' };
+      const textContent: TextContent = { type: 'text', text: 'Content', isLink: false, href: '', target: '' };
       expect(() => obj.setContentAt(position, textContent)).to.throw(Error, 'Content of first row is reserved to title content objects');
    });
 
@@ -749,7 +761,7 @@ describe('InternalTableModel.setContentAt()', () => {
    it('throws a range error for attempting to add content at non valid position', () => {
       const obj = new InternalTableModel(3, 3);
       const position1 = { rowIndex: -1, columnIndex: 0 };
-      const textContent: TextContent = { type: 'text', text: 'Content' };
+      const textContent: TextContent = { type: 'text', text: 'Content', isLink: false, href: '', target: '' };
       expect(() => obj.setContentAt(position1, textContent)).to.throw(RangeError, 'Position is not valid');
 
       const position2 = { rowIndex: 0, columnIndex: -1 };
@@ -770,9 +782,9 @@ describe('InternalTableModel.removeContentAt()', () => {
             { type: 'title', title: 'Column2', columnAlignment: 'left' },
             { type: 'title', title: 'Column3', columnAlignment: 'left' },
          ],
-         [{ type: 'text', text: '(0, 1)' }, null, null],
-         [null, { type: 'text', text: '(1, 2)' }, null],
-         [null, null, { type: 'text', text: '(2, 3)' }]
+         [{ type: 'text', text: '(0, 1)', isLink: false, href: '', target: '' }, null, null],
+         [null, { type: 'text', text: '(1, 2)', isLink: false, href: '', target: '' }, null],
+         [null, null, { type: 'text', text: '(2, 3)', isLink: false, href: '', target: '' }]
       ];
 
       let position: TablePosition;
@@ -786,8 +798,8 @@ describe('InternalTableModel.removeContentAt()', () => {
             { type: 'title', title: 'Column3', columnAlignment: 'left' },
          ],
          [null, null, null],
-         [null, { type: 'text', text: '(1, 2)' }, null],
-         [null, null, { type: 'text', text: '(2, 3)' }]
+         [null, { type: 'text', text: '(1, 2)', isLink: false, href: '', target: '' }, null],
+         [null, null, { type: 'text', text: '(2, 3)', isLink: false, href: '', target: '' }]
       ];
       obj.removeContentAt(position);
       assert.deepEqual(obj.getTableClone(), expectedResult);
@@ -801,7 +813,7 @@ describe('InternalTableModel.removeContentAt()', () => {
          ],
          [null, null, null],
          [null, null, null],
-         [null, null, { type: 'text', text: '(2, 3)' }]
+         [null, null, { type: 'text', text: '(2, 3)', isLink: false, href: '', target: '' }]
       ];
       obj.removeContentAt(position);
       assert.deepEqual(obj.getTableClone(), expectedResult);
@@ -856,9 +868,9 @@ describe('InternalTableModel.swapContent()', () => {
             { type: 'title', title: 'Column3', columnAlignment: 'left' }
          ],
          [
-            { type: 'text', text: 'Column1' },
-            { type: 'text', text: 'Column2' },
-            { type: 'text', text: 'Column3' }
+            { type: 'text', text: 'Column1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Column2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Column3', isLink: false, href: '', target: '' }
          ]
       ];
       const position1 = { rowIndex: 0, columnIndex: 0 };
@@ -872,9 +884,9 @@ describe('InternalTableModel.swapContent()', () => {
             { type: 'title', title: 'Column1', columnAlignment: 'left' }
          ],
          [
-            { type: 'text', text: 'Column1' },
-            { type: 'text', text: 'Column2' },
-            { type: 'text', text: 'Column3' }
+            { type: 'text', text: 'Column1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Column2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Column3', isLink: false, href: '', target: '' }
          ]
       ];
       assert.deepEqual(obj.getTableClone(), expectedResult);
@@ -890,9 +902,9 @@ describe('InternalTableModel.swapContent()', () => {
             { type: 'title', title: 'Column3', columnAlignment: 'left' }
          ],
          [
-            { type: 'text', text: 'Column1' },
-            { type: 'text', text: 'Column2' },
-            { type: 'text', text: 'Column3' }
+            { type: 'text', text: 'Column1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Column2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Column3', isLink: false, href: '', target: '' }
          ]
       ];
       const position1 = { rowIndex: 1, columnIndex: 2 };
@@ -906,9 +918,9 @@ describe('InternalTableModel.swapContent()', () => {
             { type: 'title', title: 'Column3', columnAlignment: 'left' }
          ],
          [
-            { type: 'text', text: 'Column1' },
-            { type: 'text', text: 'Column3' },
-            { type: 'text', text: 'Column2' }
+            { type: 'text', text: 'Column1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Column3', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Column2', isLink: false, href: '', target: '' }
          ]
       ];
       assert.deepEqual(obj.getTableClone(), expectedResult);

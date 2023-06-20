@@ -5,12 +5,11 @@ import {
    isImageString,
    isLinkString,
    extractAttributeValue,
-   parseLinkContent,
    parseTitleRow,
    parseContentRows,
    parseMarkdownToInternalTable
 } from '../../src/parser/parseMarkdownToInternalTable';
-import { LinkContent, TableContent, TitleContent } from '../../src/model/types';
+import { TableContent, TitleContent } from '../../src/model/types';
 
 
 
@@ -130,45 +129,6 @@ describe('parseMarkdownToInternalTable.extractAttributeValue()', () => {
 
 
 
-describe('parseMarkdownToInternalTable.parseLinkContent()', () => {
-
-   it('parses valid link with text content', () => {
-      const link1 = '<a href="https://test.com" target="_blank">Link Text</a>';
-      const expectedResult1: LinkContent = {
-         type: 'link',
-         href: 'https://test.com',
-         target: '_blank',
-         content: {
-            type: 'text',
-            text: 'Link Text'
-         }
-      };
-      assert.deepEqual(parseLinkContent(link1), expectedResult1);
-   });
-
-
-   it('parses valid link with image content', () => {
-      const link1 = '<a href="https://test.com" target="_blank"><img src="https://domain.com/picture.jpg" alt="Alternative Description"></a>';
-      const expectedResult1: LinkContent = {
-         type: 'link',
-         href: 'https://test.com',
-         target: '_blank',
-         content: {
-            type: 'image',
-            src: 'https://domain.com/picture.jpg',
-            alt: 'Alternative Description',
-            width: '',
-            height: '',
-            title: ''
-         }
-      };
-      assert.deepEqual(parseLinkContent(link1), expectedResult1);
-   });
-
-});
-
-
-
 describe('parseMarkdownToInternalTable.parseTitleRow()', () => {
 
    it('parses title row of valid markdown table', () => {
@@ -214,38 +174,44 @@ describe('parseMarkdownToInternalTable.parseContentRows()', () => {
       ];
       const expectedResult: TableContent[][] = [
          [
-            { type: 'text', text: 'Content1.1' },
-            { type: 'text', text: 'Content1.2' },
-            { type: 'text', text: 'Content1.3' }
+            { type: 'text', text: 'Content1.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content1.3', isLink: false, href: '', target: '' }
          ],
          [
-            { type: 'text', text: 'Content2.1' },
-            { type: 'image', src: 'image/source/name.jpg', alt: 'altText', width: '40', height: '30', title: 'title' },
-            { type: 'text', text: 'Content2.3' }
-         ],
-         [
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
             {
-               type: 'link',
-               href: 'https://test.com',
-               target: '_blank',
-               content: {
-                  type: 'text',
-                  text: 'Link Text'
-               }
+               type: 'image',
+               src: 'image/source/name.jpg',
+               alt: 'altText',
+               width: '40',
+               height: '30',
+               title: 'title',
+               isLink: false,
+               href: '',
+               target: ''
             },
-            { type: 'text', text: 'Content3.2' },
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' }
+         ],
+         [
             {
-               type: 'link',
+               type: 'text',
+               text: 'Link Text',
+               isLink: true,
                href: 'https://test.com',
-               target: '_blank',
-               content: {
-                  type: 'image',
-                  src: 'https://domain.com/picture.jpg',
-                  alt: 'Alternative Description',
-                  width: '',
-                  height: '',
-                  title: ''
-               }
+               target: '_blank'
+            },
+            { type: 'text', text: 'Content3.2', isLink: false, href: '', target: '' },
+            {
+               type: 'image',
+               src: 'https://domain.com/picture.jpg',
+               alt: 'Alternative Description',
+               width: '',
+               height: '',
+               title: '',
+               isLink: true,
+               href: 'https://test.com',
+               target: '_blank'
             }
          ]
       ];
@@ -265,30 +231,31 @@ describe('parseMarkdownToInternalTable.parseMarkdownToInternalTable()', () => {
             { type: 'title', title: 'Header2', columnAlignment: 'right' },
          ],
          [
-            { type: 'text', text: 'Some Text' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
             {
                type: 'image',
                src: 'https://test.com/image.jpg',
                alt: 'description',
                width: '40',
                height: '40',
-               title: 'image title'
+               title: 'image title',
+               isLink: false,
+               href: '',
+               target: ''
             }
          ],
          [
             null,
             {
-               type: 'link',
+               type: 'image',
+               src: 'https://test.com/image.jpg',
+               alt: 'description',
+               width: '40',
+               height: '40',
+               title: '',
+               isLink: true,
                href: 'https://test.com/',
-               target: '_blank',
-               content: {
-                  type: 'image',
-                  src: 'https://test.com/image.jpg',
-                  alt: 'description',
-                  width: '40',
-                  height: '40',
-                  title: ''
-               }
+               target: '_blank'
             }
          ]
       ];

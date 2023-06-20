@@ -1,12 +1,11 @@
 import { assert } from 'chai';
 import { InternalTableModel } from '../../src/model/InternalTableModel';
-import { TitleContent, TextContent, ImageContent, LinkContent } from '../../src/model/types';
+import { TitleContent, TextContent, ImageContent } from '../../src/model/types';
 import {
    parseTitleContent,
    parseSeparatorForTitleContent,
    parseTextContent,
    parseImageContent,
-   parseLinkContent,
    parseTableContent,
    parseInternalTableTitleRowToMarkdown,
    parseInternalTableContentRowsToMarkdown,
@@ -57,10 +56,13 @@ describe('parseInternalTableToMarkdown.parseSeparatorForTitleContent()', () => {
 
 describe('parseInternalTableToMarkdown.parseTextContent()', () => {
 
-   it('parse valid text content', () => {
+   it('parse valid text content without link', () => {
       const textContent: TextContent = {
          type: 'text',
-         text: 'FooBar'
+         text: 'FooBar',
+         isLink: false,
+         href: '',
+         target: ''
       };
       assert.equal(parseTextContent(textContent), 'FooBar ');
    });
@@ -78,58 +80,40 @@ describe('parseInternalTableToMarkdown.parseImageContent()', () => {
          alt: 'description',
          width: '40',
          height: '40',
-         title: 'image title'
+         title: 'image title',
+         isLink: false,
+         href: '',
+         target: ''
       };
       const imageContentWithoutTitle: ImageContent = {
          type: 'image',
          src: 'https://test.com/image.jpg',
          alt: 'description',
          width: '40',
-         height: '40'
+         height: '40',
+         title: '',
+         isLink: false,
+         href: '',
+         target: ''
+      };
+      const imageContentWithLink: ImageContent = {
+         type: 'image',
+         src: 'https://test.com/image.jpg',
+         alt: 'description',
+         width: '40',
+         height: '40',
+         title: '',
+         isLink: true,
+         href: 'https://test.com',
+         target: '_blank'
       };
       const imageTextWithTitle = '<img src="https://test.com/image.jpg" alt="description" width="40" height="40" title="image title"/> ';
       const imageTextWithoutTitle = '<img src="https://test.com/image.jpg" alt="description" width="40" height="40"/> ';
+      const imageTextWithLink = '<a href="https://test.com" target="_blank"><img src="https://test.com/image.jpg" alt="description" width="40" height="40"/> </a> ';
 
       assert.equal(parseImageContent(imageContentWithTitle), imageTextWithTitle);
       assert.equal(parseImageContent(imageContentWithoutTitle), imageTextWithoutTitle);
-   });
-
-});
-
-
-
-describe('parseInternalTableToMarkdown.parseLinkContent()', () => {
-
-   it('parse valid link with text content', () => {
-      const linkContentWithTextContent: LinkContent = {
-         type: 'link',
-         href: 'https://test.com/',
-         target: '_blank',
-         content: {
-            type: 'text',
-            text: 'Link Text'
-         }
-      };
-      const linkWithTextContent = '<a href="https://test.com/" target="_blank">Link Text </a> ';
-      assert.equal(parseLinkContent(linkContentWithTextContent), linkWithTextContent);
-   });
-
-
-   it('parse valid link with image content', () => {
-      const linkContentWithImageContent: LinkContent = {
-         type: 'link',
-         href: 'https://test.com/',
-         target: '_blank',
-         content: {
-            type: 'image',
-            src: 'https://test.com/image.jpg',
-            alt: 'description',
-            width: '40',
-            height: '40'
-         }
-      };
-      const linkWithImageContent = '<a href="https://test.com/" target="_blank"><img src="https://test.com/image.jpg" alt="description" width="40" height="40"/> </a> ';
-      assert.equal(parseLinkContent(linkContentWithImageContent), linkWithImageContent);
+      assert.equal(parseImageContent(imageContentWithLink), imageTextWithLink);
    });
 
 });
@@ -151,7 +135,10 @@ describe('parseInternalTableToMarkdown.parseTableContent()', () => {
    it('parse valid text content', () => {
       const textContent: TextContent = {
          type: 'text',
-         text: 'FooBar'
+         text: 'FooBar',
+         isLink: false,
+         href: '',
+         target: ''
       };
       assert.equal(parseTableContent(textContent), 'FooBar ');
    });
@@ -164,53 +151,27 @@ describe('parseInternalTableToMarkdown.parseTableContent()', () => {
          alt: 'description',
          width: '40',
          height: '40',
-         title: 'image title'
+         title: 'image title',
+         isLink: false,
+         href: '',
+         target: ''
       };
       const imageContentWithoutTitle: ImageContent = {
          type: 'image',
          src: 'https://test.com/image.jpg',
          alt: 'description',
          width: '40',
-         height: '40'
+         height: '40',
+         title: '',
+         isLink: false,
+         href: '',
+         target: ''
       };
       const imageTextWithTitle = '<img src="https://test.com/image.jpg" alt="description" width="40" height="40" title="image title"/> ';
       const imageTextWithoutTitle = '<img src="https://test.com/image.jpg" alt="description" width="40" height="40"/> ';
 
       assert.equal(parseTableContent(imageContentWithTitle), imageTextWithTitle);
       assert.equal(parseTableContent(imageContentWithoutTitle), imageTextWithoutTitle);
-   });
-
-
-   it('parse valid link with text content', () => {
-      const linkContentWithTextContent: LinkContent = {
-         type: 'link',
-         href: 'https://test.com/',
-         target: '_blank',
-         content: {
-            type: 'text',
-            text: 'Link Text'
-         }
-      };
-      const linkWithTextContent = '<a href="https://test.com/" target="_blank">Link Text </a> ';
-      assert.equal(parseTableContent(linkContentWithTextContent), linkWithTextContent);
-   });
-
-
-   it('parse valid link with image content', () => {
-      const linkContentWithImageContent: LinkContent = {
-         type: 'link',
-         href: 'https://test.com/',
-         target: '_blank',
-         content: {
-            type: 'image',
-            src: 'https://test.com/image.jpg',
-            alt: 'description',
-            width: '40',
-            height: '40'
-         }
-      };
-      const linkWithImageContent = '<a href="https://test.com/" target="_blank"><img src="https://test.com/image.jpg" alt="description" width="40" height="40"/> </a> ';
-      assert.equal(parseTableContent(linkContentWithImageContent), linkWithImageContent);
    });
 
 
@@ -233,30 +194,32 @@ describe('parseInternalTableToMarkdown.parseInternalTableTitleRowToMarkdown()', 
             { type: 'title', title: 'Header3', columnAlignment: 'center' }
          ],
          [
-            { type: 'text', text: 'Some Text' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
             {
                type: 'image',
                src: 'https://test.com/image.jpg',
                alt: 'description',
                width: '40',
                height: '40',
-               title: 'image title'
-            },
+               title: 'image title',
+               isLink: false,
+               href: '',
+               target: ''
+            }
          ],
          [
-            { type: 'text', text: 'Some Text' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
             null,
             {
-               type: 'link',
+               type: 'image',
+               src: 'https://test.com/image.jpg',
+               alt: 'description',
+               width: '40',
+               height: '40',
+               title: 'image title',
+               isLink: true,
                href: 'https://test.com/',
-               target: '_blank',
-               content: {
-                  type: 'image',
-                  src: 'https://test.com/image.jpg',
-                  alt: 'description',
-                  width: '40',
-                  height: '40'
-               }
+               target: '_blank'
             }
          ]
       ];
@@ -280,39 +243,44 @@ describe('parseInternalTableToMarkdown.parseInternalTableContentRowsToMarkdown()
          [
             { type: 'title', title: 'Header1', columnAlignment: 'left' },
             { type: 'title', title: 'Header2', columnAlignment: 'right' },
+            { type: 'title', title: 'Header3', columnAlignment: 'center' }
          ],
          [
-            { type: 'text', text: 'Some Text' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
+            null,
             {
                type: 'image',
                src: 'https://test.com/image.jpg',
                alt: 'description',
                width: '40',
                height: '40',
-               title: 'image title'
+               title: 'image title',
+               isLink: false,
+               href: '',
+               target: ''
             }
          ],
          [
+            { type: 'text', text: 'Some Other Text', isLink: false, href: '', target: '' },
             null,
             {
-               type: 'link',
+               type: 'image',
+               src: 'https://test.com/image.jpg',
+               alt: 'description',
+               width: '40',
+               height: '40',
+               title: 'image title',
+               isLink: true,
                href: 'https://test.com/',
-               target: '_blank',
-               content: {
-                  type: 'image',
-                  src: 'https://test.com/image.jpg',
-                  alt: 'description',
-                  width: '40',
-                  height: '40'
-               }
+               target: '_blank'
             }
          ]
       ];
 
       const parsedTable = parseInternalTableContentRowsToMarkdown(obj);
       const expectedResult = [
-         ['Some Text ', '<img src="https://test.com/image.jpg" alt="description" width="40" height="40" title="image title"/> '],
-         ['', '<a href="https://test.com/" target="_blank"><img src="https://test.com/image.jpg" alt="description" width="40" height="40"/> </a> ']
+         ['Some Text ', '', '<img src="https://test.com/image.jpg" alt="description" width="40" height="40" title="image title"/> '],
+         ['Some Other Text ', '', '<a href="https://test.com/" target="_blank"><img src="https://test.com/image.jpg" alt="description" width="40" height="40" title="image title"/> </a> ']
       ];
       assert.deepEqual(parsedTable, expectedResult);
    });
@@ -343,35 +311,37 @@ describe('parseInternalTableToMarkdown.parseInternalTableToMarkdown()', () => {
             { type: 'title', title: 'Header2', columnAlignment: 'right' },
          ],
          [
-            { type: 'text', text: 'Some Text' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
             {
                type: 'image',
                src: 'https://test.com/image.jpg',
                alt: 'description',
                width: '40',
                height: '40',
-               title: 'image title'
+               title: 'image title',
+               isLink: false,
+               href: '',
+               target: ''
             }
          ],
          [
             null,
             {
-               type: 'link',
+               type: 'image',
+               src: 'https://test.com/image.jpg',
+               alt: 'description',
+               width: '40',
+               height: '40',
+               title: 'image title',
+               isLink: true,
                href: 'https://test.com/',
-               target: '_blank',
-               content: {
-                  type: 'image',
-                  src: 'https://test.com/image.jpg',
-                  alt: 'description',
-                  width: '40',
-                  height: '40'
-               }
+               target: '_blank'
             }
          ]
       ];
 
       const parsedTable = parseInternalTableToMarkdown(obj);
-      const expectedResult = '|Header1 |Header2 |\n|:-------|-------:|\n|Some Text |<img src="https://test.com/image.jpg" alt="description" width="40" height="40" title="image title"/> |\n||<a href="https://test.com/" target="_blank"><img src="https://test.com/image.jpg" alt="description" width="40" height="40"/> </a> |';
+      const expectedResult = '|Header1 |Header2 |\n|:-------|-------:|\n|Some Text |<img src="https://test.com/image.jpg" alt="description" width="40" height="40" title="image title"/> |\n||<a href="https://test.com/" target="_blank"><img src="https://test.com/image.jpg" alt="description" width="40" height="40" title="image title"/> </a> |';
       assert.equal(parsedTable, expectedResult);
    });
 
