@@ -22,7 +22,10 @@ type TitleContent = {
 
 type TextContent = {
    type: 'text',
-   text: string
+   text: string,
+   isLink: boolean,
+   href: string,
+   target: LinkTargetOption
 };
 
 
@@ -32,7 +35,10 @@ type ImageContent = {
    alt: string,
    width: string,
    height: string,
-   title?: string
+   title?: string,
+   isLink: boolean,
+   href: string,
+   target: LinkTargetOption
 };
 
 
