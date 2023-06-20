@@ -1,5 +1,5 @@
 import { InternalTableModel } from '../model/InternalTableModel';
-import { TitleContent, TextContent, ImageContent, LinkContent, TableContent } from '../model/types';
+import { TitleContent, TextContent, ImageContent, TableContent } from '../model/types';
 
 
 function parseTitleContent(titleContent: TitleContent): string {
@@ -25,30 +25,22 @@ function parseSeparatorForTitleContent(titleContent: TitleContent): string {
 
 
 function parseTextContent(textContent: TextContent): string {
-   return `${textContent.text} `;
+   const { text, isLink, href, target } = textContent;
+   return (isLink) ? `<a href="${href}" target="${target}">${text}</a> ` : `${text} `;
 }
 
 
 function parseImageContent(imageContent: ImageContent): string {
-   const { src, alt, width, height, title } = imageContent;
-   if (title) {
-      return `<img src="${src}" alt="${alt}" width="${width}" height="${height}" title="${title}"/> `;
+   const { src, alt, width, height, title, isLink, href, target } = imageContent;
+
+   let image: string;
+   if (title !== '') {
+      image = `<img src="${src}" alt="${alt}" width="${width}" height="${height}" title="${title}"/> `;
+   } else {
+      image = `<img src="${src}" alt="${alt}" width="${width}" height="${height}"/> `;
    }
-   return `<img src="${src}" alt="${alt}" width="${width}" height="${height}"/> `;
-}
 
-
-function parseLinkContent(linkContent: LinkContent): string {
-   const { href, target, content } = linkContent;
-
-   const parseInnerContent = (innerContent: TextContent | ImageContent) => {
-      if (innerContent.type === 'text') {
-         return parseTextContent(innerContent);
-      }
-      return parseImageContent(innerContent);
-   };
-
-   return `<a href="${href}" target="${target}">${parseInnerContent(content)}</a> `;
+   return (isLink) ? `<a href="${href}" target="${target}">${image}</a> ` : image;
 }
 
 
@@ -64,8 +56,6 @@ function parseTableContent(content: TableContent): string {
          return parseTextContent(content);
       case 'image':
          return parseImageContent(content);
-      case 'link':
-         return parseLinkContent(content);
       default:
          return '';
    }
@@ -121,7 +111,6 @@ export {
    parseSeparatorForTitleContent,
    parseTextContent,
    parseImageContent,
-   parseLinkContent,
    parseTableContent,
    parseInternalTableTitleRowToMarkdown,
    parseInternalTableContentRowsToMarkdown,
