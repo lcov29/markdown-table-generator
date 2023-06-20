@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { TablePosition, TitleContent, TextContent, ImageContent, TableContent } from './types';
+import { TablePosition, TableContent } from './types';
 
 
 class InternalTableModel {
