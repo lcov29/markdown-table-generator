@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { TablePosition, TitleContent, LinkContent, TextContent, ImageContent, TableContent } from './types';
+import { TablePosition, TitleContent, TextContent, ImageContent, TableContent } from './types';
 
 
 class InternalTableModel {
@@ -227,7 +227,7 @@ class InternalTableModel {
    }
 
 
-   public getTableClone(): (TitleContent | LinkContent | TextContent | ImageContent | null)[][] {
+   public getTableClone(): TableContent[][] {
       const clone = this.#table.map(
          (rowArray) => rowArray.map(
             (cellElement) => ((cellElement) ? JSON.parse(JSON.stringify(cellElement)) : null)
