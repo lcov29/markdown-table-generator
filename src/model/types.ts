@@ -4,7 +4,7 @@ type ContentType = 'title' | 'text' | 'image';
 type ColumnAlignmentOption = 'left' | 'right' | 'center';
 
 
-type LinkTargetOption = '_blank' | '_parent';
+type LinkTargetOption = '_blank' | '_parent' | '';
 
 
 type TablePosition = {
@@ -35,7 +35,7 @@ type ImageContent = {
    alt: string,
    width: string,
    height: string,
-   title?: string,
+   title: string,
    isLink: boolean,
    href: string,
    target: LinkTargetOption
