@@ -1,0 +1,29 @@
+.table-title-content-wrapper {
+   display: flex;
+   align-items: center;
+}
+
+.table-title-content-wrapper:hover {
+   background-color: lightgray;
+}
+
+.table-title-content-title-display-button {
+   border: none;
+   background-color: darkgray;
+}
+
+.table-title-content-dialog {
+   display: grid;
+   grid-template-columns: 1fr 2fr;
+   row-gap: 1rem;
+   column-gap: 1rem;
+   justify-items: left;
+}
+
+.table-title-content-dialog input {
+   width: 96%;
+}
+
+.table-title-content-dialog select {
+   width: 100%;
+}
