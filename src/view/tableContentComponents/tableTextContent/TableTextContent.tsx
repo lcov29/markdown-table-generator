@@ -13,7 +13,7 @@ type Props = {
 function TableTextContent(props: Props): ReactElement {
    const { textContent, alignment } = props;
 
-   const [internalContentObj] = useState(textContent);
+   const [textContentObj] = useState(textContent);
    const [text, setText] = useState(textContent.text);
    const [isLink, setIsLink] = useState(textContent.isLink);
    const [href, setHref] = useState(textContent.href);
@@ -57,7 +57,7 @@ function TableTextContent(props: Props): ReactElement {
                   value={href}
                   onChange={(e) => {
                      setHref(e.target.value);
-                     internalContentObj.href = e.target.value;
+                     textContentObj.href = e.target.value;
                   }}
                />
                <label htmlFor="table-text-content-dialog-target-input">target</label>
@@ -68,7 +68,7 @@ function TableTextContent(props: Props): ReactElement {
                   onChange={(e) => {
                      const input = e.target.value as LinkTargetOption;
                      setTarget(input);
-                     internalContentObj.target = input;
+                     textContentObj.target = input;
                   }}
                >
                   <option value="_blank">_blank</option>
@@ -93,7 +93,7 @@ function TableTextContent(props: Props): ReactElement {
                   value={text}
                   onChange={(e) => {
                      setText(e.target.value);
-                     internalContentObj.text = e.target.value;
+                     textContentObj.text = e.target.value;
                   }}
                />
                <label htmlFor="table-text-content-dialog-link-input"><strong>Link</strong></label>
@@ -104,15 +104,15 @@ function TableTextContent(props: Props): ReactElement {
                   checked={isLink}
                   onChange={(e) => {
                      setIsLink(e.target.checked);
-                     internalContentObj.isLink = e.target.checked;
+                     textContentObj.isLink = e.target.checked;
                      if (e.target.checked) {
                         setTarget('_blank');
-                        internalContentObj.target = '_blank';
+                        textContentObj.target = '_blank';
                      } else {
                         setHref('');
                         setTarget('');
-                        internalContentObj.href = '';
-                        internalContentObj.target = '';
+                        textContentObj.href = '';
+                        textContentObj.target = '';
                      }
                   }}
                />
