@@ -7,6 +7,11 @@
    background-color: lightgray;
 }
 
+.table-text-content-text-display-button {
+   border: none;
+   background: none  ;
+}
+
 .table-text-content-dialog {
    display: grid;
    grid-template-columns: 1fr 5fr;
