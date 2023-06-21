@@ -22,13 +22,26 @@ function TableTextContent(props: Props): ReactElement {
    const dialog = useRef<HTMLDialogElement>(null);
 
 
+   function openModalDialog() {
+      const isDialogClosed = !dialog.current?.open;
+      if (isDialogClosed) {
+         dialog.current?.showModal();
+      }
+   }
+
+
    function generateTextDisplay(): ReactElement {
-      const input = (
-         <p style={{ border: 'none', textAlign: `${alignment}` }}>
-            { text }
-         </p>
+      const buttonText = (isLink) ? <a href={href} target={target}>{text}</a> : text;
+      return (
+         <button
+            type="button"
+            className="table-text-content-text-display-button"
+            style={{ textAlign: `${alignment}` }}
+            onClick={openModalDialog}
+         >
+            {buttonText}
+         </button>
       );
-      return (isLink) ? <a href={href} target={target}>{input}</a> : input;
    }
 
 
@@ -103,7 +116,7 @@ function TableTextContent(props: Props): ReactElement {
                      }
                   }}
                />
-               { generateOptionalLinkInputs() }
+               {generateOptionalLinkInputs()}
             </form>
          </dialog>
       );
@@ -114,10 +127,10 @@ function TableTextContent(props: Props): ReactElement {
       <div
          className="table-text-content-wrapper"
          style={{ justifyContent: `${alignment}` }}
-         onDoubleClick={() => { if (!dialog.current?.open) { dialog.current?.showModal(); } }}
+         onDoubleClick={openModalDialog}
       >
-         { generateTextDisplay() }
-         { generateModalInputDialog() }
+         {generateTextDisplay()}
+         {generateModalInputDialog()}
       </div>
    );
 }
