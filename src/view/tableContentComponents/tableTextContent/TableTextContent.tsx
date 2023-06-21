@@ -1,23 +1,24 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useRef, ReactElement } from 'react';
-import { TextContent, TablePosition, ColumnAlignmentOption, LinkTargetOption, TextContentUpdate } from '../../../model/types';
+import { TextContent, ColumnAlignmentOption, LinkTargetOption } from '../../../model/types';
 import './tableTextContent.css';
 
 
 type Props = {
-   position: TablePosition,
    textContent: TextContent,
-   textAlignment: ColumnAlignmentOption,
-   updateInternalModel: (position: TablePosition, payload: TextContentUpdate) => void
+   textAlignment: ColumnAlignmentOption
 };
 
 
 function TableTextContent(props: Props): ReactElement {
-   const { position, textContent, textAlignment, updateInternalModel } = props;
-   const [textInput, setTextInput] = useState(textContent.text);
-   const [isLink, setIsLink] = useState(false);
-   const [hrefInput, setHrefInput] = useState('');
-   const [targetInput, setTargetInput] = useState<LinkTargetOption>('_blank');
+   const { textContent, textAlignment } = props;
+
+   const [internalContentObj] = useState(textContent);
+   const [text, setText] = useState(textContent.text);
+   const [isLink, setIsLink] = useState(textContent.isLink);
+   const [href, setHref] = useState(textContent.href);
+   const [target, setTarget] = useState(textContent.target);
+
    const dialog = useRef<HTMLDialogElement>(null);
 
 
@@ -30,22 +31,24 @@ function TableTextContent(props: Props): ReactElement {
                   id="table-text-content-dialog-href-input"
                   type="url"
                   name="hrefInput"
-                  value={hrefInput}
+                  value={href}
                   onChange={(e) => {
-                     setHrefInput(e.target.value);
-                     updateInternalModel(position, { key: 'href', value: hrefInput });
+                     setHref(e.target.value);
+                     internalContentObj.href = e.target.value;
                   }}
                />
                <label htmlFor="table-text-content-dialog-target-input">target</label>
                <select
                   id="table-text-content-dialog-target-input"
                   name="targetInput"
-                  value={targetInput}
+                  value={target}
                   onChange={(e) => {
-                     setTargetInput(e.target.value as LinkTargetOption);
-                     updateInternalModel(position, { key: 'target', value: targetInput });
+                     const input = e.target.value as LinkTargetOption;
+                     setTarget(input);
+                     internalContentObj.target = input;
                   }}
                >
+                  <option value=""> </option>
                   <option value="_blank">_blank</option>
                   <option value="_parent">_parent</option>
                </select>
@@ -62,10 +65,10 @@ function TableTextContent(props: Props): ReactElement {
             type="text"
             name="textInput"
             style={{ border: 'none', textAlign: `${textAlignment}` }}
-            value={textInput}
+            value={text}
             onChange={(e) => {
-               setTextInput(e.target.value);
-               updateInternalModel(position, { key: 'text', value: textInput });
+               setText(e.target.value);
+               internalContentObj.text = e.target.value;
             }}
             onDoubleClick={() => dialog.current?.showModal()}
          />
@@ -76,10 +79,10 @@ function TableTextContent(props: Props): ReactElement {
                   id="table-text-content-dialog-text-input"
                   type="text"
                   name="textInput"
-                  value={textInput}
+                  value={text}
                   onChange={(e) => {
-                     setTextInput(e.target.value);
-                     updateInternalModel(position, { key: 'text', value: textInput });
+                     setText(e.target.value);
+                     internalContentObj.text = e.target.value;
                   }}
                />
                <label htmlFor="table-text-content-dialog-link-input"><strong>Link</strong></label>
@@ -90,7 +93,7 @@ function TableTextContent(props: Props): ReactElement {
                   checked={isLink}
                   onChange={(e) => {
                      setIsLink(e.target.checked);
-                     updateInternalModel(position, { key: 'isLink', value: isLink });
+                     internalContentObj.isLink = e.target.checked;
                   }}
                />
                { generateOptionalLinkInputs() }
