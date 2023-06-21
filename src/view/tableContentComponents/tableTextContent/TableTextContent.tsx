@@ -22,6 +22,16 @@ function TableTextContent(props: Props): ReactElement {
    const dialog = useRef<HTMLDialogElement>(null);
 
 
+   function generateTextDisplay(): ReactElement {
+      const input = (
+         <p style={{ border: 'none', textAlign: `${alignment}` }}>
+            { text }
+         </p>
+      );
+      return (isLink) ? <a href={href} target={target}>{input}</a> : input;
+   }
+
+
    function generateOptionalLinkInputs(): ReactElement | null {
       if (isLink) {
          return (
@@ -48,7 +58,6 @@ function TableTextContent(props: Props): ReactElement {
                      internalContentObj.target = input;
                   }}
                >
-                  <option value=""> </option>
                   <option value="_blank">_blank</option>
                   <option value="_parent">_parent</option>
                </select>
@@ -59,19 +68,8 @@ function TableTextContent(props: Props): ReactElement {
    }
 
 
-   return (
-      <>
-         <input
-            type="text"
-            name="textInput"
-            style={{ border: 'none', textAlign: `${alignment}` }}
-            value={text}
-            onChange={(e) => {
-               setText(e.target.value);
-               internalContentObj.text = e.target.value;
-            }}
-            onDoubleClick={() => dialog.current?.showModal()}
-         />
+   function generateModalInputDialog(): ReactElement {
+      return (
          <dialog ref={dialog}>
             <form method="dialog" className="table-text-content-dialog">
                <label htmlFor="table-text-content-dialog-text-input">Text</label>
@@ -94,12 +92,33 @@ function TableTextContent(props: Props): ReactElement {
                   onChange={(e) => {
                      setIsLink(e.target.checked);
                      internalContentObj.isLink = e.target.checked;
+                     if (e.target.checked) {
+                        setTarget('_blank');
+                        internalContentObj.target = '_blank';
+                     } else {
+                        setHref('');
+                        setTarget('');
+                        internalContentObj.href = '';
+                        internalContentObj.target = '';
+                     }
                   }}
                />
                { generateOptionalLinkInputs() }
             </form>
          </dialog>
-      </>
+      );
+   }
+
+
+   return (
+      <div
+         className="table-text-content-wrapper"
+         style={{ justifyContent: `${alignment}` }}
+         onDoubleClick={() => { if (!dialog.current?.open) { dialog.current?.showModal(); } }}
+      >
+         { generateTextDisplay() }
+         { generateModalInputDialog() }
+      </div>
    );
 }
 
