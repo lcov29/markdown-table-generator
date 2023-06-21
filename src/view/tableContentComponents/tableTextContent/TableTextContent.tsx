@@ -6,12 +6,12 @@ import './tableTextContent.css';
 
 type Props = {
    textContent: TextContent,
-   textAlignment: ColumnAlignmentOption
+   alignment: ColumnAlignmentOption
 };
 
 
 function TableTextContent(props: Props): ReactElement {
-   const { textContent, textAlignment } = props;
+   const { textContent, alignment } = props;
 
    const [internalContentObj] = useState(textContent);
    const [text, setText] = useState(textContent.text);
@@ -64,7 +64,7 @@ function TableTextContent(props: Props): ReactElement {
          <input
             type="text"
             name="textInput"
-            style={{ border: 'none', textAlign: `${textAlignment}` }}
+            style={{ border: 'none', textAlign: `${alignment}` }}
             value={text}
             onChange={(e) => {
                setText(e.target.value);
