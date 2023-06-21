@@ -45,18 +45,6 @@ type ImageContent = {
 type TableContent = TitleContent | TextContent | ImageContent | null;
 
 
-type TextContentUpdate = {
-   key: 'text' | 'isLink' | 'href' | 'target',
-   value: string | boolean
-};
-
-
-type ImageContentUpdate = {
-   key: 'src' | 'alt' | 'width' | 'height' | 'title' | 'isLink' | 'href' | 'target',
-   value: string | boolean
-};
-
-
 export {
    ContentType,
    ColumnAlignmentOption,
@@ -65,7 +53,5 @@ export {
    TitleContent,
    TextContent,
    ImageContent,
-   TableContent,
-   TextContentUpdate,
-   ImageContentUpdate
+   TableContent
 };
