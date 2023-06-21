@@ -1,0 +1,25 @@
+.table-image-content-wrapper {
+   display: flex;
+   align-items: center;
+}
+
+.table-image-content-wrapper:hover {
+   background-color: lightgray;
+}
+
+.table-image-content-text-display-button {
+   border: none;
+   background: none  ;
+}
+
+.table-image-content-dialog {
+   display: grid;
+   grid-template-columns: 1fr 5fr;
+   row-gap: 1rem;
+   column-gap: 1rem;
+   justify-items: left;
+}
+
+.table-image-content-dialog select {
+   width: 85%;
+}
