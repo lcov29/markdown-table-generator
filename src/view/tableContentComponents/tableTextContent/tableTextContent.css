@@ -1,0 +1,11 @@
+.table-text-content-dialog {
+   display: grid;
+   grid-template-columns: 1fr 5fr;
+   row-gap: 1rem;
+   column-gap: 1rem;
+   justify-items: left;
+}
+
+.table-text-content-dialog select {
+   width: 100%;
+}
