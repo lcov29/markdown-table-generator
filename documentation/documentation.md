@@ -18,7 +18,6 @@
         - [**TitleContent**](#titlecontent)
         - [**TextContent**](#textcontent)
         - [**ImageContent**](#imagecontent)
-        - [**LinkContent**](#linkcontent)
 
 <br>
 <br>
@@ -152,8 +151,8 @@ All subsequent arrays can hold references to either [TextContent](#textcontent),
 type TitleContent = {
    type: 'title',
    title: string,
-   columnAlignment: 'left' | 'right' | 'center'
-}
+   columnAlignment: ColumnAlignmentOption
+};
 ```
 
 <br>
@@ -165,8 +164,11 @@ type TitleContent = {
 ```typescript
 type TextContent = {
    type: 'text',
-   text: string
-}
+   text: string,
+   isLink: boolean,
+   href: string,
+   target: LinkTargetOption
+};
 ```
 
 <br>
@@ -176,26 +178,15 @@ type TextContent = {
 <br>
 
 ```typescript
-type ImageContent =  {
+type ImageContent = {
    type: 'image',
    src: string,
    alt: string,
    width: string,
-   heigh: string,
-}
-```
-
-<br>
-<br>
-
-##### **LinkContent**
-<br>
-
-```typescript
-type LinkContent = {
-   type: 'link',
+   height: string,
+   title: string,
+   isLink: boolean,
    href: string,
-   target: '_blank' | '_parent',
-   content: TextContent | ImageContent
-}
+   target: LinkTargetOption
+};
 ```
