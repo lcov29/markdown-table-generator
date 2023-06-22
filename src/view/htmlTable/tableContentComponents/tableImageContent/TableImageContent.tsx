@@ -173,13 +173,10 @@ function TableImageContent(props: Props): ReactElement {
 
 
    return (
-      <div
-         style={{ justifyContent: `${alignment}` }}
-         onDoubleClick={openModalDialog}
-      >
+      <>
          {generateImage()}
          {generateModalInputDialog()}
-      </div>
+      </>
    );
 
 }
