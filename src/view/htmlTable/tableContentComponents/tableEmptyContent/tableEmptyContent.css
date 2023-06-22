@@ -1,0 +1,24 @@
+.table-empty-content-add-button {
+   width: 100%;
+   height: 100%;
+   border: none;
+   background: none;
+   display: flex;
+}
+
+.table-empty-content-add-button:hover,
+.table-empty-content-add-button:focus {
+   background-color: lightgray;
+   border: 1px solid black;
+   outline: none; 
+}
+
+.table-empty-content-dialog-button-wrapper {
+   margin-top: 1rem;
+   display: flex;
+   justify-content: space-around;
+}
+
+.table-empty-content-dialog-button {
+   width: 4rem;
+}
