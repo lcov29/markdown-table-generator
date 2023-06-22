@@ -46,6 +46,8 @@ function TableTitleContent(props: Props): ReactElement {
       return (
          <dialog ref={dialog}>
             <form method="dialog" className="table-title-content-dialog">
+               <strong>Title</strong>
+               <div />
                <label htmlFor="table-title-content-dialog-title-input">Title</label>
                <input
                   id="table-title-content-dialog-title-input"

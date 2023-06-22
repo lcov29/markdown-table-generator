@@ -94,6 +94,8 @@ function TableTextContent(props: Props): ReactElement {
       return (
          <dialog ref={dialog}>
             <form method="dialog" className="table-text-content-dialog">
+               <strong>Text</strong>
+               <div />
                <label htmlFor="table-text-content-dialog-text-input">Text</label>
                <input
                   id="table-text-content-dialog-text-input"

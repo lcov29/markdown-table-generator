@@ -99,6 +99,8 @@ function TableImageContent(props: Props): ReactElement {
       return (
          <dialog ref={dialog}>
             <form method="dialog" className="table-image-content-dialog">
+               <strong>Image</strong>
+               <div />
                <label htmlFor="table-image-content-dialog-src-input">Src</label>
                <input
                   id="table-image-content-dialog-src-input"
