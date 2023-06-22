@@ -3,26 +3,37 @@ import { InternalTableModel } from '../../model/InternalTableModel';
 import { TableTitleContent } from './tableContentComponents/tableTitleContent/TableTitleContent';
 import { TableTextContent } from './tableContentComponents/tableTextContent/TableTextContent';
 import { TableImageContent } from './tableContentComponents/tableImageContent/TableImageContent';
-import { TableContent, ColumnAlignmentOption, TitleContent } from '../../model/types';
+import { TableEmptyContent } from './tableContentComponents/tableEmptyContent/TableEmptyContent';
+import { TableContent, ColumnAlignmentOption, TitleContent, TablePosition } from '../../model/types';
 import './htmlTable.css';
 
 
 type Props = {
-   internalTable: InternalTableModel
+   internalTable: InternalTableModel,
+   updateInternalModel: (position: TablePosition, content: TableContent) => void
 };
 
 
 function HtmlTable(props: Props): ReactElement {
-   const { internalTable } = props;
+   const { internalTable, updateInternalModel } = props;
 
 
    function generateTableContentElement(
+      position: TablePosition,
       content: TableContent,
       alignment: ColumnAlignmentOption
    ): ReactElement | null {
 
+      const emptyContent = (
+         <TableEmptyContent
+            position={position}
+            alignment={alignment}
+            updateInternalModel={updateInternalModel}
+         />
+      );
+
       if (content === null) {
-         return null;
+         return emptyContent;
       }
 
       switch (content.type) {
@@ -33,7 +44,7 @@ function HtmlTable(props: Props): ReactElement {
          case 'image':
             return <TableImageContent imageContent={content} alignment={alignment} />;
          default:
-            return null;
+            return emptyContent;
       }
    }
 
@@ -46,7 +57,7 @@ function HtmlTable(props: Props): ReactElement {
          const position = { rowIndex, columnIndex };
          const contentElement = internalTable.getContentAt(position) as TitleContent;
          const alignment = contentElement.columnAlignment;
-         const tableElement = generateTableContentElement(contentElement, alignment);
+         const tableElement = generateTableContentElement(position, contentElement, alignment);
          headerList.push(<th key={columnIndex}>{tableElement}</th>);
       }
 
@@ -63,9 +74,11 @@ function HtmlTable(props: Props): ReactElement {
          for (let columnIndex = 0; columnIndex < internalTable.columnTotal; columnIndex++) {
             const titlePosition = { rowIndex: 0, columnIndex };
             const titleElement = internalTable.getContentAt(titlePosition) as TitleContent;
-            const contentElement = internalTable.getContentAt({ rowIndex, columnIndex });
             const alignment = titleElement.columnAlignment;
-            const tableElement = generateTableContentElement(contentElement, alignment);
+
+            const position = { rowIndex, columnIndex };
+            const contentElement = internalTable.getContentAt(position);
+            const tableElement = generateTableContentElement(position, contentElement, alignment);
             dataList[rowIndex - 1].push(<td key={columnIndex}>{tableElement}</td>);
          }
 
