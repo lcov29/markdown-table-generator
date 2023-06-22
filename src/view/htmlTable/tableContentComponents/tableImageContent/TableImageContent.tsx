@@ -41,7 +41,7 @@ function TableImageContent(props: Props): ReactElement {
          <button
             type="button"
             className="table-image-content-text-display-button"
-            style={{ textAlign: `${alignment}` }}
+            style={{ justifyContent: `${alignment}` }}
             onClick={openModalDialog}
          >
             {buttonContent}
