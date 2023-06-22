@@ -35,7 +35,11 @@ function TableImageContent(props: Props): ReactElement {
 
    function generateImage(): ReactElement {
       const image = <img src={src} alt={alt} width={width} height={height} title={title} />;
-      const buttonContent = (isLink) ? <a href={href} target={target}>{image}</a> : image;
+      const linkImage = (
+         <a href={href} target={target} onClick={(e) => e.stopPropagation()}>
+            {image}
+         </a>
+      );
 
       return (
          <button
@@ -44,7 +48,7 @@ function TableImageContent(props: Props): ReactElement {
             style={{ justifyContent: `${alignment}` }}
             onClick={openModalDialog}
          >
-            {buttonContent}
+            {(isLink) ? linkImage : image}
          </button>
       );
    }
