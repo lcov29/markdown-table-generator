@@ -174,7 +174,6 @@ function TableImageContent(props: Props): ReactElement {
 
    return (
       <div
-         className="table-image-content-wrapper"
          style={{ justifyContent: `${alignment}` }}
          onDoubleClick={openModalDialog}
       >
