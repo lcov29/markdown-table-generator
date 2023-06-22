@@ -79,14 +79,10 @@ function TableTitleContent(props: Props): ReactElement {
 
 
    return (
-      <div
-         className="table-title-content-wrapper"
-         style={{ justifyContent: `${columnAlignment}` }}
-         onDoubleClick={openModalDialog}
-      >
+      <>
          {generateTitleDisplay()}
          {generateModalInputDialog()}
-      </div>
+      </>
    );
 }
 
