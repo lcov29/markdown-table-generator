@@ -7,8 +7,11 @@
    align-items: center;
 }
 
-.table-image-content-text-display-button:hover {
+.table-image-content-text-display-button:hover,
+.table-image-content-text-display-button:focus {
    background-color: lightgray;
+   border: 1px solid black;
+   outline: none;
 }
 
 .table-image-content-dialog {

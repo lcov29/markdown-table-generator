@@ -5,8 +5,11 @@
    background: none;
 }
 
-.table-text-content-text-display-button:hover {
+.table-text-content-text-display-button:hover,
+.table-text-content-text-display-button:focus {
    background-color: lightgray;
+   border: 1px solid black;
+   outline: none;
 }
 
 .table-text-content-dialog {
