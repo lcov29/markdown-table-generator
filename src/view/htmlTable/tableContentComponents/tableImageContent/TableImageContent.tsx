@@ -1,17 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useRef, ReactElement } from 'react';
+import React, { useState, useRef, useEffect, ReactElement } from 'react';
 import { ImageContent, ColumnAlignmentOption, LinkTargetOption } from '../../../../model/types';
 import './tableImageContent.css';
 
 
 type Props = {
    imageContent: ImageContent,
-   alignment: ColumnAlignmentOption
+   alignment: ColumnAlignmentOption,
+   showDialogOnInitialRender?: boolean
 };
 
 
 function TableImageContent(props: Props): ReactElement {
-   const { imageContent, alignment } = props;
+   const { imageContent, alignment, showDialogOnInitialRender } = props;
 
    const [imageContentObj] = useState(imageContent);
    const [src, setSrc] = useState(imageContent.src);
@@ -31,6 +32,10 @@ function TableImageContent(props: Props): ReactElement {
          dialog.current?.showModal();
       }
    }
+
+
+   useEffect(() => { if (showDialogOnInitialRender) openModalDialog(); }, []);
+
 
 
    function generateImage(): ReactElement {

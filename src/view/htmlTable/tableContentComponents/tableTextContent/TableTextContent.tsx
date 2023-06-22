@@ -1,17 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useRef, ReactElement } from 'react';
+import React, { useState, useRef, useEffect, ReactElement } from 'react';
 import { TextContent, ColumnAlignmentOption, LinkTargetOption } from '../../../../model/types';
 import './tableTextContent.css';
 
 
 type Props = {
    textContent: TextContent,
-   alignment: ColumnAlignmentOption
+   alignment: ColumnAlignmentOption,
+   showDialogOnInitialRender?: boolean
 };
 
 
 function TableTextContent(props: Props): ReactElement {
-   const { textContent, alignment } = props;
+   const { textContent, alignment, showDialogOnInitialRender = false } = props;
 
    const [textContentObj] = useState(textContent);
    const [text, setText] = useState(textContent.text);
@@ -28,6 +29,9 @@ function TableTextContent(props: Props): ReactElement {
          dialog.current?.showModal();
       }
    }
+
+
+   useEffect(() => { if (showDialogOnInitialRender) openModalDialog(); }, []);
 
 
    function generateTextDisplay(): ReactElement {
