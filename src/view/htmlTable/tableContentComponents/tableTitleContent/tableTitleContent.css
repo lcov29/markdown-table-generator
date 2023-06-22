@@ -1,15 +1,12 @@
-.table-title-content-wrapper {
-   display: flex;
-   align-items: center;
-}
-
-.table-title-content-wrapper:hover {
-   background-color: lightgray;
-}
-
 .table-title-content-title-display-button {
+   width: 100%;
+   height: 100%;
    border: none;
    background-color: darkgray;
+}
+
+.table-title-content-title-display-button:hover {
+   background-color: lightgray;
 }
 
 .table-title-content-dialog {
