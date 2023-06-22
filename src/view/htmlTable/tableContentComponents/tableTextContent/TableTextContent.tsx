@@ -124,14 +124,10 @@ function TableTextContent(props: Props): ReactElement {
 
 
    return (
-      <div
-         className="table-text-content-wrapper"
-         style={{ justifyContent: `${alignment}` }}
-         onDoubleClick={openModalDialog}
-      >
+      <>
          {generateTextDisplay()}
          {generateModalInputDialog()}
-      </div>
+      </>
    );
 }
 
