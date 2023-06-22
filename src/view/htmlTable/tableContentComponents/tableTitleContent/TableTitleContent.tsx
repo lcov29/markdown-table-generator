@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useRef, ReactElement } from 'react';
-import { TitleContent, ColumnAlignmentOption } from '../../../model/types';
+import { TitleContent, ColumnAlignmentOption } from '../../../../model/types';
 import './tableTitleContent.css';
 
 

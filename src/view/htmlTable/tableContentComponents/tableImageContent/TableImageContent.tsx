@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useRef, ReactElement } from 'react';
-import { ImageContent, ColumnAlignmentOption, LinkTargetOption } from '../../../model/types';
+import { ImageContent, ColumnAlignmentOption, LinkTargetOption } from '../../../../model/types';
 import './tableImageContent.css';
 
 
