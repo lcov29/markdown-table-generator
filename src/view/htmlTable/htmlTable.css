@@ -13,3 +13,7 @@
 .html-table td {
    height: 4rem;
 }
+
+.html-table th {
+   height: 2rem;
+}
