@@ -31,7 +31,12 @@ function TableTextContent(props: Props): ReactElement {
 
 
    function generateTextDisplay(): ReactElement {
-      const buttonText = (isLink) ? <a href={href} target={target}>{text}</a> : text;
+      const linkText = (
+         <a href={href} target={target} onClick={(e) => e.stopPropagation()}>
+            {text}
+         </a>
+      );
+
       return (
          <button
             type="button"
@@ -39,7 +44,7 @@ function TableTextContent(props: Props): ReactElement {
             style={{ textAlign: `${alignment}` }}
             onClick={openModalDialog}
          >
-            {buttonText}
+            {(isLink) ? linkText : text}
          </button>
       );
    }
