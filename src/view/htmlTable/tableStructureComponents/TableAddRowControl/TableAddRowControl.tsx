@@ -40,6 +40,7 @@ function TableAddRowControl(props: Props): ReactElement {
       <tr>
          <td className="empty-cell" />
          { generateTableCells() }
+         <td className="empty-cell" />
       </tr>
    );
 }
