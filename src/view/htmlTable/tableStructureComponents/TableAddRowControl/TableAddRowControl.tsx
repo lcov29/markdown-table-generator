@@ -19,12 +19,12 @@ function TableAddRowControl(props: Props): ReactElement {
       const cellList: ReactElement[] = [];
 
       for (let i = 0; i < contentColumnTotal; i++) {
-         const isCellFocusedClass = (isControlActive) ? 'table-add-row-control-cell-active' : '';
+         const isCellActiveClass = (isControlActive) ? 'table-add-row-control-cell-active' : '';
 
          cellList.push(
             <td
                key={i}
-               className={`table-add-row-control-cell ${isCellFocusedClass}`}
+               className={`table-add-row-control-cell ${isCellActiveClass}`}
                onPointerEnter={() => setIsControlActive(true)}
                onPointerLeave={() => setIsControlActive(false)}
                onClick={addRowToInternalTable}
