@@ -32,10 +32,6 @@ const config = {
                { loader: 'css-loader' }
             ],
             exclude: /node_modules/
-         },
-         {
-            test: /\.(png|jpeg|svg)$/,
-            use: { loader: 'file-loader' }
          }
       ]
    },
