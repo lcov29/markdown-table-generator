@@ -4,7 +4,7 @@
    height: .1rem;
 }
 
-.table-add-row-control-cell-hovered {
+.table-add-row-control-cell-active {
    background-color: lightgray;
    cursor: url('../../../../icons/addRowIcon.svg'), auto;
    height: 1.8rem;

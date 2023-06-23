@@ -12,21 +12,21 @@ type Props = {
 
 function TableAddRowControl(props: Props): ReactElement {
    const { contentColumnTotal, addRowToInternalTable } = props;
-   const [isControlFocused, setIsControlFocused] = useState(false);
+   const [isControlActive, setIsControlActive] = useState(false);
 
 
    function generateTableCells() {
       const cellList: ReactElement[] = [];
 
       for (let i = 0; i < contentColumnTotal; i++) {
-         const isCellFocusedClass = (isControlFocused) ? 'table-add-row-control-cell-hovered' : '';
+         const isCellFocusedClass = (isControlActive) ? 'table-add-row-control-cell-active' : '';
 
          cellList.push(
             <td
                key={i}
                className={`table-add-row-control-cell ${isCellFocusedClass}`}
-               onPointerEnter={() => setIsControlFocused(true)}
-               onPointerLeave={() => setIsControlFocused(false)}
+               onPointerEnter={() => setIsControlActive(true)}
+               onPointerLeave={() => setIsControlActive(false)}
                onClick={addRowToInternalTable}
             />
          );
