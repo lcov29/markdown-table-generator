@@ -1,9 +1,11 @@
 import React, { useState, ReactElement } from 'react';
+import { TablePosition } from '../../../../model/types';
 import './tableEditorRemoveRowControl.css';
 
 
 type Props = {
-   rowIndex: number,
+   position: TablePosition,
+   highlightedRowIndex: number,
    setSelectedRowIndexToDelete: (a: number) => void,
    removeRowFromInternalTable: (index: number) => void,
 };
@@ -11,7 +13,8 @@ type Props = {
 
 function TableEditorRemoveRowControl(props: Props): ReactElement {
    const {
-      rowIndex,
+      position,
+      highlightedRowIndex,
       setSelectedRowIndexToDelete,
       removeRowFromInternalTable
    } = props;
@@ -20,19 +23,33 @@ function TableEditorRemoveRowControl(props: Props): ReactElement {
    const [isControlActive, setIsControlActive] = useState(false);
 
 
-   function generateClassName(): string {
+   function isRowHighlightActive(): boolean {
+      return highlightedRowIndex === position.rowIndex;
+   }
+
+
+   function generateStyleClass(): string {
+      const styleList: string[] = [];
+
       if (isControlActive) {
-         return 'table-editor-remove-row-control-active';
+         styleList.push('table-editor-remove-row-control-active');
+      } else {
+         styleList.push('table-editor-remove-row-control');
       }
-      return 'table-editor-remove-row-control';
+
+      if (isRowHighlightActive()) {
+         styleList.push('table-editr-remove-row-control-row-highlight');
+      }
+
+      return styleList.join(' ');
    }
 
 
    function handleClick(): void {
       if (isControlActive) {
-         removeRowFromInternalTable(rowIndex);
+         removeRowFromInternalTable(position.rowIndex);
       } else {
-         setSelectedRowIndexToDelete(rowIndex);
+         setSelectedRowIndexToDelete(position.rowIndex);
          setIsControlActive(true);
       }
    }
@@ -47,7 +64,7 @@ function TableEditorRemoveRowControl(props: Props): ReactElement {
    return (
       <button
          type="button"
-         className={generateClassName()}
+         className={generateStyleClass()}
          onClick={handleClick}
          onPointerLeave={handlePointerLeave}
       />
