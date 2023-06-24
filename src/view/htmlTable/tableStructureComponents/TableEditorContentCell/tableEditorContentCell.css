@@ -34,3 +34,8 @@
    grid-template-columns: auto 2rem;
    transition: grid-template-columns .5s;  
 }
+
+.table-editor-cell-wrapper-row-highlight-active {
+   border-top: 3px solid black;
+   border-bottom: 3px solid black;
+}

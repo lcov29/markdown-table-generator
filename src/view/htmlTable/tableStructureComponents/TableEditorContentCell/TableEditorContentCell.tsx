@@ -10,6 +10,7 @@ type Props = {
    cellPosition: TablePosition,
    selectedRowIndex: number,
    selectedColumnIndex: number,
+   highlightedRowIndex: number,
    setSelectedRowIndex: (a: number) => void,
    setSelectedColumnIndex: (a: number) => void,
    addRowToInternalTable: (index: number) => void,
@@ -24,6 +25,7 @@ function TableEditorContentCell(props: Props): ReactElement {
       cellPosition,
       selectedRowIndex,
       selectedColumnIndex,
+      highlightedRowIndex,
       setSelectedRowIndex,
       setSelectedColumnIndex,
       addRowToInternalTable,
@@ -43,11 +45,20 @@ function TableEditorContentCell(props: Props): ReactElement {
    }
 
 
+   function isRowHighlightActive(): boolean {
+      return highlightedRowIndex === position.rowIndex;
+   }
+
+
    function generateWrapperStyleClass(): string {
       const styleList: string[] = [];
 
       if (isColumnAddControlActive()) {
          styleList.push('table-editor-cell-wrapper-add-column-control-active');
+      }
+
+      if (isRowHighlightActive()) {
+         styleList.push('table-editor-cell-wrapper-row-highlight-active');
       }
 
       if (isTitle) {
