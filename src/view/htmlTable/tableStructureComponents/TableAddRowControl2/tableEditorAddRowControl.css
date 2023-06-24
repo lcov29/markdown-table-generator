@@ -1,0 +1,15 @@
+.table-editor-add-row-control-wrapper {
+   display: flex;
+   justify-content: right;
+}
+
+.table-editor-add-row-control {
+   width: .25rem;
+}
+
+.table-editor-add-row-control-active {
+   background-color: lightgray;
+   cursor: url('../../../../icons/addColumnIcon.svg'), auto;
+   transition: width .5s;
+   width: 2rem;
+}
