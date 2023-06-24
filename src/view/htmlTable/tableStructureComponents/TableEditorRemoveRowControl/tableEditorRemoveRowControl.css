@@ -1,0 +1,17 @@
+.table-editor-remove-row-control {
+   border: none;
+   outline: none;
+   background: none;
+}
+
+.table-editor-remove-row-control:hover {
+   border-left: 2px solid black;
+   cursor: w-resize;
+}
+
+.table-editor-remove-row-control-active {
+   border: 1px solid black;
+   background-color: red;
+   background-image: url('../../../../icons/closeIcon.svg');
+   background-size: contain;
+}
