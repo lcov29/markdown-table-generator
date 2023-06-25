@@ -69,6 +69,10 @@ function TableEditorContentCell(props: Props): ReactElement {
    function generateWrapperStyleClass(): string {
       const styleList: string[] = [];
 
+      if (isRowAddControlActive()) {
+         styleList.push('table-editor-cell-wrapper-add-row-control-active');
+      }
+
       if (isColumnAddControlActive()) {
          styleList.push('table-editor-cell-wrapper-add-column-control-active');
       }
@@ -138,9 +142,10 @@ function TableEditorContentCell(props: Props): ReactElement {
          <div
             className={`table-editor-cell-add-row-control ${style}`}
             onPointerEnter={() => setSelectedRowIndex(position.rowIndex)}
-            onPointerLeave={() => setSelectedRowIndex(-2)}
             onClick={() => addRowToInternalTable(position.rowIndex)}
-         />
+         >
+            &nbsp;
+         </div>
       );
    }
 

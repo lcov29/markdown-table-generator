@@ -160,11 +160,26 @@ function TableEditor(props: Props): ReactElement {
 
 
 
+   function generateEmptyRow(): ReactElement[] {
+      const elementList: ReactElement[] = [];
+      for (let i = 0; i < internalTable.columnTotal + 2; i++) {
+         elementList.push(<div key={i}>&nbsp;</div>);
+      }
+      return elementList;
+   }
+
+
+
    return (
-      <div className="table-editor-wrapper" style={getStyleObj()}>
+      <div
+         className="table-editor-wrapper"
+         style={getStyleObj()}
+         onPointerLeave={() => setSelectedRowIndex(-2)}
+      >
          { generateColumnControlRow() }
          { generateTitleRow() }
          { generateContentRows() }
+         { generateEmptyRow()}
       </div>
    );
 
