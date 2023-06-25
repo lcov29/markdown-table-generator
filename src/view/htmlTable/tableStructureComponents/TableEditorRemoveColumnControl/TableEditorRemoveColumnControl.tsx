@@ -38,7 +38,7 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
       }
 
       if (isColumnHighlightActive()) {
-         styleList.push('table-editr-remove-column-control-column-highlight');
+         styleList.push('table-editor-remove-column-control-column-highlight');
       }
 
       return styleList.join(' ');
