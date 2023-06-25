@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import { InternalTableModel } from '../../model/InternalTableModel';
-import { TableTitleContent } from './tableContentComponents/tableTitleContent/TableTitleContent';
-import { TableTextContent } from './tableContentComponents/tableTextContent/TableTextContent';
-import { TableImageContent } from './tableContentComponents/tableImageContent/TableImageContent';
-import { TableEmptyContent } from './tableContentComponents/tableEmptyContent/TableEmptyContent';
+import { TableTitleContent } from './tableEditorContentComponents/tableTitleContent/TableTitleContent';
+import { TableTextContent } from './tableEditorContentComponents/tableTextContent/TableTextContent';
+import { TableImageContent } from './tableEditorContentComponents/tableImageContent/TableImageContent';
+import { TableEmptyContent } from './tableEditorContentComponents/tableEmptyContent/TableEmptyContent';
 import { TableContent, ColumnAlignmentOption, TitleContent, TablePosition } from '../../model/types';
 import './htmlTable.css';
 
