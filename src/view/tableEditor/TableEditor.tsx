@@ -19,6 +19,12 @@ function TableEditor(props: Props): ReactElement {
    const [selectedColumnIndex, setSelectedColumnIndex] = useState(-2);
    const [highlightedRowIndex, setHighlightedRowIndex] = useState(-2);
    const [highlightedColumnIndex, setHighlightedColumnIndex] = useState(-2);
+   const [rerender, setRerender] = useState(false);
+
+
+   function triggerRerender(): void {
+      setRerender(!rerender);
+   }
 
 
    function getStyleObj(): CSSProperties {
@@ -39,6 +45,7 @@ function TableEditor(props: Props): ReactElement {
                removeColumnFromInternalTable={
                   (index) => internalTable.removeColumnAt(index)
                }
+               triggerRerender={() => triggerRerender()}
             />
          );
       }
@@ -55,11 +62,12 @@ function TableEditor(props: Props): ReactElement {
       elementList.push(
          <TableEditorAddColumnControl
             key="-1"
-            position={{ rowIndex: 0, columnIndex: -1 }}
+            position={{ rowIndex: 0, columnIndex: 0 }}
             highlightedRowIndex={highlightedRowIndex}
             selectedColumnIndex={selectedColumnIndex}
             setSelectedColumnIndex={setSelectedColumnIndex}
             addColumnToInternalTable={(index) => internalTable.addColumnAt(index)}
+            triggerRerender={() => triggerRerender()}
          />
       );
 
@@ -71,7 +79,7 @@ function TableEditor(props: Props): ReactElement {
             <TableEditorContentCell
                key={`${columnIndex}`}
                content={content}
-               cellPosition={position}
+               cellPosition={{ rowIndex: 0, columnIndex: columnIndex + 1 }}
                alignment={content.columnAlignment}
                highlightedRowIndex={highlightedRowIndex}
                highlightedColumnIndex={highlightedColumnIndex}
@@ -86,6 +94,7 @@ function TableEditor(props: Props): ReactElement {
                      internalTable.setContentAt(cellPosition, cellContent);
                   }
                }
+               triggerRerender={() => triggerRerender()}
                isTitle
             />
          );
@@ -105,11 +114,12 @@ function TableEditor(props: Props): ReactElement {
          elementList.push(
             <TableEditorAddColumnControl
                key={`${rowIndex} -1`}
-               position={{ rowIndex, columnIndex: -1 }}
+               position={{ rowIndex, columnIndex: 0 }}
                highlightedRowIndex={highlightedRowIndex}
                selectedColumnIndex={selectedColumnIndex}
                setSelectedColumnIndex={setSelectedColumnIndex}
                addColumnToInternalTable={(index) => internalTable.addColumnAt(index)}
+               triggerRerender={() => triggerRerender()}
             />
          );
 
@@ -124,7 +134,7 @@ function TableEditor(props: Props): ReactElement {
                <TableEditorContentCell
                   key={`${rowIndex} ${columnIndex}`}
                   content={content}
-                  cellPosition={position}
+                  cellPosition={{ rowIndex, columnIndex: columnIndex + 1 }}
                   alignment={titleContent.columnAlignment}
                   highlightedRowIndex={highlightedRowIndex}
                   highlightedColumnIndex={highlightedColumnIndex}
@@ -139,6 +149,7 @@ function TableEditor(props: Props): ReactElement {
                         internalTable.setContentAt(cellPosition, cellContent);
                      }
                   }
+                  triggerRerender={() => triggerRerender()}
                />
             );
 
@@ -151,6 +162,7 @@ function TableEditor(props: Props): ReactElement {
                highlightedRowIndex={highlightedRowIndex}
                setSelectedRowIndexToDelete={setHighlightedRowIndex}
                removeRowFromInternalTable={(index) => internalTable.removeRowAt(index)}
+               triggerRerender={() => triggerRerender()}
             />
          );
       }

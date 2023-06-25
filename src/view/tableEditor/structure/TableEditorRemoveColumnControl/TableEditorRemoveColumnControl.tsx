@@ -8,6 +8,7 @@ type Props = {
    highlightedColumnIndex: number,
    setSelectedColumnIndexToDelete: (a: number) => void,
    removeColumnFromInternalTable: (index: number) => void,
+   triggerRerender: () => void
 };
 
 
@@ -16,7 +17,8 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
       position,
       highlightedColumnIndex,
       setSelectedColumnIndexToDelete,
-      removeColumnFromInternalTable
+      removeColumnFromInternalTable,
+      triggerRerender
    } = props;
 
 
@@ -48,6 +50,7 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
    function handleClick(): void {
       if (isControlActive) {
          removeColumnFromInternalTable(position.columnIndex);
+         triggerRerender();
       } else {
          setSelectedColumnIndexToDelete(position.columnIndex);
          setIsControlActive(true);

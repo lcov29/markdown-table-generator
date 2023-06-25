@@ -23,6 +23,7 @@ type Props = {
    addRowToInternalTable: (index: number) => void,
    addColumnToInternalTable: (index: number) => void,
    updateInternalModel: (position: TablePosition, content: TableContent) => void,
+   triggerRerender: () => void,
    isTitle?: boolean
 };
 
@@ -41,6 +42,7 @@ function TableEditorContentCell(props: Props): ReactElement {
       addRowToInternalTable,
       addColumnToInternalTable,
       updateInternalModel,
+      triggerRerender,
       isTitle = false
    } = props;
    const [position] = useState(cellPosition);
@@ -130,7 +132,10 @@ function TableEditorContentCell(props: Props): ReactElement {
             className={style}
             onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
             onPointerLeave={() => setSelectedColumnIndex(-2)}
-            onClick={() => addColumnToInternalTable(position.columnIndex)}
+            onClick={() => {
+               addColumnToInternalTable(position.columnIndex);
+               triggerRerender();
+            }}
          />
       );
    }
@@ -142,7 +147,10 @@ function TableEditorContentCell(props: Props): ReactElement {
          <div
             className={`table-editor-cell-add-row-control ${style}`}
             onPointerEnter={() => setSelectedRowIndex(position.rowIndex)}
-            onClick={() => addRowToInternalTable(position.rowIndex)}
+            onClick={() => {
+               addRowToInternalTable(position.rowIndex);
+               triggerRerender();
+            }}
          >
             &nbsp;
          </div>
