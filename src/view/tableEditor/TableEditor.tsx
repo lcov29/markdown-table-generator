@@ -1,4 +1,5 @@
 import React, { useState, ReactElement, CSSProperties } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { InternalTableModel } from '../../model/InternalTableModel';
 import { TableEditorRemoveColumnControl } from './structure/TableEditorRemoveColumnControl/TableEditorRemoveColumnControl';
 import { TableEditorAddColumnControl } from './structure/TableEditorAddColumnControl/TableEditorAddColumnControl';
@@ -38,7 +39,7 @@ function TableEditor(props: Props): ReactElement {
       for (let columnIndex = 0; columnIndex < internalTable.columnTotal; columnIndex++) {
          elementList.push(
             <TableEditorRemoveColumnControl
-               key={`${columnIndex}`}
+               key={uuidv4()}
                position={{ rowIndex: -1, columnIndex }}
                highlightedColumnIndex={highlightedColumnIndex}
                setSelectedColumnIndexToDelete={setHighlightedColumnIndex}
@@ -77,7 +78,7 @@ function TableEditor(props: Props): ReactElement {
 
          elementList.push(
             <TableEditorContentCell
-               key={`${columnIndex}`}
+               key={uuidv4()}
                content={content}
                cellPosition={{ rowIndex: 1, columnIndex: columnIndex + 1 }}
                alignment={content.columnAlignment}
@@ -113,7 +114,7 @@ function TableEditor(props: Props): ReactElement {
 
          elementList.push(
             <TableEditorAddColumnControl
-               key={`${rowIndex} -1`}
+               key={uuidv4()}
                position={{ rowIndex, columnIndex: 0 }}
                highlightedRowIndex={highlightedRowIndex}
                selectedColumnIndex={selectedColumnIndex}
@@ -132,7 +133,7 @@ function TableEditor(props: Props): ReactElement {
 
             elementList.push(
                <TableEditorContentCell
-                  key={`${rowIndex} ${columnIndex}`}
+                  key={uuidv4()}
                   content={content}
                   cellPosition={{ rowIndex: rowIndex + 1, columnIndex: columnIndex + 1 }}
                   alignment={titleContent.columnAlignment}
@@ -157,7 +158,7 @@ function TableEditor(props: Props): ReactElement {
 
          elementList.push(
             <TableEditorRemoveRowControl
-               key={`${rowIndex} ${internalTable.rowTotal}`}
+               key={uuidv4()}
                position={{ rowIndex, columnIndex: internalTable.columnTotal }}
                highlightedRowIndex={highlightedRowIndex}
                setSelectedRowIndexToDelete={setHighlightedRowIndex}
