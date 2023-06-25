@@ -1,0 +1,4 @@
+.table-editor-wrapper {
+   display: grid;
+   grid-template-columns: 2rem repeat(var(--table-editor-content-column-amount), auto) 2rem;
+}
