@@ -56,7 +56,7 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
 
 
    function handlePointerLeave(): void {
-      setSelectedColumnIndexToDelete(-1);
+      setSelectedColumnIndexToDelete(-2);
       setIsControlActive(false);
    }
 

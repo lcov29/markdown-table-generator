@@ -56,7 +56,7 @@ function TableEditorAddColumnControl(props: Props): ReactElement {
          <div
             className={generateStyleClass()}
             onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
-            onPointerLeave={() => setSelectedColumnIndex(-1)}
+            onPointerLeave={() => setSelectedColumnIndex(-2)}
             onClick={() => addColumnToInternalTable(position.columnIndex)}
          />
       </div>
