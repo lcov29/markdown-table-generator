@@ -1,13 +1,19 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, ReactElement } from 'react';
-import { TablePosition } from '../../../../model/types';
+import { TablePosition, TableContent, ColumnAlignmentOption } from '../../../../model/types';
+import { TableEmptyContent } from '../../content/tableEmptyContent/TableEmptyContent';
+import { TableTitleContent } from '../../content/tableTitleContent/TableTitleContent';
+import { TableTextContent } from '../../content/tableTextContent/TableTextContent';
+import { TableImageContent } from '../../content/tableImageContent/TableImageContent';
 import './tableEditorContentCell.css';
 
 
+
 type Props = {
-   content: ReactElement,
+   content: TableContent,
    cellPosition: TablePosition,
+   alignment: ColumnAlignmentOption,
    selectedRowIndex: number,
    selectedColumnIndex: number,
    highlightedRowIndex: number,
@@ -16,6 +22,7 @@ type Props = {
    setSelectedColumnIndex: (a: number) => void,
    addRowToInternalTable: (index: number) => void,
    addColumnToInternalTable: (index: number) => void,
+   updateInternalModel: (position: TablePosition, content: TableContent) => void,
    isTitle?: boolean
 };
 
@@ -24,6 +31,7 @@ function TableEditorContentCell(props: Props): ReactElement {
    const {
       content,
       cellPosition,
+      alignment,
       selectedRowIndex,
       selectedColumnIndex,
       highlightedRowIndex,
@@ -32,6 +40,7 @@ function TableEditorContentCell(props: Props): ReactElement {
       setSelectedColumnIndex,
       addRowToInternalTable,
       addColumnToInternalTable,
+      updateInternalModel,
       isTitle = false
    } = props;
    const [position] = useState(cellPosition);
@@ -80,13 +89,43 @@ function TableEditorContentCell(props: Props): ReactElement {
    }
 
 
+   function generateContent(): ReactElement {
+
+      let output = (
+         <TableEmptyContent
+            position={position}
+            alignment={alignment}
+            updateInternalModel={updateInternalModel}
+         />
+      );
+
+      if (content) {
+         switch (content.type) {
+            case 'title':
+               output = <TableTitleContent titleContent={content} alignment={alignment} />;
+               break;
+            case 'text':
+               output = <TableTextContent textContent={content} alignment={alignment} />;
+               break;
+            case 'image':
+               output = <TableImageContent imageContent={content} alignment={alignment} />;
+               break;
+            default:
+               break;
+         }
+      }
+
+      return <div className="table-editor-cell-content">{output}</div>;
+   }
+
+
    function generateColumnAddControl(): ReactElement {
       const style = (isColumnAddControlActive()) ? 'table-editor-cell-add-column-control-active' : '';
       return (
          <div
             className={style}
             onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
-            onPointerLeave={() => setSelectedColumnIndex(-1)}
+            onPointerLeave={() => setSelectedColumnIndex(-2)}
             onClick={() => addColumnToInternalTable(position.columnIndex)}
          />
       );
@@ -99,7 +138,7 @@ function TableEditorContentCell(props: Props): ReactElement {
          <div
             className={`table-editor-cell-add-row-control ${style}`}
             onPointerEnter={() => setSelectedRowIndex(position.rowIndex)}
-            onPointerLeave={() => setSelectedRowIndex(-1)}
+            onPointerLeave={() => setSelectedRowIndex(-2)}
             onClick={() => addRowToInternalTable(position.rowIndex)}
          />
       );
@@ -121,7 +160,7 @@ function TableEditorContentCell(props: Props): ReactElement {
 
    return (
       <div className={`table-editor-cell-wrapper ${generateWrapperStyleClass()}`}>
-         <div className="table-editor-cell-content">{content}</div>
+         { generateContent() }
          { generateColumnAddControl() }
          { generateRowAddControl() }
          { generateGeneralAddControl()}
