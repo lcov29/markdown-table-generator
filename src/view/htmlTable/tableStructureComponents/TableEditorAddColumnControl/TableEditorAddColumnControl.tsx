@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { ReactElement } from 'react';
 import { TablePosition } from '../../../../model/types';
-import './tableEditorAddRowControl.css';
+import './tableEditorAddColumnControl.css';
 
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 };
 
 
-function TableEditorAddRowControl(props: Props): ReactElement {
+function TableEditorAddColumnControl(props: Props): ReactElement {
    const {
       position,
       selectedColumnIndex,
@@ -38,13 +38,13 @@ function TableEditorAddRowControl(props: Props): ReactElement {
       const styleList: string[] = [];
 
       if (isControlActive()) {
-         styleList.push('table-editor-add-row-control-active');
+         styleList.push('table-editor-add-column-control-active');
       } else {
-         styleList.push('table-editor-add-row-control');
+         styleList.push('table-editor-add-column-control');
       }
 
       if (isRowHighlightActive()) {
-         styleList.push('table-editor-add-row-control-row-hightlight-active');
+         styleList.push('table-editor-add-column-control-row-hightlight-active');
       }
 
       return styleList.join(' ');
@@ -52,7 +52,7 @@ function TableEditorAddRowControl(props: Props): ReactElement {
 
 
    return (
-      <div className="table-editor-add-row-control-wrapper">
+      <div className="table-editor-add-column-control-wrapper">
          <div
             className={generateStyleClass()}
             onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
@@ -64,4 +64,4 @@ function TableEditorAddRowControl(props: Props): ReactElement {
 }
 
 
-export { TableEditorAddRowControl };
+export { TableEditorAddColumnControl };

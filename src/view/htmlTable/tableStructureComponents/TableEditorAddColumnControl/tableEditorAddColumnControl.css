@@ -1,19 +1,19 @@
-.table-editor-add-row-control-wrapper {
+.table-editor-add-column-control-wrapper {
    display: flex;
    justify-content: right;
 }
 
-.table-editor-add-row-control {
+.table-editor-add-column-control {
    width: .25rem;
 }
 
-.table-editor-add-row-control-active {
+.table-editor-add-column-control-active {
    background-color: lightgray;
    cursor: url('../../../../icons/addColumnIcon.svg'), auto;
    transition: width .5s;
    width: 2rem;
 }
 
-.table-editor-add-row-control-row-hightlight-active {
+.table-editor-add-column-control-row-hightlight-active {
    border-right: 3px solid black;
 }
