@@ -22,12 +22,8 @@ function TableEditorRemoveRowControl(props: Props): ReactElement {
    } = props;
 
 
-   const [isControlActive, setIsControlActive] = useState(false);
-
-
-   function isRowHighlightActive(): boolean {
-      return highlightedRowIndex === position.rowIndex;
-   }
+   const isRowHighlightActive = highlightedRowIndex === position.rowIndex;
+   const [isControlActive, setIsControlActive] = useState(isRowHighlightActive);
 
 
    function generateStyleClass(): string {
@@ -37,10 +33,6 @@ function TableEditorRemoveRowControl(props: Props): ReactElement {
          styleList.push('table-editor-remove-row-control-active');
       } else {
          styleList.push('table-editor-remove-row-control');
-      }
-
-      if (isRowHighlightActive()) {
-         styleList.push('table-editr-remove-row-control-row-highlight');
       }
 
       return styleList.join(' ');
@@ -59,7 +51,7 @@ function TableEditorRemoveRowControl(props: Props): ReactElement {
 
 
    function handlePointerLeave(): void {
-      setSelectedRowIndexToDelete(-1);
+      setSelectedRowIndexToDelete(-2);
       setIsControlActive(false);
    }
 

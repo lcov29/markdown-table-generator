@@ -1,21 +1,21 @@
 .table-editor-remove-row-control {
+   background: none;
    border: none;
    outline: none;
-   background: none;
 }
 
+
 .table-editor-remove-row-control:hover {
-   border-left: 2px solid black;
+   border-left: 3px solid black;
    cursor: w-resize;
 }
 
+
 .table-editor-remove-row-control-active {
-   border: 1px solid black;
    background-color: red;
    background-image: url('../../../../icons/closeIcon.svg');
+   background-position-y: center;
+   background-repeat: no-repeat;
    background-size: contain;
-}
-
-.table-editr-remove-row-control-row-highlight {
    border: 3px solid black;
 }
