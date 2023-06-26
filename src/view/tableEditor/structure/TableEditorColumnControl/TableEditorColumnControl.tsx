@@ -1,6 +1,6 @@
 import React, { useState, ReactElement } from 'react';
 import { TablePosition, ColumnAlignmentOption } from '../../../../model/types';
-import './tableEditorRemoveColumnControl.css';
+import './tableEditorColumnControl.css';
 
 
 type Props = {
