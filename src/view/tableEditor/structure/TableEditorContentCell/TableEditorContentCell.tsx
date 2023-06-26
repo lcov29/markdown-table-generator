@@ -158,9 +158,7 @@ function TableEditorContentCell(props: Props): ReactElement {
                   addRowToInternalTable(position.rowIndex + 1);
                   triggerRerender();
                }}
-            >
-               &nbsp;
-            </div>
+            />
          </div>
       );
    }
