@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { TablePosition, TableContent, ColumnAlignmentOption } from '../../../../model/types';
 import { TableEmptyContent } from '../../content/tableEmptyContent/TableEmptyContent';
 import { TableTitleContent } from '../../content/tableTitleContent/TableTitleContent';
@@ -11,7 +11,7 @@ import './tableEditorContentCell.css';
 
 type Props = {
    content: TableContent,
-   cellPosition: TablePosition,
+   position: TablePosition,
    alignment: ColumnAlignmentOption,
    selectedRowIndex: number,
    selectedColumnIndex: number,
@@ -30,7 +30,7 @@ type Props = {
 function TableEditorContentCell(props: Props): ReactElement {
    const {
       content,
-      cellPosition,
+      position,
       alignment,
       selectedRowIndex,
       selectedColumnIndex,
@@ -44,7 +44,6 @@ function TableEditorContentCell(props: Props): ReactElement {
       triggerRerender,
       isTitle = false
    } = props;
-   const [position] = useState(cellPosition);
 
 
    function isColumnAddControlActive(): boolean {
