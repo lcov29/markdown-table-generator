@@ -9,7 +9,6 @@ import { TableImageContent } from '../../content/tableImageContent/TableImageCon
 import './tableEditorContentCell.css';
 
 
-
 type Props = {
    content: TableContent,
    cellPosition: TablePosition,
@@ -58,40 +57,38 @@ function TableEditorContentCell(props: Props): ReactElement {
    }
 
 
-   function isRowHighlightActive(): boolean {
-      return highlightedRowIndex === position.rowIndex;
-   }
-
-
-   function isColumnHighlightActive(): boolean {
-      return highlightedColumnIndex === position.columnIndex;
-   }
-
-
    function generateWrapperStyleClass(): string {
-      const styleList: string[] = [];
+      const isRowHighlightActive = highlightedRowIndex === position.rowIndex;
+      const isColumnHighlightActive = highlightedColumnIndex === position.columnIndex;
+      const styleList: string[] = ['table-editor-content-cell-wrapper'];
 
-      if (isRowAddControlActive()) {
-         styleList.push('table-editor-cell-wrapper-add-row-control-active');
+      if (isRowHighlightActive) {
+         styleList.push('table-editor-content-cell-wrapper-row-highlight-active');
       }
 
-      if (isColumnAddControlActive()) {
-         styleList.push('table-editor-cell-wrapper-add-column-control-active');
-      }
-
-      if (isRowHighlightActive()) {
-         styleList.push('table-editor-cell-wrapper-row-highlight-active');
-      }
-
-      if (isColumnHighlightActive()) {
-         styleList.push('table-editor-cell-wrapper-column-highlight-active');
+      if (isColumnHighlightActive) {
+         styleList.push('table-editor-content-cell-wrapper-column-highlight-active');
       }
 
       if (isTitle) {
-         styleList.push('table-editor-title-cell');
+         styleList.push('table-editor-content-cell-wrapper-is-title');
       }
 
       return styleList.join(' ');
+   }
+
+
+   function generateColumnAddControlStyleClass(): string {
+      const baseClass = 'table-editor-content-cell-add-column-control';
+      const activeClass = 'table-editor-content-cell-add-column-control-active';
+      return (isColumnAddControlActive()) ? activeClass : baseClass;
+   }
+
+
+   function generateRowAddControlStyleClass(): string {
+      const baseClass = 'table-editor-content-cell-add-row-control';
+      const activeClass = 'table-editor-content-cell-add-row-control-active';
+      return (isRowAddControlActive()) ? activeClass : baseClass;
    }
 
 
@@ -121,38 +118,45 @@ function TableEditorContentCell(props: Props): ReactElement {
          }
       }
 
-      return <div className="table-editor-cell-content">{output}</div>;
+      return (
+         <div className="table-editor-content-cell-content-wrapper">
+            <div className="table-editor-content-cell-content">{output}</div>
+         </div>
+      );
    }
 
 
    function generateColumnAddControl(): ReactElement {
-      const style = (isColumnAddControlActive()) ? 'table-editor-cell-add-column-control-active' : '';
       return (
-         <div
-            className={style}
-            onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
-            onPointerLeave={() => setSelectedColumnIndex(-2)}
-            onClick={() => {
-               addColumnToInternalTable(position.columnIndex);
-               triggerRerender();
-            }}
-         />
+         <div className="table-editor-content-cell-add-column-control-wrapper">
+            <div
+               className={generateColumnAddControlStyleClass()}
+               onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
+               onPointerLeave={() => setSelectedColumnIndex(-2)}
+               onClick={() => {
+                  addColumnToInternalTable(position.columnIndex);
+                  triggerRerender();
+               }}
+            />
+         </div>
       );
    }
 
 
    function generateRowAddControl(): ReactElement {
-      const style = (isRowAddControlActive()) ? 'table-editor-cell-add-row-control-active' : '';
       return (
-         <div
-            className={`table-editor-cell-add-row-control ${style}`}
-            onPointerEnter={() => setSelectedRowIndex(position.rowIndex)}
-            onClick={() => {
-               addRowToInternalTable(position.rowIndex);
-               triggerRerender();
-            }}
-         >
-            &nbsp;
+         <div className="table-editor-content-cell-add-row-control-wrapper">
+            <div
+               className={generateRowAddControlStyleClass()}
+               onPointerEnter={() => setSelectedRowIndex(position.rowIndex)}
+               onPointerLeave={() => setSelectedRowIndex(-2)}
+               onClick={() => {
+                  addRowToInternalTable(position.rowIndex);
+                  triggerRerender();
+               }}
+            >
+               &nbsp;
+            </div>
          </div>
       );
    }
@@ -172,7 +176,7 @@ function TableEditorContentCell(props: Props): ReactElement {
 
 
    return (
-      <div className={`table-editor-cell-wrapper ${generateWrapperStyleClass()}`}>
+      <div className={` ${generateWrapperStyleClass()}`}>
          { generateContent() }
          { generateColumnAddControl() }
          { generateRowAddControl() }
