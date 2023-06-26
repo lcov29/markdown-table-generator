@@ -23,6 +23,7 @@ type Props = {
    addColumnToInternalTable: (index: number) => void,
    updateInternalModel: (position: TablePosition, content: TableContent) => void,
    triggerRerender: () => void,
+   isLastRow: boolean,
    isTitle?: boolean
 };
 
@@ -42,6 +43,7 @@ function TableEditorContentCell(props: Props): ReactElement {
       addColumnToInternalTable,
       updateInternalModel,
       triggerRerender,
+      isLastRow,
       isTitle = false
    } = props;
 
@@ -67,6 +69,9 @@ function TableEditorContentCell(props: Props): ReactElement {
 
       if (isColumnHighlightActive) {
          styleList.push('table-editor-content-cell-wrapper-column-highlight-active');
+         if (isLastRow) {
+            styleList.push('table-editor-content-cell-wrapper-column-highlight-active-last-row');
+         }
       }
 
       if (isTitle) {

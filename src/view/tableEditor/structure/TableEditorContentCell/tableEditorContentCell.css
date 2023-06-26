@@ -23,6 +23,11 @@
 }
 
 
+.table-editor-content-cell-wrapper-column-highlight-active-last-row {
+   border-bottom: 3px solid black;
+}
+
+
 .table-editor-content-cell-content-wrapper {
    min-height: 4rem;
    padding: 2rem 0 0 2rem;
