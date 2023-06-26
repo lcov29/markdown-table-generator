@@ -22,28 +22,14 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
    } = props;
 
 
-   const [isControlActive, setIsControlActive] = useState(false);
-
-
-   function isColumnHighlightActive(): boolean {
-      return highlightedColumnIndex === position.columnIndex;
-   }
+   const isColumnHighlightActive = highlightedColumnIndex === position.columnIndex;
+   const [isControlActive, setIsControlActive] = useState(isColumnHighlightActive);
 
 
    function generateStyleClass(): string {
-      const styleList: string[] = [];
-
-      if (isControlActive) {
-         styleList.push('table-editor-remove-column-control-active');
-      } else {
-         styleList.push('table-editor-remove-column-control');
-      }
-
-      if (isColumnHighlightActive()) {
-         styleList.push('table-editor-remove-column-control-column-highlight');
-      }
-
-      return styleList.join(' ');
+      const activeStyle = 'table-editor-remove-column-control-active';
+      const baseStyle = 'table-editor-remove-column-control';
+      return (isControlActive) ? activeStyle : baseStyle;
    }
 
 
