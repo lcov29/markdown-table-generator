@@ -80,7 +80,7 @@ function TableEditor(props: Props): ReactElement {
             <TableEditorContentCell
                key={uuidv4()}
                content={content}
-               cellPosition={{ rowIndex: 0, columnIndex }}
+               cellPosition={position}
                alignment={content.columnAlignment}
                highlightedRowIndex={highlightedRowIndex}
                highlightedColumnIndex={highlightedColumnIndex}
@@ -135,7 +135,7 @@ function TableEditor(props: Props): ReactElement {
                <TableEditorContentCell
                   key={uuidv4()}
                   content={content}
-                  cellPosition={{ rowIndex, columnIndex }}
+                  cellPosition={position}
                   alignment={titleContent.columnAlignment}
                   highlightedRowIndex={highlightedRowIndex}
                   highlightedColumnIndex={highlightedColumnIndex}
