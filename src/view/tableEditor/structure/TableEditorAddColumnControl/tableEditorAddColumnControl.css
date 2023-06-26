@@ -10,7 +10,6 @@
 .table-editor-add-column-control-active {
    background-color: lightgray;
    cursor: url('../../../../icons/addColumnIcon.svg'), auto;
-   /* transition: width .5s; */
    width: 2rem;
 }
 
