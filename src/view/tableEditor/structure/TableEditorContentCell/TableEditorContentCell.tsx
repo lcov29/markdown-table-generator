@@ -134,7 +134,7 @@ function TableEditorContentCell(props: Props): ReactElement {
                onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
                onPointerLeave={() => setSelectedColumnIndex(-2)}
                onClick={() => {
-                  addColumnToInternalTable(position.columnIndex);
+                  addColumnToInternalTable(position.columnIndex + 1);
                   triggerRerender();
                }}
             />
@@ -151,7 +151,7 @@ function TableEditorContentCell(props: Props): ReactElement {
                onPointerEnter={() => setSelectedRowIndex(position.rowIndex)}
                onPointerLeave={() => setSelectedRowIndex(-2)}
                onClick={() => {
-                  addRowToInternalTable(position.rowIndex);
+                  addRowToInternalTable(position.rowIndex + 1);
                   triggerRerender();
                }}
             >

@@ -63,7 +63,7 @@ function TableEditor(props: Props): ReactElement {
       elementList.push(
          <TableEditorAddColumnControl
             key="-1"
-            position={{ rowIndex: 1, columnIndex: 0 }}
+            position={{ rowIndex: 0, columnIndex: -1 }}
             highlightedRowIndex={highlightedRowIndex}
             selectedColumnIndex={selectedColumnIndex}
             setSelectedColumnIndex={setSelectedColumnIndex}
@@ -80,7 +80,7 @@ function TableEditor(props: Props): ReactElement {
             <TableEditorContentCell
                key={uuidv4()}
                content={content}
-               cellPosition={{ rowIndex: 1, columnIndex: columnIndex + 1 }}
+               cellPosition={{ rowIndex: 0, columnIndex }}
                alignment={content.columnAlignment}
                highlightedRowIndex={highlightedRowIndex}
                highlightedColumnIndex={highlightedColumnIndex}
@@ -115,7 +115,7 @@ function TableEditor(props: Props): ReactElement {
          elementList.push(
             <TableEditorAddColumnControl
                key={uuidv4()}
-               position={{ rowIndex, columnIndex: 0 }}
+               position={{ rowIndex, columnIndex: -1 }}
                highlightedRowIndex={highlightedRowIndex}
                selectedColumnIndex={selectedColumnIndex}
                setSelectedColumnIndex={setSelectedColumnIndex}
@@ -135,7 +135,7 @@ function TableEditor(props: Props): ReactElement {
                <TableEditorContentCell
                   key={uuidv4()}
                   content={content}
-                  cellPosition={{ rowIndex: rowIndex + 1, columnIndex: columnIndex + 1 }}
+                  cellPosition={{ rowIndex, columnIndex }}
                   alignment={titleContent.columnAlignment}
                   highlightedRowIndex={highlightedRowIndex}
                   highlightedColumnIndex={highlightedColumnIndex}
