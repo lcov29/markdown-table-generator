@@ -96,6 +96,7 @@ function TableEditor(props: Props): ReactElement {
                   }
                }
                triggerRerender={() => triggerRerender()}
+               isLastRow={position.rowIndex === internalTable.rowTotal - 1}
                isTitle
             />
          );
@@ -151,6 +152,7 @@ function TableEditor(props: Props): ReactElement {
                      }
                   }
                   triggerRerender={() => triggerRerender()}
+                  isLastRow={position.rowIndex === internalTable.rowTotal - 1}
                />
             );
 
