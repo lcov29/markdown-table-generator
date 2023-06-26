@@ -1,5 +1,5 @@
 import React, { useState, ReactElement } from 'react';
-import { TablePosition } from '../../../../model/types';
+import { TablePosition, ColumnAlignmentOption } from '../../../../model/types';
 import './tableEditorRemoveColumnControl.css';
 
 
@@ -8,6 +8,7 @@ type Props = {
    highlightedColumnIndex: number,
    setSelectedColumnIndexToDelete: (a: number) => void,
    removeColumnFromInternalTable: (index: number) => void,
+   updateColumnAlignment: (index: number, alignment: ColumnAlignmentOption) => void,
    triggerRerender: () => void
 };
 
@@ -18,6 +19,7 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
       highlightedColumnIndex,
       setSelectedColumnIndexToDelete,
       removeColumnFromInternalTable,
+      updateColumnAlignment,
       triggerRerender
    } = props;
 
@@ -26,21 +28,21 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
    const [isControlActive, setIsControlActive] = useState(isColumnHighlightActive);
 
 
-   function generateStyleClass(): string {
-      const activeStyle = 'table-editor-remove-column-control-active';
-      const baseStyle = 'table-editor-remove-column-control';
-      return (isControlActive) ? activeStyle : baseStyle;
+   function handleWrapperClick(): void {
+      setSelectedColumnIndexToDelete(position.columnIndex);
+      setIsControlActive(true);
    }
 
 
-   function handleClick(): void {
-      if (isControlActive) {
-         removeColumnFromInternalTable(position.columnIndex);
-         triggerRerender();
-      } else {
-         setSelectedColumnIndexToDelete(position.columnIndex);
-         setIsControlActive(true);
-      }
+   function handleRemoveControlClick(): void {
+      removeColumnFromInternalTable(position.columnIndex);
+      triggerRerender();
+   }
+
+
+   function handleAlignmentUpdateClick(alignment: ColumnAlignmentOption): void {
+      updateColumnAlignment(position.columnIndex, alignment);
+      triggerRerender();
    }
 
 
@@ -50,14 +52,71 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
    }
 
 
+   if (isControlActive) {
+      return (
+         <div
+            className="table-editor-column-control-wrapper-active"
+            onPointerLeave={handlePointerLeave}
+         >
+            <div className="table-editor-column-control-alignment-input-wrapper">
+               <button
+                  type="button"
+                  className="
+                     table-editor-column-control-alignment-input
+                     table-editor-column-control-left-alignment-input"
+                  title="Left Align"
+                  onClick={() => handleAlignmentUpdateClick('left')}
+               >
+                  <span className="table-editor-column-control-alignment-icon-bar" />
+                  <span className="table-editor-column-control-alignment-icon-bar" />
+                  <span className="table-editor-column-control-alignment-icon-bar" />
+               </button>
+               <button
+                  type="button"
+                  className="
+                     table-editor-column-control-alignment-input
+                     table-editor-column-control-center-alignment-input"
+                  title="Center Align"
+                  onClick={() => handleAlignmentUpdateClick('center')}
+
+               >
+                  <span className="table-editor-column-control-alignment-icon-bar" />
+                  <span className="table-editor-column-control-alignment-icon-bar" />
+                  <span className="table-editor-column-control-alignment-icon-bar" />
+               </button>
+               <button
+                  type="button"
+                  className="
+                     table-editor-column-control-alignment-input
+                     table-editor-column-control-right-alignment-input"
+                  title="Right Align"
+                  onClick={() => handleAlignmentUpdateClick('right')}
+
+               >
+                  <span className="table-editor-column-control-alignment-icon-bar" />
+                  <span className="table-editor-column-control-alignment-icon-bar" />
+                  <span className="table-editor-column-control-alignment-icon-bar" />
+               </button>
+            </div>
+            <button
+               type="button"
+               className="table-editor-remove-column-control"
+               onClick={handleRemoveControlClick}
+            />
+         </div>
+      );
+   }
+
    return (
       <button
          type="button"
-         className={generateStyleClass()}
-         onClick={handleClick}
+         className="table-editor-column-control-wrapper"
+         onClick={handleWrapperClick}
          onPointerLeave={handlePointerLeave}
       />
    );
+
+
 
 }
 

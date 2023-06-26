@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useState, ReactElement, CSSProperties } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { InternalTableModel } from '../../model/InternalTableModel';
@@ -5,7 +6,7 @@ import { TableEditorRemoveColumnControl } from './structure/TableEditorRemoveCol
 import { TableEditorAddColumnControl } from './structure/TableEditorAddColumnControl/TableEditorAddColumnControl';
 import { TableEditorContentCell } from './structure/TableEditorContentCell/TableEditorContentCell';
 import { TableEditorRemoveRowControl } from './structure/TableEditorRemoveRowControl/TableEditorRemoveRowControl';
-import { TitleContent, TablePosition, TableContent } from '../../model/types';
+import { TitleContent, TablePosition, TableContent, ColumnAlignmentOption } from '../../model/types';
 import './tableEditor.css';
 
 
@@ -28,6 +29,13 @@ function TableEditor(props: Props): ReactElement {
    }
 
 
+   function updateColumnAlignment(columnIndex: number, alignment: ColumnAlignmentOption): void {
+      const position: TablePosition = { rowIndex: 0, columnIndex };
+      const title = internalTable.getContentAt(position) as TitleContent;
+      title.columnAlignment = alignment;
+   }
+
+
    function getStyleObj(): CSSProperties {
       return { '--table-editor-content-column-amount': internalTable.columnTotal } as CSSProperties;
    }
@@ -46,6 +54,7 @@ function TableEditor(props: Props): ReactElement {
                removeColumnFromInternalTable={
                   (index) => internalTable.removeColumnAt(index)
                }
+               updateColumnAlignment={updateColumnAlignment}
                triggerRerender={() => triggerRerender()}
             />
          );

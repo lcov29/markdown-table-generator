@@ -1,22 +1,75 @@
-.table-editor-remove-column-control {
+.table-editor-column-control-wrapper {
    background: none;
    border: none;
    height: 2rem;
    outline: none;
+   width: 100%;
 }
 
 
-.table-editor-remove-column-control:hover {
+.table-editor-column-control-wrapper:hover {
    border-bottom: 3px solid black;
    cursor: s-resize;
 }
 
 
-.table-editor-remove-column-control-active {
+.table-editor-column-control-wrapper-active {
+   display: flex;
+   height: 2rem;
+   outline: none;
+   width: 100%;
+}
+
+
+.table-editor-column-control-alignment-input-wrapper {
+   display: flex;
+}
+
+
+.table-editor-column-control-alignment-input {
+   background-color: lightgray;
+   display: flex;
+   flex-direction: column;
+   padding: .25rem;
+   row-gap: .3rem;
+   width: 4rem;
+}
+
+
+.table-editor-column-control-alignment-input:hover {
+   background-color: darkgray;
+}
+
+
+.table-editor-column-control-alignment-icon-bar {
+   background-color: white;
+   border-radius: .3rem;
+   display: block;
+   height: .2rem;
+   width: 1.5rem;
+}
+
+
+.table-editor-column-control-left-alignment-input {
+   align-items: flex-start;
+}
+
+
+.table-editor-column-control-center-alignment-input {
+   align-items: center;
+}
+
+
+.table-editor-column-control-right-alignment-input {
+   align-items: flex-end;
+}
+
+
+.table-editor-remove-column-control {
    background-color: red;
    background-image: url('../../../../icons/closeIcon.svg');
    background-position: center;
    background-repeat: no-repeat;
    background-size: contain;
-   border: 3px solid black;
+   width: 100%;
 }
