@@ -26,26 +26,18 @@ function TableEditorAddColumnControl(props: Props): ReactElement {
    } = props;
 
 
-   function isControlActive(): boolean {
-      return selectedColumnIndex === position.columnIndex;
-   }
-
-
-   function isRowHighlightActive(): boolean {
-      return highlightedRowIndex === position.rowIndex;
-   }
-
-
    function generateStyleClass(): string {
+      const isControlActive = selectedColumnIndex === position.columnIndex;
+      const isRowHighlightActive = highlightedRowIndex === position.rowIndex;
       const styleList: string[] = [];
 
-      if (isControlActive()) {
+      if (isControlActive) {
          styleList.push('table-editor-add-column-control-active');
       } else {
          styleList.push('table-editor-add-column-control');
       }
 
-      if (isRowHighlightActive()) {
+      if (isRowHighlightActive) {
          styleList.push('table-editor-add-column-control-row-hightlight-active');
       }
 
