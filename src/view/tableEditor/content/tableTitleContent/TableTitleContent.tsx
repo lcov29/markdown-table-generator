@@ -15,7 +15,6 @@ function TableTitleContent(props: Props): ReactElement {
 
    const [titleContentObj] = useState(titleContent);
    const [title, setTitle] = useState(titleContent.title);
-   const [columnAlignment, setColumnAlignment] = useState(alignment);
 
    const dialog = useRef<HTMLDialogElement>(null);
 
@@ -33,7 +32,7 @@ function TableTitleContent(props: Props): ReactElement {
          <button
             type="button"
             className="table-title-content-title-display-button"
-            style={{ textAlign: `${columnAlignment}` }}
+            style={{ textAlign: `${alignment}` }}
             onClick={openModalDialog}
          >
             <strong>{title}</strong>
@@ -46,9 +45,9 @@ function TableTitleContent(props: Props): ReactElement {
       return (
          <dialog ref={dialog}>
             <form method="dialog" className="table-title-content-dialog">
-               <strong>Title</strong>
-               <div />
-               <label htmlFor="table-title-content-dialog-title-input">Title</label>
+               <label htmlFor="table-title-content-dialog-title-input">
+                  <strong>Title</strong>
+               </label>
                <input
                   id="table-title-content-dialog-title-input"
                   type="text"
@@ -59,21 +58,6 @@ function TableTitleContent(props: Props): ReactElement {
                      titleContentObj.title = e.target.value;
                   }}
                />
-               <label htmlFor="table-title-content-dialog-alignment-input">Column Alignment</label>
-               <select
-                  id="table-title-content-dialog-alignment-input"
-                  name="alignmentInput"
-                  value={columnAlignment}
-                  onChange={(e) => {
-                     const input = e.target.value as ColumnAlignmentOption;
-                     setColumnAlignment(input);
-                     titleContentObj.columnAlignment = input;
-                  }}
-               >
-                  <option value="left">Left</option>
-                  <option value="center">Center</option>
-                  <option value="right">Right</option>
-               </select>
             </form>
          </dialog>
       );
