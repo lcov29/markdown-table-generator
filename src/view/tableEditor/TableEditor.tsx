@@ -2,7 +2,7 @@
 import React, { useState, ReactElement, CSSProperties } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { InternalTableModel } from '../../model/InternalTableModel';
-import { TableEditorRemoveColumnControl } from './structure/TableEditorRemoveColumnControl/TableEditorRemoveColumnControl';
+import { TableEditorRemoveColumnControl } from './structure/TableEditorColumnControl/TableEditorColumnControl';
 import { TableEditorAddColumnControl } from './structure/TableEditorAddColumnControl/TableEditorAddColumnControl';
 import { TableEditorContentCell } from './structure/TableEditorContentCell/TableEditorContentCell';
 import { TableEditorRemoveRowControl } from './structure/TableEditorRemoveRowControl/TableEditorRemoveRowControl';
