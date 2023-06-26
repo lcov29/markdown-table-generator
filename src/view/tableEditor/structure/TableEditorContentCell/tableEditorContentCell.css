@@ -22,7 +22,6 @@
 
 .table-editor-cell-wrapper-add-row-control-active {
    grid-template-rows: 4fr 2fr;
-   transition: grid-template-rows .5s;
 }
 
 .table-editor-cell-add-column-control-active {
