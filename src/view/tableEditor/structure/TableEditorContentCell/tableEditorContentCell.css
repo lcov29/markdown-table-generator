@@ -51,7 +51,7 @@
    background: none;
    border: none;
    height: 100%;
-   width: 50%;
+   width: 100%;
 }
 
 
@@ -73,7 +73,7 @@
 .table-editor-content-cell-add-row-control {
    background: none;
    border: none;
-   height: 50%;
+   height: 100%;
    width: 100%;
 }
 
