@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useRef, useEffect, ReactElement } from 'react';
+import React, { useState, useRef, useEffect, KeyboardEvent, ReactElement } from 'react';
 import { TextContent, ColumnAlignmentOption, LinkTargetOption } from '../../../../model/types';
 import './tableTextContent.css';
 
@@ -7,12 +7,20 @@ import './tableTextContent.css';
 type Props = {
    textContent: TextContent,
    alignment: ColumnAlignmentOption,
+   deleteFromInternalTable: () => void,
+   triggerRerender: () => void,
    showDialogOnInitialRender?: boolean
 };
 
 
 function TableTextContent(props: Props): ReactElement {
-   const { textContent, alignment, showDialogOnInitialRender = false } = props;
+   const {
+      textContent,
+      alignment,
+      deleteFromInternalTable,
+      triggerRerender,
+      showDialogOnInitialRender = false
+   } = props;
 
    const [textContentObj] = useState(textContent);
    const [text, setText] = useState(textContent.text);
@@ -34,6 +42,20 @@ function TableTextContent(props: Props): ReactElement {
    useEffect(() => { if (showDialogOnInitialRender) openModalDialog(); }, []);
 
 
+   function handleContentDeletion() {
+      deleteFromInternalTable();
+      triggerRerender();
+   }
+
+
+   function handleKeyboardInput(event: KeyboardEvent<HTMLButtonElement>) {
+      const isDeleteRequest = event.code === 'Delete';
+      if (isDeleteRequest) {
+         handleContentDeletion();
+      }
+   }
+
+
    function generateTextDisplay(): ReactElement {
       const linkText = (
          <a href={href} target={target} onClick={(e) => e.stopPropagation()}>
@@ -47,6 +69,7 @@ function TableTextContent(props: Props): ReactElement {
             className="table-text-content-text-display-button"
             style={{ textAlign: `${alignment}` }}
             onClick={openModalDialog}
+            onKeyDown={handleKeyboardInput}
          >
             {(isLink) ? linkText : text}
          </button>

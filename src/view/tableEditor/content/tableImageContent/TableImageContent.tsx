@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useRef, useEffect, ReactElement } from 'react';
+import React, { useState, useRef, useEffect, KeyboardEvent, ReactElement } from 'react';
 import { ImageContent, ColumnAlignmentOption, LinkTargetOption } from '../../../../model/types';
 import './tableImageContent.css';
 
@@ -7,12 +7,20 @@ import './tableImageContent.css';
 type Props = {
    imageContent: ImageContent,
    alignment: ColumnAlignmentOption,
+   deleteFromInternalTable: () => void,
+   triggerRerender: () => void,
    showDialogOnInitialRender?: boolean
 };
 
 
 function TableImageContent(props: Props): ReactElement {
-   const { imageContent, alignment, showDialogOnInitialRender } = props;
+   const {
+      imageContent,
+      alignment,
+      deleteFromInternalTable,
+      triggerRerender,
+      showDialogOnInitialRender
+   } = props;
 
    const [imageContentObj] = useState(imageContent);
    const [src, setSrc] = useState(imageContent.src);
@@ -37,6 +45,19 @@ function TableImageContent(props: Props): ReactElement {
    useEffect(() => { if (showDialogOnInitialRender) openModalDialog(); }, []);
 
 
+   function handleContentDeletion() {
+      deleteFromInternalTable();
+      triggerRerender();
+   }
+
+
+   function handleKeyboardInput(event: KeyboardEvent<HTMLButtonElement>) {
+      const isDeleteRequest = event.code === 'Delete';
+      if (isDeleteRequest) {
+         handleContentDeletion();
+      }
+   }
+
 
    function generateImage(): ReactElement {
       const image = <img src={src} alt={alt} width={width} height={height} title={title} />;
@@ -52,6 +73,7 @@ function TableImageContent(props: Props): ReactElement {
             className="table-image-content-text-display-button"
             style={{ justifyContent: `${alignment}` }}
             onClick={openModalDialog}
+            onKeyDown={handleKeyboardInput}
          >
             {(isLink) ? linkImage : image}
          </button>
