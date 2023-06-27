@@ -93,6 +93,15 @@ function TableTitleContent(props: Props): ReactElement {
                   }}
                />
             </form>
+            <div className="table-title-content-dialog-control-wrapper">
+               <button
+                  type="button"
+                  className="table-title-content-dialog-control-close-button"
+                  onClick={() => dialog.current?.close()}
+               >
+                  Close
+               </button>
+            </div>
          </dialog>
       );
    }
