@@ -2,7 +2,7 @@
 import React, { useState, ReactElement, CSSProperties } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { InternalTableModel } from '../../model/InternalTableModel';
-import { TableEditorRemoveColumnControl } from './structure/TableEditorColumnControl/TableEditorColumnControl';
+import { TableEditorColumnControl } from './structure/TableEditorColumnControl/TableEditorColumnControl';
 import { TableEditorAddColumnControl } from './structure/TableEditorAddColumnControl/TableEditorAddColumnControl';
 import { TableEditorContentCell } from './structure/TableEditorContentCell/TableEditorContentCell';
 import { TableEditorRemoveRowControl } from './structure/TableEditorRemoveRowControl/TableEditorRemoveRowControl';
@@ -17,15 +17,39 @@ type Props = {
 
 function TableEditor(props: Props): ReactElement {
    const { internalTable } = props;
-   const [selectedRowIndex, setSelectedRowIndex] = useState(-2);
-   const [selectedColumnIndex, setSelectedColumnIndex] = useState(-2);
-   const [highlightedRowIndex, setHighlightedRowIndex] = useState(-2);
-   const [highlightedColumnIndex, setHighlightedColumnIndex] = useState(-2);
+
+   const defaultSelectedIndex = -2;
+   const defaultHighlightedIndex = -2;
+
+   const [selectedRowIndex, setSelectedRowIndex] = useState(defaultSelectedIndex);
+   const [selectedColumnIndex, setSelectedColumnIndex] = useState(defaultSelectedIndex);
+   const [highlightedRowIndex, setHighlightedRowIndex] = useState(defaultHighlightedIndex);
+   const [highlightedColumnIndex, setHighlightedColumnIndex] = useState(defaultHighlightedIndex);
    const [rerender, setRerender] = useState(false);
 
 
    function triggerRerender(): void {
       setRerender(!rerender);
+   }
+
+
+   function resetSelectedRowIndex() {
+      setSelectedRowIndex(defaultSelectedIndex);
+   }
+
+
+   function resetSelectedColumnIndex() {
+      setSelectedColumnIndex(defaultSelectedIndex);
+   }
+
+
+   function resetHighlightedRowIndex() {
+      setHighlightedRowIndex(defaultHighlightedIndex);
+   }
+
+
+   function resetHighlightedColumnIndex() {
+      setHighlightedColumnIndex(defaultHighlightedIndex);
    }
 
 
@@ -46,11 +70,12 @@ function TableEditor(props: Props): ReactElement {
 
       for (let columnIndex = 0; columnIndex < internalTable.columnTotal; columnIndex++) {
          elementList.push(
-            <TableEditorRemoveColumnControl
+            <TableEditorColumnControl
                key={uuidv4()}
                position={{ rowIndex: -1, columnIndex }}
                highlightedColumnIndex={highlightedColumnIndex}
-               setSelectedColumnIndexToDelete={setHighlightedColumnIndex}
+               setHighlightedColumnIndex={setHighlightedColumnIndex}
+               resetHighlightedColumnIndex={resetHighlightedColumnIndex}
                removeColumnFromInternalTable={
                   (index) => internalTable.removeColumnAt(index)
                }
@@ -76,6 +101,7 @@ function TableEditor(props: Props): ReactElement {
             highlightedRowIndex={highlightedRowIndex}
             selectedColumnIndex={selectedColumnIndex}
             setSelectedColumnIndex={setSelectedColumnIndex}
+            resetSelectedColumnIndex={resetSelectedColumnIndex}
             addColumnToInternalTable={(index) => internalTable.addColumnAt(index)}
             triggerRerender={() => triggerRerender()}
          />
@@ -96,6 +122,8 @@ function TableEditor(props: Props): ReactElement {
                selectedRowIndex={selectedRowIndex}
                selectedColumnIndex={selectedColumnIndex}
                setSelectedRowIndex={setSelectedRowIndex}
+               resetSelectedColumnIndex={resetSelectedColumnIndex}
+               resetSelectedRowIndex={resetSelectedRowIndex}
                setSelectedColumnIndex={setSelectedColumnIndex}
                addRowToInternalTable={(index) => internalTable.addRowAt(index)}
                addColumnToInternalTable={(index) => internalTable.addColumnAt(index)}
@@ -129,6 +157,7 @@ function TableEditor(props: Props): ReactElement {
                highlightedRowIndex={highlightedRowIndex}
                selectedColumnIndex={selectedColumnIndex}
                setSelectedColumnIndex={setSelectedColumnIndex}
+               resetSelectedColumnIndex={resetSelectedColumnIndex}
                addColumnToInternalTable={(index) => internalTable.addColumnAt(index)}
                triggerRerender={() => triggerRerender()}
             />
@@ -153,6 +182,8 @@ function TableEditor(props: Props): ReactElement {
                   selectedColumnIndex={selectedColumnIndex}
                   setSelectedRowIndex={setSelectedRowIndex}
                   setSelectedColumnIndex={setSelectedColumnIndex}
+                  resetSelectedRowIndex={resetSelectedRowIndex}
+                  resetSelectedColumnIndex={resetSelectedColumnIndex}
                   addRowToInternalTable={(index) => internalTable.addRowAt(index)}
                   addColumnToInternalTable={(index) => internalTable.addColumnAt(index)}
                   updateInternalModel={
@@ -172,7 +203,8 @@ function TableEditor(props: Props): ReactElement {
                key={uuidv4()}
                position={{ rowIndex, columnIndex: internalTable.columnTotal }}
                highlightedRowIndex={highlightedRowIndex}
-               setSelectedRowIndexToDelete={setHighlightedRowIndex}
+               setHighlightedRowIndex={setHighlightedRowIndex}
+               resetHighlightedRowIndex={resetHighlightedRowIndex}
                removeRowFromInternalTable={(index) => internalTable.removeRowAt(index)}
                triggerRerender={() => triggerRerender()}
             />
@@ -188,7 +220,10 @@ function TableEditor(props: Props): ReactElement {
       <div
          className="table-editor-wrapper"
          style={getStyleObj()}
-         onPointerLeave={() => setSelectedRowIndex(-2)}
+         onPointerLeave={() => {
+            resetSelectedRowIndex();
+            resetSelectedColumnIndex();
+         }}
       >
          { generateColumnControlRow() }
          { generateTitleRow() }
