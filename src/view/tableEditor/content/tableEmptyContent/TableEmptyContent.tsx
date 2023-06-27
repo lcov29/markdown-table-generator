@@ -11,12 +11,20 @@ type TableContentStatus = 'empty' | 'text' | 'image';
 type Props = {
    position: TablePosition,
    alignment: ColumnAlignmentOption,
-   updateInternalModel: (position: TablePosition, content: TableContent) => void
+   updateInternalModel: (position: TablePosition, content: TableContent) => void,
+   deleteFromInternalTable: () => void,
+   triggerRerender: () => void,
 };
 
 
 function TableEmptyContent(props: Props): ReactElement {
-   const { position, alignment, updateInternalModel } = props;
+   const {
+      position,
+      alignment,
+      updateInternalModel,
+      deleteFromInternalTable,
+      triggerRerender
+   } = props;
 
    const [contentPosition] = useState(position);
    const [contentAlignment] = useState(alignment);
@@ -77,6 +85,8 @@ function TableEmptyContent(props: Props): ReactElement {
          <TableTextContent
             textContent={textContent}
             alignment={contentAlignment}
+            deleteFromInternalTable={deleteFromInternalTable}
+            triggerRerender={triggerRerender}
             showDialogOnInitialRender
          />
       );
@@ -100,6 +110,8 @@ function TableEmptyContent(props: Props): ReactElement {
          <TableImageContent
             imageContent={imageContent}
             alignment={contentAlignment}
+            deleteFromInternalTable={deleteFromInternalTable}
+            triggerRerender={triggerRerender}
             showDialogOnInitialRender
          />
       );
