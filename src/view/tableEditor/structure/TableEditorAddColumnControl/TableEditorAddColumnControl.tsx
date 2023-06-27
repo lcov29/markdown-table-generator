@@ -44,19 +44,17 @@ function TableEditorAddColumnControl(props: Props): ReactElement {
 
 
    return (
-      <div className="table-editor-add-column-control-wrapper">
-         <button
-            type="button"
-            tabIndex={-1}
-            className={generateStyleClass()}
-            onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
-            onPointerLeave={() => setSelectedColumnIndex(-2)}
-            onClick={() => {
-               addColumnToInternalTable(position.columnIndex + 1);
-               triggerRerender();
-            }}
-         />
-      </div>
+      <button
+         type="button"
+         tabIndex={-1}
+         className={generateStyleClass()}
+         onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
+         onPointerLeave={() => setSelectedColumnIndex(-2)}
+         onClick={() => {
+            addColumnToInternalTable(position.columnIndex + 1);
+            triggerRerender();
+         }}
+      />
    );
 }
 

@@ -1,9 +1,3 @@
-.table-editor-add-column-control-wrapper {
-   display: flex;
-   justify-content: right;
-}
-
-
 .table-editor-add-column-control {
    background:none;
    border: none;
