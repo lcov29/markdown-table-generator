@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useRef, ReactElement } from 'react';
+import React, { useState, useRef, KeyboardEvent, ReactElement } from 'react';
 import { TitleContent, ColumnAlignmentOption } from '../../../../model/types';
 import './tableTitleContent.css';
 
@@ -27,6 +27,24 @@ function TableTitleContent(props: Props): ReactElement {
    }
 
 
+   function handleLastCharacterDeletion() {
+      const titleWithoutLastCharacter = title.substring(0, title.length - 1);
+      setTitle(titleWithoutLastCharacter);
+      titleContent.title = titleWithoutLastCharacter;
+   }
+
+
+   function handleKeyboardInput(event: KeyboardEvent<HTMLButtonElement>) {
+      switch (event.code) {
+         case 'Backspace':
+            handleLastCharacterDeletion();
+            break;
+         default:
+            break;
+      }
+   }
+
+
    function generateTitleDisplay(): ReactElement {
       return (
          <button
@@ -34,6 +52,7 @@ function TableTitleContent(props: Props): ReactElement {
             className="table-title-content-title-display-button"
             style={{ textAlign: `${alignment}` }}
             onClick={openModalDialog}
+            onKeyDown={handleKeyboardInput}
          >
             <strong>{title}</strong>
          </button>

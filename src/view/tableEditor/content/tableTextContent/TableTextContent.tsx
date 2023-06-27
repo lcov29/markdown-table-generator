@@ -48,10 +48,23 @@ function TableTextContent(props: Props): ReactElement {
    }
 
 
+   function handleLastCharacterDeletion() {
+      const textWithoutLastCharacter = text.substring(0, text.length - 1);
+      setText(textWithoutLastCharacter);
+      textContent.text = textWithoutLastCharacter;
+   }
+
+
    function handleKeyboardInput(event: KeyboardEvent<HTMLButtonElement>) {
-      const isDeleteRequest = event.code === 'Delete';
-      if (isDeleteRequest) {
-         handleContentDeletion();
+      switch (event.code) {
+         case 'Delete':
+            handleContentDeletion();
+            break;
+         case 'Backspace':
+            handleLastCharacterDeletion();
+            break;
+         default:
+            break;
       }
    }
 
