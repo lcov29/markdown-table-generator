@@ -1,0 +1,20 @@
+.table-preview {
+   border-collapse: collapse;
+   width: 100%;
+}
+
+
+.table-preview th {
+   background-color: rgb(112, 111, 111);
+   border: 1px solid black;
+}
+
+
+.table-preview td {
+   border: 1px solid black;
+}
+
+
+.table-preview tr:nth-child(2n) {
+   background-color: rgb(228, 226, 226);
+}
