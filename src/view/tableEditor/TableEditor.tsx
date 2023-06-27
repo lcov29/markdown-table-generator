@@ -65,6 +65,20 @@ function TableEditor(props: Props): ReactElement {
    }
 
 
+   function generateUpdateInternalModelFunction(): (a: TablePosition, b: TableContent) => void {
+      return (
+         (cellPosition: TablePosition, cellContent: TableContent) => {
+            internalTable.setContentAt(cellPosition, cellContent);
+         }
+      );
+   }
+
+
+   function generateDeleteFromInternalTableFunction(): (a: TablePosition) => void {
+      return ((cellPosition: TablePosition) => internalTable.removeContentAt(cellPosition));
+   }
+
+
    function generateColumnControlRow(): ReactElement[] {
       const elementList: ReactElement[] = [<div key="-1" />];
 
@@ -127,11 +141,8 @@ function TableEditor(props: Props): ReactElement {
                setSelectedColumnIndex={setSelectedColumnIndex}
                addRowToInternalTable={(index) => internalTable.addRowAt(index)}
                addColumnToInternalTable={(index) => internalTable.addColumnAt(index)}
-               updateInternalModel={
-                  (cellPosition: TablePosition, cellContent: TableContent) => {
-                     internalTable.setContentAt(cellPosition, cellContent);
-                  }
-               }
+               updateInternalModel={generateUpdateInternalModelFunction()}
+               deleteFromInternalTable={generateDeleteFromInternalTableFunction()}
                triggerRerender={() => triggerRerender()}
                isLastRow={position.rowIndex === internalTable.rowTotal - 1}
                isTitle
@@ -186,11 +197,8 @@ function TableEditor(props: Props): ReactElement {
                   resetSelectedColumnIndex={resetSelectedColumnIndex}
                   addRowToInternalTable={(index) => internalTable.addRowAt(index)}
                   addColumnToInternalTable={(index) => internalTable.addColumnAt(index)}
-                  updateInternalModel={
-                     (cellPosition: TablePosition, cellContent: TableContent) => {
-                        internalTable.setContentAt(cellPosition, cellContent);
-                     }
-                  }
+                  updateInternalModel={generateUpdateInternalModelFunction()}
+                  deleteFromInternalTable={generateDeleteFromInternalTableFunction()}
                   triggerRerender={() => triggerRerender()}
                   isLastRow={position.rowIndex === internalTable.rowTotal - 1}
                />

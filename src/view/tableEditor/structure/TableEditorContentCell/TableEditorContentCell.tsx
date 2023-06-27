@@ -22,6 +22,7 @@ type Props = {
    addRowToInternalTable: (index: number) => void,
    addColumnToInternalTable: (index: number) => void,
    updateInternalModel: (position: TablePosition, content: TableContent) => void,
+   deleteFromInternalTable: (position: TablePosition) => void,
    triggerRerender: () => void,
    isLastRow: boolean,
    isTitle?: boolean
@@ -44,6 +45,7 @@ function TableEditorContentCell(props: Props): ReactElement {
       addRowToInternalTable,
       addColumnToInternalTable,
       updateInternalModel,
+      deleteFromInternalTable,
       triggerRerender,
       isLastRow,
       isTitle = false
@@ -57,6 +59,11 @@ function TableEditorContentCell(props: Props): ReactElement {
 
    function isRowAddControlActive(): boolean {
       return selectedRowIndex === position.rowIndex;
+   }
+
+
+   function generateDeleteFunction(): () => void {
+      return () => { deleteFromInternalTable(position); };
    }
 
 
@@ -105,6 +112,8 @@ function TableEditorContentCell(props: Props): ReactElement {
             position={position}
             alignment={alignment}
             updateInternalModel={updateInternalModel}
+            deleteFromInternalTable={generateDeleteFunction()}
+            triggerRerender={triggerRerender}
          />
       );
 
@@ -114,10 +123,24 @@ function TableEditorContentCell(props: Props): ReactElement {
                output = <TableTitleContent titleContent={content} alignment={alignment} />;
                break;
             case 'text':
-               output = <TableTextContent textContent={content} alignment={alignment} />;
+               output = (
+                  <TableTextContent
+                     textContent={content}
+                     alignment={alignment}
+                     deleteFromInternalTable={generateDeleteFunction()}
+                     triggerRerender={triggerRerender}
+                  />
+               );
                break;
             case 'image':
-               output = <TableImageContent imageContent={content} alignment={alignment} />;
+               output = (
+                  <TableImageContent
+                     imageContent={content}
+                     alignment={alignment}
+                     deleteFromInternalTable={generateDeleteFunction()}
+                     triggerRerender={triggerRerender}
+                  />
+               );
                break;
             default:
                break;
