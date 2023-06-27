@@ -8,6 +8,7 @@ type Props = {
    selectedColumnIndex: number,
    highlightedRowIndex: number,
    setSelectedColumnIndex: (a: number) => void,
+   resetSelectedColumnIndex: () => void,
    addColumnToInternalTable: (index: number) => void,
    triggerRerender: () => void,
 };
@@ -19,6 +20,7 @@ function TableEditorAddColumnControl(props: Props): ReactElement {
       selectedColumnIndex,
       highlightedRowIndex,
       setSelectedColumnIndex,
+      resetSelectedColumnIndex,
       addColumnToInternalTable,
       triggerRerender
    } = props;
@@ -49,7 +51,7 @@ function TableEditorAddColumnControl(props: Props): ReactElement {
          tabIndex={-1}
          className={generateStyleClass()}
          onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
-         onPointerLeave={() => setSelectedColumnIndex(-2)}
+         onPointerLeave={resetSelectedColumnIndex}
          onClick={() => {
             addColumnToInternalTable(position.columnIndex + 1);
             triggerRerender();

@@ -17,6 +17,8 @@ type Props = {
    highlightedColumnIndex: number,
    setSelectedRowIndex: (a: number) => void,
    setSelectedColumnIndex: (a: number) => void,
+   resetSelectedRowIndex: () => void,
+   resetSelectedColumnIndex: () => void,
    addRowToInternalTable: (index: number) => void,
    addColumnToInternalTable: (index: number) => void,
    updateInternalModel: (position: TablePosition, content: TableContent) => void,
@@ -37,6 +39,8 @@ function TableEditorContentCell(props: Props): ReactElement {
       highlightedColumnIndex,
       setSelectedRowIndex,
       setSelectedColumnIndex,
+      resetSelectedRowIndex,
+      resetSelectedColumnIndex,
       addRowToInternalTable,
       addColumnToInternalTable,
       updateInternalModel,
@@ -136,7 +140,7 @@ function TableEditorContentCell(props: Props): ReactElement {
                tabIndex={-1}
                className={generateColumnAddControlStyleClass()}
                onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
-               onPointerLeave={() => setSelectedColumnIndex(-2)}
+               onPointerLeave={resetSelectedColumnIndex}
                onClick={() => {
                   addColumnToInternalTable(position.columnIndex + 1);
                   triggerRerender();
@@ -155,7 +159,7 @@ function TableEditorContentCell(props: Props): ReactElement {
                tabIndex={-1}
                className={generateRowAddControlStyleClass()}
                onPointerEnter={() => setSelectedRowIndex(position.rowIndex)}
-               onPointerLeave={() => setSelectedRowIndex(-2)}
+               onPointerLeave={resetSelectedRowIndex}
                onClick={() => {
                   addRowToInternalTable(position.rowIndex + 1);
                   triggerRerender();
@@ -180,7 +184,13 @@ function TableEditorContentCell(props: Props): ReactElement {
 
 
    return (
-      <div className={` ${generateWrapperStyleClass()}`}>
+      <div
+         className={` ${generateWrapperStyleClass()}`}
+         onPointerLeave={() => {
+            resetSelectedRowIndex();
+            resetSelectedColumnIndex();
+         }}
+      >
          { generateContent() }
          { generateColumnAddControl() }
          { generateRowAddControl() }
