@@ -6,7 +6,7 @@ import './tableEditorColumnControl.css';
 type Props = {
    position: TablePosition,
    highlightedColumnIndex: number,
-   setSelectedColumnIndexToDelete: (a: number) => void,
+   setHighlightedColumnIndex: (a: number) => void,
    removeColumnFromInternalTable: (index: number) => void,
    updateColumnAlignment: (index: number, alignment: ColumnAlignmentOption) => void,
    triggerRerender: () => void
@@ -17,7 +17,7 @@ function TableEditorColumnControl(props: Props): ReactElement {
    const {
       position,
       highlightedColumnIndex,
-      setSelectedColumnIndexToDelete,
+      setHighlightedColumnIndex,
       removeColumnFromInternalTable,
       updateColumnAlignment,
       triggerRerender
@@ -29,7 +29,7 @@ function TableEditorColumnControl(props: Props): ReactElement {
 
 
    function handleWrapperClick(): void {
-      setSelectedColumnIndexToDelete(position.columnIndex);
+      setHighlightedColumnIndex(position.columnIndex);
       setIsControlActive(true);
    }
 
@@ -47,7 +47,7 @@ function TableEditorColumnControl(props: Props): ReactElement {
 
 
    function handlePointerLeave(): void {
-      setSelectedColumnIndexToDelete(-2);
+      setHighlightedColumnIndex(-2);
       setIsControlActive(false);
    }
 
