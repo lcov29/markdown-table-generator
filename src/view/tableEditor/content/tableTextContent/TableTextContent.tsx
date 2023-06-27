@@ -152,6 +152,22 @@ function TableTextContent(props: Props): ReactElement {
                />
                {generateOptionalLinkInputs()}
             </form>
+            <div className="table-text-content-dialog-control-wrapper">
+               <button
+                  type="button"
+                  className="table-text-content-dialog-control-delete-button"
+                  onClick={handleContentDeletion}
+               >
+                  Delete
+               </button>
+               <button
+                  type="button"
+                  className="table-text-content-dialog-control-close-button"
+                  onClick={() => dialog.current?.close()}
+               >
+                  Close
+               </button>
+            </div>
          </dialog>
       );
    }
