@@ -1,0 +1,29 @@
+.table-editor-page-wrapper {
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+   justify-content: space-between;
+}
+
+.table-editor-page-wrapper h2 {
+   margin-left: 2rem;
+   margin-top: 2rem;
+}
+
+
+.table-editor-page-control-wrapper {
+   display: flex;
+   justify-content: space-between;
+   margin: 5rem 2rem 2rem 2rem;
+}
+
+
+.table-editor-page-control-wrapper button {
+   border: 1px solid black;
+   border-radius: 5px;
+}
+
+
+.table-editor-page-control-wrapper button:hover {
+   background-color: lightgray;
+}
