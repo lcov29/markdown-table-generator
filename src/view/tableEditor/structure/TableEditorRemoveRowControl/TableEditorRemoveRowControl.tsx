@@ -44,6 +44,7 @@ function TableEditorRemoveRowControl(props: Props): ReactElement {
    function handleClick(): void {
       if (isControlActive) {
          removeRowFromInternalTable(position.rowIndex);
+         resetHighlightedRowIndex();
          triggerRerender();
       } else {
          setHighlightedRowIndex(position.rowIndex);
