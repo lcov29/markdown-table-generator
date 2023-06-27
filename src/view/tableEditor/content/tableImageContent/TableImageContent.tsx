@@ -200,6 +200,22 @@ function TableImageContent(props: Props): ReactElement {
                />
                {generateOptionalLinkInputs()}
             </form>
+            <div className="table-image-content-dialog-control-wrapper">
+               <button
+                  type="button"
+                  className="table-image-content-dialog-control-delete-button"
+                  onClick={handleContentDeletion}
+               >
+                  Delete
+               </button>
+               <button
+                  type="button"
+                  className="table-image-content-dialog-control-close-button"
+                  onClick={() => dialog.current?.close()}
+               >
+                  Close
+               </button>
+            </div>
          </dialog>
       );
    }

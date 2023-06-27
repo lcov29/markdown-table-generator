@@ -1,11 +1,12 @@
 .table-image-content-text-display-button {
-   width: 100%;
-   height: 100%;
-   border: none;
-   background: none;
-   display: flex;
    align-items: center;
+   background: none;
+   border: none;
+   display: flex;
+   height: 100%;
+   width: 100%;
 }
+
 
 .table-image-content-text-display-button:hover,
 .table-image-content-text-display-button:focus {
@@ -14,14 +15,47 @@
    outline: none;
 }
 
+
 .table-image-content-dialog {
+   column-gap: 1rem;
    display: grid;
    grid-template-columns: 1fr 5fr;
-   row-gap: 1rem;
-   column-gap: 1rem;
    justify-items: left;
+   row-gap: 1rem;
 }
+
 
 .table-image-content-dialog select {
    width: 85%;
+}
+
+
+.table-image-content-dialog-control-wrapper {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 2rem;
+}
+
+
+.table-image-content-dialog-control-delete-button {
+   background-color: rgb(255, 0, 0);
+   border: 1px solid black;
+   color: white;
+   font-weight: bold;
+}
+
+
+.table-image-content-dialog-control-delete-button:hover {
+   background-color: rgb(179, 32, 32);
+}
+
+
+.table-image-content-dialog-control-close-button {
+   border: 1px solid black;
+   font-weight: bold;
+}
+
+
+.table-image-content-dialog-control-close-button:hover {
+   background-color: lightgray;
 }
