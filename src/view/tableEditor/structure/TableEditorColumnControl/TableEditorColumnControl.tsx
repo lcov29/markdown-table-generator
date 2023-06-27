@@ -7,6 +7,7 @@ type Props = {
    position: TablePosition,
    highlightedColumnIndex: number,
    setHighlightedColumnIndex: (a: number) => void,
+   resetHighlightedColumnIndex: () => void,
    removeColumnFromInternalTable: (index: number) => void,
    updateColumnAlignment: (index: number, alignment: ColumnAlignmentOption) => void,
    triggerRerender: () => void
@@ -18,6 +19,7 @@ function TableEditorColumnControl(props: Props): ReactElement {
       position,
       highlightedColumnIndex,
       setHighlightedColumnIndex,
+      resetHighlightedColumnIndex,
       removeColumnFromInternalTable,
       updateColumnAlignment,
       triggerRerender
@@ -47,7 +49,7 @@ function TableEditorColumnControl(props: Props): ReactElement {
 
 
    function handlePointerLeave(): void {
-      setHighlightedColumnIndex(-2);
+      resetHighlightedColumnIndex();
       setIsControlActive(false);
    }
 

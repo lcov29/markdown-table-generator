@@ -6,7 +6,8 @@ import './tableEditorRemoveRowControl.css';
 type Props = {
    position: TablePosition,
    highlightedRowIndex: number,
-   setSelectedRowIndexToDelete: (a: number) => void,
+   setHighlightedRowIndex: (a: number) => void,
+   resetHighlightedRowIndex: () => void,
    removeRowFromInternalTable: (index: number) => void,
    triggerRerender: () => void
 };
@@ -16,7 +17,8 @@ function TableEditorRemoveRowControl(props: Props): ReactElement {
    const {
       position,
       highlightedRowIndex,
-      setSelectedRowIndexToDelete,
+      setHighlightedRowIndex,
+      resetHighlightedRowIndex,
       removeRowFromInternalTable,
       triggerRerender
    } = props;
@@ -44,14 +46,14 @@ function TableEditorRemoveRowControl(props: Props): ReactElement {
          removeRowFromInternalTable(position.rowIndex);
          triggerRerender();
       } else {
-         setSelectedRowIndexToDelete(position.rowIndex);
+         setHighlightedRowIndex(position.rowIndex);
          setIsControlActive(true);
       }
    }
 
 
    function handlePointerLeave(): void {
-      setSelectedRowIndexToDelete(-2);
+      resetHighlightedRowIndex();
       setIsControlActive(false);
    }
 
