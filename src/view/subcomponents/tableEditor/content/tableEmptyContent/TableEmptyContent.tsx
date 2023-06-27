@@ -1,7 +1,7 @@
 import React, { useState, useRef, ReactElement } from 'react';
 import { TableTextContent } from '../tableTextContent/TableTextContent';
 import { TableImageContent } from '../tableImageContent/TableImageContent';
-import { TableContent, TextContent, ImageContent, TablePosition, ColumnAlignmentOption } from '../../../../model/types';
+import { TableContent, TextContent, ImageContent, TablePosition, ColumnAlignmentOption } from '../../../../../model/types';
 import './tableEmptyContent.css';
 
 

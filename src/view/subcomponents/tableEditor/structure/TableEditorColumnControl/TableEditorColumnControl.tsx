@@ -1,5 +1,5 @@
 import React, { useState, ReactElement } from 'react';
-import { TablePosition, ColumnAlignmentOption } from '../../../../model/types';
+import { TablePosition, ColumnAlignmentOption } from '../../../../../model/types';
 import './tableEditorColumnControl.css';
 
 

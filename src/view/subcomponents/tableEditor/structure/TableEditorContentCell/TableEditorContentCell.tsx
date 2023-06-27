@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { TablePosition, TableContent, ColumnAlignmentOption } from '../../../../model/types';
+import { TablePosition, TableContent, ColumnAlignmentOption } from '../../../../../model/types';
 import { TableEmptyContent } from '../../content/tableEmptyContent/TableEmptyContent';
 import { TableTitleContent } from '../../content/tableTitleContent/TableTitleContent';
 import { TableTextContent } from '../../content/tableTextContent/TableTextContent';

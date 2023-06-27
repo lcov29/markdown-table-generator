@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { TablePosition } from '../../../../model/types';
+import { TablePosition } from '../../../../../model/types';
 import './tableEditorAddColumnControl.css';
 
 

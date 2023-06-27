@@ -13,7 +13,7 @@
 
 .table-editor-remove-row-control-active {
    background-color: red;
-   background-image: url('../../../../icons/closeIcon.svg');
+   background-image: url('../../../../../icons/closeIcon.svg');
    background-position-y: center;
    background-repeat: no-repeat;
    background-size: contain;

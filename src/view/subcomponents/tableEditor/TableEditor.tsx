@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, ReactElement, CSSProperties } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { InternalTableModel } from '../../model/InternalTableModel';
+import { InternalTableModel } from '../../../model/InternalTableModel';
 import { TableEditorColumnControl } from './structure/TableEditorColumnControl/TableEditorColumnControl';
 import { TableEditorAddColumnControl } from './structure/TableEditorAddColumnControl/TableEditorAddColumnControl';
 import { TableEditorContentCell } from './structure/TableEditorContentCell/TableEditorContentCell';
 import { TableEditorRemoveRowControl } from './structure/TableEditorRemoveRowControl/TableEditorRemoveRowControl';
-import { TitleContent, TablePosition, TableContent, ColumnAlignmentOption } from '../../model/types';
+import { TitleContent, TablePosition, TableContent, ColumnAlignmentOption } from '../../../model/types';
 import './tableEditor.css';
 
 

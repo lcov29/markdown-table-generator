@@ -67,7 +67,7 @@
 
 .table-editor-remove-column-control {
    background-color: red;
-   background-image: url('../../../../icons/closeIcon.svg');
+   background-image: url('../../../../../icons/closeIcon.svg');
    background-position: center;
    background-repeat: no-repeat;
    background-size: contain;
