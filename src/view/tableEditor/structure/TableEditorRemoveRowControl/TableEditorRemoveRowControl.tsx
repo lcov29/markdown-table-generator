@@ -59,6 +59,7 @@ function TableEditorRemoveRowControl(props: Props): ReactElement {
    return (
       <button
          type="button"
+         tabIndex={(isControlActive) ? 0 : -1}
          className={generateStyleClass()}
          onClick={handleClick}
          onPointerLeave={handlePointerLeave}

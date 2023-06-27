@@ -111,6 +111,7 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
       <button
          type="button"
          className="table-editor-column-control-wrapper"
+         tabIndex={-1}
          onClick={handleWrapperClick}
          onPointerLeave={handlePointerLeave}
       />
