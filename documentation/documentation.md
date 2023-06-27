@@ -11,6 +11,7 @@
     - [**Wireframe**](#wireframe)
     - [**Use Case Diagram**](#use-case-diagram)
   - [**Implementation**](#implementation)
+    - [**Overview**](#overview)
     - [**Internal Table Model**](#internal-table-model)
       - [**Class Diagram**](#class-diagram)
       - [**Internal Table Representation**](#internal-table-representation)
@@ -18,6 +19,8 @@
         - [**TitleContent**](#titlecontent)
         - [**TextContent**](#textcontent)
         - [**ImageContent**](#imagecontent)
+        - [**ColumnAlignmentOption**](#columnalignmentoption)
+        - [**LinkTargetOption**](#linktargetoption)
 
 <br>
 <br>
@@ -50,14 +53,19 @@
 
 ## **Implementation**
 <br>
+<br>
+<br>
+
+### **Overview**
+<br>
 
 ```mermaid
 flowchart LR
-    a[HTML Table]
+    a[TableEditor]
     b[InternalTableModel]
     c[Markdown Table]
     a -- update --> b
-    b -- parsing --> a
+    b -- initialize --> a
     c -- parsing --> b
     b -- parsing --> c
 ```
@@ -117,9 +125,12 @@ flowchart BT
     b[RowArray] --> z[TableArray]
     c[RowArray] --> z[TableArray]
     d[TitleContent] --> a
-    e[TextContent] --> c
-    f[ImageContent] --> c
-    g[LinkContent] --> c
+    e[TextContent] --> b
+    f[ImageContent] --> b
+    g[LinkContent] --> b
+    h[TextContent] --> c
+    i[ImageContent] --> c
+    j[LinkContent] --> c
 ```
 
 <br>
@@ -129,12 +140,17 @@ The first row array holds references to [TitleContent](#titlecontent) objects.
 All subsequent arrays can hold references to either [TextContent](#textcontent), [ImageContent](#imagecontent) or [LinkContent](#linkcontent) objects. Empty cells are represented by _Null_ reference.
 
 <br>
+<br>
 
-|   |0            |1            |2            |3            |
-|:-:|:-----------:|:-----------:|:-----------:|:-----------:|
-|0  |TitleContent |TitleContent |TitleContent |TitleContent |
-|1  |TextContent  |Null         |ImageContent |Null         |
-|2  |Null         |Null         |Null         |TextContent  |
+Example:
+
+<br>
+
+|Index |0            |1            |2            |3            |
+|:----:|:-----------:|:-----------:|:-----------:|:-----------:|
+|0     |TitleContent |TitleContent |TitleContent |TitleContent |
+|1     |TextContent  |Null         |ImageContent |Null         |
+|2     |Null         |Null         |Null         |TextContent  |
 
 <br>
 <br>
@@ -189,4 +205,24 @@ type ImageContent = {
    href: string,
    target: LinkTargetOption
 };
+```
+
+<br>
+<br>
+
+##### **ColumnAlignmentOption**
+<br>
+
+```typescript
+type ColumnAlignmentOption = 'left' | 'right' | 'center';
+```
+
+<br>
+<br>
+
+##### **LinkTargetOption**
+<br>
+
+```typescript
+type LinkTargetOption = '_blank' | '_parent' | '';
 ```
