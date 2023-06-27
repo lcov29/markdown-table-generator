@@ -13,7 +13,7 @@ type Props = {
 };
 
 
-function TableEditorRemoveColumnControl(props: Props): ReactElement {
+function TableEditorColumnControl(props: Props): ReactElement {
    const {
       position,
       highlightedColumnIndex,
@@ -122,4 +122,4 @@ function TableEditorRemoveColumnControl(props: Props): ReactElement {
 }
 
 
-export { TableEditorRemoveColumnControl };
+export { TableEditorColumnControl };
