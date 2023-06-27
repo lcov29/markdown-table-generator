@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { ReactElement } from 'react';
 import { TablePosition, TableContent, ColumnAlignmentOption } from '../../../../model/types';
 import { TableEmptyContent } from '../../content/tableEmptyContent/TableEmptyContent';
@@ -133,7 +131,9 @@ function TableEditorContentCell(props: Props): ReactElement {
    function generateColumnAddControl(): ReactElement {
       return (
          <div className="table-editor-content-cell-add-column-control-wrapper">
-            <div
+            <button
+               type="button"
+               tabIndex={-1}
                className={generateColumnAddControlStyleClass()}
                onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
                onPointerLeave={() => setSelectedColumnIndex(-2)}
@@ -150,7 +150,9 @@ function TableEditorContentCell(props: Props): ReactElement {
    function generateRowAddControl(): ReactElement {
       return (
          <div className="table-editor-content-cell-add-row-control-wrapper">
-            <div
+            <button
+               type="button"
+               tabIndex={-1}
                className={generateRowAddControlStyleClass()}
                onPointerEnter={() => setSelectedRowIndex(position.rowIndex)}
                onPointerLeave={() => setSelectedRowIndex(-2)}

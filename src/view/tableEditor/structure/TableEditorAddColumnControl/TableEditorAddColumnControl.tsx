@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { ReactElement } from 'react';
 import { TablePosition } from '../../../../model/types';
 import './tableEditorAddColumnControl.css';
@@ -47,7 +45,9 @@ function TableEditorAddColumnControl(props: Props): ReactElement {
 
    return (
       <div className="table-editor-add-column-control-wrapper">
-         <div
+         <button
+            type="button"
+            tabIndex={-1}
             className={generateStyleClass()}
             onPointerEnter={() => setSelectedColumnIndex(position.columnIndex)}
             onPointerLeave={() => setSelectedColumnIndex(-2)}

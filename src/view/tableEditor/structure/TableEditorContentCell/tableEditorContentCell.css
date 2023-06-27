@@ -48,6 +48,8 @@
 
 
 .table-editor-content-cell-add-column-control {
+   background: none;
+   border: none;
    height: 100%;
    width: 50%;
 }
@@ -55,6 +57,7 @@
 
 .table-editor-content-cell-add-column-control-active {
    background-color: lightgray;
+   border: none;
    cursor: url('../../../../icons/addColumnIcon.svg'), auto;
    height: 100%;
    width: 100%;
@@ -68,6 +71,8 @@
 
 
 .table-editor-content-cell-add-row-control {
+   background: none;
+   border: none;
    height: 50%;
    width: 100%;
 }
@@ -75,6 +80,7 @@
 
 .table-editor-content-cell-add-row-control-active {
    background-color: lightgray;
+   border: none;
    cursor: url('../../../../icons/addRowIcon.svg'), auto;
    height: 100%;
    width: 100%;
