@@ -1,0 +1,70 @@
+.table-dimension-input-page-wrapper {
+   align-items: center;
+   display: flex;
+   flex-direction: row;
+   height: 100vh;
+   justify-content: space-around;
+   width: 100vw;
+}
+
+
+.table-dimension-input-page-preview-wrapper {
+   flex-grow: 1;
+   max-height: 90vh;
+   max-width: 70vw;
+   overflow-y: auto;
+}
+
+
+.table-dimension-input-page-input-wrapper,
+.table-dimension-input-page-preview-wrapper {
+   border: 1px solid black;
+   border-radius: 10px;
+   box-shadow: 2px 2px 2px black;
+   display: flex;
+   flex-direction: column;
+   padding: 1rem;
+   row-gap: .5rem;
+}
+
+
+.table-dimension-input-page-input-wrapper h2,
+.table-dimension-input-page-preview-wrapper h2 {
+   margin-bottom: 1.5rem;
+}
+
+
+.table-dimension-input-page-input-wrapper label {
+   font-weight: bold;
+}
+
+
+.table-dimension-input-page-input-wrapper input {
+   border: 1px solid black;
+   border-radius: 5px;
+   float: right;
+   font-weight: bold;
+   text-align: center;
+   width: 3rem;
+}
+
+
+.table-dimension-input-page-input-wrapper button {
+   border: 1px solid black;
+   border-radius: 5px;
+   font-weight: bold;
+}
+
+
+.table-dimension-input-page-input-wrapper button:hover,
+.table-dimension-input-page-input-wrapper button:focus {
+   background-color: gray;
+   outline: none;
+}
+
+
+.table-dimension-input-page-control-wrapper {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 2rem;
+}
