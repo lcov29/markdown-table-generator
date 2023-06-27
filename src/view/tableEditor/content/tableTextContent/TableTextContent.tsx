@@ -55,6 +55,20 @@ function TableTextContent(props: Props): ReactElement {
    }
 
 
+   function handleAddCharacter(event: KeyboardEvent<HTMLButtonElement>) {
+      const isSpace = event.code === 'Space';
+      const input = (isSpace) ? ' ' : event.key;
+
+      const isSingleCharacter = input.length === 1;
+      if (isSingleCharacter) {
+         const newText = text + input;
+         setText(newText);
+         textContent.text = newText;
+         event.preventDefault();
+      }
+   }
+
+
    function handleKeyboardInput(event: KeyboardEvent<HTMLButtonElement>) {
       switch (event.code) {
          case 'Delete':
@@ -64,6 +78,7 @@ function TableTextContent(props: Props): ReactElement {
             handleLastCharacterDeletion();
             break;
          default:
+            handleAddCharacter(event);
             break;
       }
    }
