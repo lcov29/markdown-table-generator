@@ -38,6 +38,7 @@ function TableEditorColumnControl(props: Props): ReactElement {
 
    function handleRemoveControlClick(): void {
       removeColumnFromInternalTable(position.columnIndex);
+      resetHighlightedColumnIndex();
       triggerRerender();
    }
 
