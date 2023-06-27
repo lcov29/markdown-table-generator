@@ -8,8 +8,14 @@ type Props = {
 };
 
 
-function TablePreview(props: Props): ReactElement {
+function TablePreview(props: Props): ReactElement | null {
    const { rowTotal, columnTotal } = props;
+
+
+   const isInputInvalid = rowTotal <= 0 || columnTotal <= 0;
+   if (isInputInvalid) {
+      return null;
+   }
 
 
    function generateTableHeader(): ReactElement {
