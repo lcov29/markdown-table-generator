@@ -96,7 +96,7 @@ function TableEditor(props: Props): ReactElement {
 
       elementList.push(
          <TableEditorAddColumnControl
-            key="-1"
+            key={uuidv4()}
             position={{ rowIndex: 0, columnIndex: -1 }}
             highlightedRowIndex={highlightedRowIndex}
             selectedColumnIndex={selectedColumnIndex}
