@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { TablePosition, TableContent } from './types';
+import { TablePosition, TableContent, TitleContent } from './types';
 
 
 class InternalTableModel {
@@ -205,14 +205,18 @@ class InternalTableModel {
       const isValidTableSize = rowTotal > 0 && columnTotal > 0;
 
       if (isValidTableSize) {
-         const titleObj = { type: 'title', title: '', columnAlignment: 'left' };
-         const titleRow = new Array(columnTotal).fill(titleObj);
-         const contentRow = new Array(columnTotal).fill(null);
 
+         const titleRow: TitleContent[] = [];
+         for (let columnIndex = 0; columnIndex < columnTotal; columnIndex++) {
+            titleRow.push({ type: 'title', title: '', columnAlignment: 'left' });
+         }
          this.#table = [titleRow];
-         for (let row = 1; row < rowTotal; row++) {
+
+         const contentRow = new Array(columnTotal).fill(null);
+         for (let rowIndex = 1; rowIndex < rowTotal; rowIndex++) {
             this.#table.push(contentRow.slice());
          }
+
       } else {
          throw new RangeError('Arguments rowTotal and columnTotal must be greater than zero');
       }
