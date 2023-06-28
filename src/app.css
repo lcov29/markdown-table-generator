@@ -3,6 +3,13 @@
    font-family: "Open Sans", "Times", sans-serif !important;
 }
 
+
 body {
    background-color: rgb(230, 230, 230);
+}
+
+
+dialog {
+   top: 40%;
+   left: 40%;
 }
