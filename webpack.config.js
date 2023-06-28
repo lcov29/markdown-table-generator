@@ -39,7 +39,7 @@ const config = {
       new HtmlWebPackPlugin({
          template: path.join(__dirname, 'src', 'index.html'),
          filename: 'index.html',
-         favicon: path.join(__dirname, 'src', 'icons', 'favIcon.svg')
+         favicon: path.join(__dirname, 'src', 'icons', 'markdownIcon.svg')
       })
    ]
 };
