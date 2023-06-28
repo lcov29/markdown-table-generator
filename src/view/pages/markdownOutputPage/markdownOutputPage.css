@@ -1,4 +1,44 @@
+.markdown-output-page-wrapper {
+   align-items: center;
+   display: flex;
+   height: 100vh;
+   justify-content: center;
+   width: 100vw;
+}
+
+
+.markdown-output-page-content-wrapper {
+   border: 1px solid black;
+   border-radius: 10px;
+   box-shadow: 2px 2px 2px black;
+   display: flex;
+   flex-direction: column;
+   min-width: 25%;
+   padding: 2rem;
+   row-gap: 2rem;
+}
+
+
 .markdown-output-page-control-wrapper {
    display: flex;
    justify-content: space-between;
+}
+
+
+.markdown-output-page-content-wrapper textarea {
+   min-height: 5rem;
+   min-width: 100%;
+}
+
+
+.markdown-output-page-control-wrapper button {
+   border: 1px solid black;
+   border-radius: 10px;
+   font-size: medium;
+   font-weight: bold;
+}
+
+
+.markdown-output-page-control-wrapper button:hover {
+   background-color: lightgray;
 }
