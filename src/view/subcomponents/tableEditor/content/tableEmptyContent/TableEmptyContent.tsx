@@ -1,4 +1,4 @@
-import React, { useState, useRef, ReactElement } from 'react';
+import React, { useState, useRef, KeyboardEvent, ReactElement } from 'react';
 import { TableTextContent } from '../tableTextContent/TableTextContent';
 import { TableImageContent } from '../tableImageContent/TableImageContent';
 import { TableContent, TextContent, ImageContent, TablePosition, ColumnAlignmentOption } from '../../../../../model/types';
@@ -28,7 +28,9 @@ function TableEmptyContent(props: Props): ReactElement {
 
    const [contentPosition] = useState(position);
    const [contentAlignment] = useState(alignment);
+   const [keyboardInput, setKeyboardInput] = useState('');
    const [contentStatus, setContentStatus] = useState<TableContentStatus>('empty');
+
    const dialog = useRef<HTMLDialogElement>(null);
 
 
@@ -40,6 +42,17 @@ function TableEmptyContent(props: Props): ReactElement {
    }
 
 
+   function handleAddingTextContentViaKeyboardInput(event: KeyboardEvent<HTMLButtonElement>) {
+      const input = event.key;
+
+      const isSingleCharacter = input.length === 1;
+      if (isSingleCharacter) {
+         setKeyboardInput(input);
+         setContentStatus('text');
+      }
+   }
+
+
    function generateEmptyTableContent(): ReactElement {
       return (
          <>
@@ -47,6 +60,7 @@ function TableEmptyContent(props: Props): ReactElement {
                type="button"
                className="table-empty-content-add-button"
                onClick={openModalDialog}
+               onKeyDown={handleAddingTextContentViaKeyboardInput}
             />
             <dialog ref={dialog}>
                <strong>Add Content Element</strong>
@@ -75,19 +89,24 @@ function TableEmptyContent(props: Props): ReactElement {
    function generateNewTextContent(): ReactElement {
       const textContent: TextContent = {
          type: 'text',
-         text: '',
+         text: keyboardInput,
          isLink: false,
          href: '',
          target: ''
       };
       updateInternalModel(contentPosition, textContent);
+
+      const showDialogOnInitialRender = keyboardInput === '';
+      const focusTextDisplayOnInitialRender = keyboardInput !== '';
+
       return (
          <TableTextContent
             textContent={textContent}
             alignment={contentAlignment}
             deleteFromInternalTable={deleteFromInternalTable}
             triggerRerender={triggerRerender}
-            showDialogOnInitialRender
+            showDialogOnInitialRender={showDialogOnInitialRender}
+            focusTextDisplayOnInitialRender={focusTextDisplayOnInitialRender}
          />
       );
    }
