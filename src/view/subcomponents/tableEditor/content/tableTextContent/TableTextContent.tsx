@@ -9,7 +9,8 @@ type Props = {
    alignment: ColumnAlignmentOption,
    deleteFromInternalTable: () => void,
    triggerRerender: () => void,
-   showDialogOnInitialRender?: boolean
+   showDialogOnInitialRender?: boolean,
+   focusTextDisplayOnInitialRender?: boolean
 };
 
 
@@ -19,7 +20,8 @@ function TableTextContent(props: Props): ReactElement {
       alignment,
       deleteFromInternalTable,
       triggerRerender,
-      showDialogOnInitialRender = false
+      showDialogOnInitialRender = false,
+      focusTextDisplayOnInitialRender = false
    } = props;
 
    const [textContentObj] = useState(textContent);
@@ -28,6 +30,7 @@ function TableTextContent(props: Props): ReactElement {
    const [href, setHref] = useState(textContent.href);
    const [target, setTarget] = useState(textContent.target);
 
+   const textDisplay = useRef<HTMLButtonElement>(null);
    const dialog = useRef<HTMLDialogElement>(null);
 
 
@@ -39,7 +42,10 @@ function TableTextContent(props: Props): ReactElement {
    }
 
 
-   useEffect(() => { if (showDialogOnInitialRender) openModalDialog(); }, []);
+   useEffect(() => {
+      if (showDialogOnInitialRender) openModalDialog();
+      if (focusTextDisplayOnInitialRender) textDisplay.current?.focus();
+   }, []);
 
 
    function handleContentDeletion() {
@@ -94,6 +100,7 @@ function TableTextContent(props: Props): ReactElement {
       return (
          <button
             type="button"
+            ref={textDisplay}
             className="table-text-content-text-display-button"
             style={{ textAlign: `${alignment}` }}
             onClick={openModalDialog}
