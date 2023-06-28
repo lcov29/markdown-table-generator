@@ -14,19 +14,21 @@ type Props = {
 function MarkdownOutputPage(props: Props): ReactElement {
    const { internalTable, setPageId } = props;
 
+   const markdown = parseInternalTableToMarkdown(internalTable);
+
    return (
       <div className="markdown-output-page-wrapper">
-         <h2>Markdown Table</h2>
-         <textarea>
-            {parseInternalTableToMarkdown(internalTable)}
-         </textarea>
-         <div className="markdown-output-page-control-wrapper">
-            <button type="button" onClick={() => setPageId('table-editor-page')}>
-               Back
-            </button>
-            <button type="button" onClick={() => setPageId('landing-page')}>
-               Ok
-            </button>
+         <div className="markdown-output-page-content-wrapper">
+            <h2>Markdown Table Definition</h2>
+            <textarea defaultValue={markdown} />
+            <div className="markdown-output-page-control-wrapper">
+               <button type="button" onClick={() => setPageId('table-editor-page')}>
+                  Back
+               </button>
+               <button type="button" onClick={() => setPageId('landing-page')}>
+                  Close
+               </button>
+            </div>
          </div>
       </div>
    );
