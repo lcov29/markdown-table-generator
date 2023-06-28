@@ -26,6 +26,7 @@
 
 
 .markdown-output-page-content-wrapper textarea {
+   border: 2px solid black;
    min-height: 5rem;
    min-width: 100%;
 }
