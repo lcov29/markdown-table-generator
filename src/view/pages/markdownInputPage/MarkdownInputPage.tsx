@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { PageId } from '../pageIdType';
 import { InternalTableModel } from '../../../model/InternalTableModel';
 import { parseMarkdownToInternalTable } from '../../../parser/parseMarkdownToInternalTable';
+import './markdownInputPage.css';
 
 
 type Props = {
@@ -30,8 +31,10 @@ function MarkdownInputPage(props: Props): ReactElement {
 
    return (
       <div className="markdown-input-page-wrapper">
-         <h2>Enter Markdown Table Definition</h2>
-         <textarea onChange={(e) => handleMarkdownInput(e.target.value)} />
+         <div className="markdown-input-page-content-wrapper">
+            <h2>Enter Markdown Table Definition</h2>
+            <textarea onChange={(e) => handleMarkdownInput(e.target.value)} />
+         </div>
       </div>
    );
 }
