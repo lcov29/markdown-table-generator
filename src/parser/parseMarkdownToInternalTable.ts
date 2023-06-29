@@ -1,4 +1,5 @@
 import { TitleContent, ColumnAlignmentOption, TextContent, ImageContent, LinkTargetOption, TableContent } from '../model/types';
+import { validateMarkdown } from './markdownValidator';
 
 
 function isImageString(string: string): boolean {
@@ -167,6 +168,7 @@ function parseContentRows(markdownTable: string[][]): TableContent[][] {
 
 
 function parseMarkdownToInternalTable(markdown: string): TableContent[][] {
+   validateMarkdown(markdown);
    const markdownTableArray = parseMarkdownTableIntoArray(markdown);
    const titleRow = parseTitleRow(markdownTableArray);
    const contentRows = parseContentRows(markdownTableArray);
