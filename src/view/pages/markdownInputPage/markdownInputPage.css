@@ -20,15 +20,42 @@
 
 
 .markdown-input-page-content-wrapper textarea {
-   background-image: url('../../../icons/markdownIcon.svg');
-   background-position: center;
-   background-repeat: no-repeat;
    border: 2px solid black;
    min-height: 20rem;
    min-width: 99%;
 }
 
 
-.markdown-input-page-content-wrapper textarea:focus {
+.markdown-input-page-content-wrapper-textarea {
+   background-image: url('../../../icons/markdownIcon.svg');
+   background-position: center;
+   background-repeat: no-repeat;
+}
+
+
+.markdown-input-page-content-wrapper-textarea:focus {
    background-image: none;
+}
+
+
+.markdown-input-page-error-notification {
+   color: red;
+   font-size: medium;
+   font-weight: bold;
+}
+
+
+.markdown-input-page-edit-button {
+   background-color: green;
+   border: 1px solid black;
+   border-radius: 10px;
+   color: white;
+   font-size: medium;
+   font-weight: bold;
+   padding: .5rem;
+}
+
+
+.markdown-input-page-edit-button:hover {
+   background-color: darkgreen;
 }

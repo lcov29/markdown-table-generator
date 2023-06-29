@@ -1,7 +1,8 @@
-import React, { ReactElement } from 'react';
+import React, { useState, ReactElement } from 'react';
 import { PageId } from '../pageIdType';
 import { InternalTableModel } from '../../../model/InternalTableModel';
 import { parseMarkdownToInternalTable } from '../../../parser/parseMarkdownToInternalTable';
+import { validateMarkdown } from '../../../validator/markdownValidator';
 import './markdownInputPage.css';
 
 
@@ -13,19 +14,44 @@ type Props = {
 
 function MarkdownInputPage(props: Props): ReactElement {
    const { setInternalTable, setPageId } = props;
+   const [userInput, setUserInput] = useState('');
 
 
-   function handleMarkdownInput(markdown: string) {
+   function handleEditButtonClick() {
+      const parsedTable = parseMarkdownToInternalTable(userInput);
+      const internalTable = new InternalTableModel(1, 1);
+      internalTable.table = parsedTable;
+      setInternalTable(internalTable);
+      setPageId('table-editor-page');
+   }
+
+
+   function generateControl(): ReactElement | null {
       try {
-         const parsedTable = parseMarkdownToInternalTable(markdown);
-         const internalTable = new InternalTableModel(1, 1);
-         internalTable.table = parsedTable;
-         setInternalTable(internalTable);
-         setPageId('table-editor-page');
-      } catch (e) {
-         console.warn(`Error: ${e}`);
-         // TODO: Implement proper user alert
+         validateMarkdown(userInput);
+
+         return (
+            <button
+               type="button"
+               className="markdown-input-page-edit-button"
+               onClick={handleEditButtonClick}
+            >
+               Edit Markdown Table
+            </button>
+         );
+      } catch (e: any) {
+         const isUserInputSet = userInput !== '';
+         if (isUserInputSet) {
+            return <p className="markdown-input-page-error-notification">{e.message}</p>;
+         }
+
+         return null;
       }
+   }
+
+
+   function generateTextareaStyleClass(): string {
+      return (userInput !== '') ? '' : 'markdown-input-page-content-wrapper-textarea';
    }
 
 
@@ -33,7 +59,11 @@ function MarkdownInputPage(props: Props): ReactElement {
       <div className="markdown-input-page-wrapper">
          <div className="markdown-input-page-content-wrapper">
             <h2>Enter Markdown Table Definition</h2>
-            <textarea onChange={(e) => handleMarkdownInput(e.target.value)} />
+            <textarea
+               className={generateTextareaStyleClass()}
+               onChange={(e) => setUserInput(e.target.value)}
+            />
+            {generateControl()}
          </div>
       </div>
    );
