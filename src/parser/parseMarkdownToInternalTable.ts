@@ -73,9 +73,9 @@ function parseTitleContent(title: string, separator: string): TitleContent {
 function parseTitleRow(markdownTable: string[][]): TitleContent[] {
    const titleRow: TitleContent[] = [];
 
-   for (let i = 0; i < markdownTable[0].length; i++) {
-      const titleElement = markdownTable[0][i];
-      const separatorElement = markdownTable[1][i];
+   for (let columnIndex = 0; columnIndex < markdownTable[0].length; columnIndex++) {
+      const titleElement = markdownTable[0][columnIndex];
+      const separatorElement = markdownTable[1][columnIndex];
       titleRow.push(parseTitleContent(titleElement, separatorElement));
    }
 
