@@ -4,6 +4,9 @@ import {
    parseTitleSeparator,
    isImageString,
    isLinkString,
+   removeLeadingAndTrailingPipeCharacters,
+   splitRowIntoColumnsByUnescapedPipeCharacters,
+   trimColumnContent,
    extractAttributeValue,
    parseTitleRow,
    parseContentRows,
@@ -103,6 +106,49 @@ describe('parseMarkdownToInternalTable.isLinkString()', () => {
       assert.equal(isLinkString(''), false);
       assert.equal(isLinkString('FooBar'), false);
       assert.equal(isLinkString('<im src="SRC" alt="ALT" >'), false);
+   });
+
+});
+
+
+
+describe('parseMarkdownToInternalTable.removeLeadingAndTrailingPipeCharacters()', () => {
+
+   it('removes leading and trailing pipe characters', () => {
+      const rowList = ['|content 1 |content 2', 'content 1 |content 2|', '|content 1 |content 2|'];
+      const expectedResult = ['content 1 |content 2', 'content 1 |content 2', 'content 1 |content 2'];
+      assert.deepEqual(removeLeadingAndTrailingPipeCharacters(rowList), expectedResult);
+   });
+
+
+   it('does not alter inputs without leading and trailing pipe characters', () => {
+      const rowList = ['content 1 |content 2', 'content 3 |content 4'];
+      assert.deepEqual(removeLeadingAndTrailingPipeCharacters(rowList), rowList);
+
+   });
+
+});
+
+
+
+describe('parseMarkdownToInternalTable.splitRowIntoColumnsByUnescapedPipeCharacters()', () => {
+
+   it('splits columns correctly', () => {
+      const rowList = ['content 1 |content 2', 'content 3 |content 4', 'content 5 \\| content6'];
+      const expectedResult = [['content 1 ', 'content 2'], ['content 3 ', 'content 4'], ['content 5 \\| content6']];
+      assert.deepEqual(splitRowIntoColumnsByUnescapedPipeCharacters(rowList), expectedResult);
+   });
+
+});
+
+
+
+describe('parseMarkdownToInternalTable.trimColumnContent', () => {
+
+   it('trims column content correctly', () => {
+      const tableArray = [['    content 1', '   content 2   '], ['content 3    ', 'content 4']];
+      const expectedResult = [['content 1', 'content 2'], ['content 3', 'content 4']];
+      assert.deepEqual(trimColumnContent(tableArray), expectedResult);
    });
 
 });
