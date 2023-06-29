@@ -56,7 +56,7 @@ function checkIfMultipleRowTableHasSeparatorRow(rowArray: string[]) {
    const hasSeparatorRow = (isMultipleRowTable) ? rowArray[1].match(/[^|:-]/g) === null : false;
 
    if (isMultipleRowTable && !hasSeparatorRow) {
-      throw new Error('Row 2: Is not valid separator row');
+      throw new Error('Row 2: Is not a valid separator row');
    }
 }
 
