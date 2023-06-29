@@ -4,7 +4,7 @@ import {
    checkLeadingAndTrailingPipeCharacters,
    checkIfMultipleRowTableHasSeparatorRow,
    validateMarkdown
-} from '../../src/parser/markdownValidator';
+} from '../../src/validator/markdownValidator';
 
 
 
@@ -16,6 +16,9 @@ describe('markdownValidator.checkValidAmountOfPipeCharacters()', () => {
 
       rowArray = ['Test', 'Test', '| |', '| |||'];
       expect(() => checkValidAmountOfPipeCharacters(rowArray)).to.throw(Error, 'Row 1: No pipe characters detected');
+
+      rowArray = ['| |', '\\|', '| |', '| |||'];
+      expect(() => checkValidAmountOfPipeCharacters(rowArray)).to.throw(Error, 'Row 2: No pipe characters detected');
    });
 
 
@@ -24,6 +27,9 @@ describe('markdownValidator.checkValidAmountOfPipeCharacters()', () => {
       expect(() => checkValidAmountOfPipeCharacters(rowArray)).to.throw(Error, 'Row 2: Row needs at least two pipe characters');
 
       rowArray = ['| | |', '| | |', '|'];
+      expect(() => checkValidAmountOfPipeCharacters(rowArray)).to.throw(Error, 'Row 3: Row needs at least two pipe characters');
+
+      rowArray = ['| | |', '| | |', '|\\|'];
       expect(() => checkValidAmountOfPipeCharacters(rowArray)).to.throw(Error, 'Row 3: Row needs at least two pipe characters');
    });
 
@@ -34,11 +40,17 @@ describe('markdownValidator.checkValidAmountOfPipeCharacters()', () => {
 
       rowArray = ['| |', '| |', '| | |'];
       expect(() => checkValidAmountOfPipeCharacters(rowArray)).to.throw(Error, 'Rows have different number of pipe characters');
+
+      rowArray = ['| | \\|', '| | \\|', '| | |'];
+      expect(() => checkValidAmountOfPipeCharacters(rowArray)).to.throw(Error, 'Rows have different number of pipe characters');
    });
 
 
    it('passes input with valid amount of pipe characters', () => {
-      const rowArray = ['|   ||', '| | |', '| | |'];
+      let rowArray = ['|   ||', '| | |', '| | |'];
+      expect(() => checkValidAmountOfPipeCharacters(rowArray)).to.not.throw(Error);
+
+      rowArray = ['|   |\\||', '| | |', '| | \\| |'];
       expect(() => checkValidAmountOfPipeCharacters(rowArray)).to.not.throw(Error);
    });
 
@@ -62,6 +74,9 @@ describe('markdownValidator.checkLeadingAndTrailingPipeCharacters()', () => {
       expect(() => checkLeadingAndTrailingPipeCharacters(rowArray)).to.throw(Error, 'Row 3: Does not end with pipe character');
 
       rowArray = ['| |', '| | | bar', '| | |'];
+      expect(() => checkLeadingAndTrailingPipeCharacters(rowArray)).to.throw(Error, 'Row 2: Does not end with pipe character');
+
+      rowArray = ['| |', '| | | \\|', '| | |'];
       expect(() => checkLeadingAndTrailingPipeCharacters(rowArray)).to.throw(Error, 'Row 2: Does not end with pipe character');
    });
 
