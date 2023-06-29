@@ -1,5 +1,5 @@
 import { TitleContent, ColumnAlignmentOption, TextContent, ImageContent, LinkTargetOption, TableContent } from '../model/types';
-import { validateMarkdown } from './markdownValidator';
+import { validateMarkdown } from '../validator/markdownValidator';
 
 
 function isImageString(string: string): boolean {
