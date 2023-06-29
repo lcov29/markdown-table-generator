@@ -181,13 +181,18 @@ function parseContentRows(markdownTable: string[][]): TableContent[][] {
 }
 
 
+function addTitleRow(tableArray: TableContent[][], titleRow: TitleContent[]) {
+   tableArray.splice(0, 0, titleRow);
+}
+
+
 function parseMarkdownToInternalTable(markdown: string): TableContent[][] {
    validateMarkdown(markdown);
    const markdownTableArray = parseMarkdownTableIntoArray(markdown);
    const titleRow = parseTitleRow(markdownTableArray);
-   const contentRows = parseContentRows(markdownTableArray);
-   contentRows.splice(0, 0, titleRow); // add title row as first row
-   return contentRows;
+   const tableArray = parseContentRows(markdownTableArray);
+   addTitleRow(tableArray, titleRow);
+   return tableArray;
 }
 
 
