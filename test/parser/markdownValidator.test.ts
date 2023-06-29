@@ -94,13 +94,13 @@ describe('markdownValidator.checkIfMultipleRowTableHasSeparatorRow()', () => {
 
    it('detects missing separator row in multi row table', () => {
       const rowArray = ['|Title1 |Title2 |', '|Content |Content | '];
-      expect(() => checkIfMultipleRowTableHasSeparatorRow(rowArray)).to.throw(Error, 'Row 2: Is not valid separator row');
+      expect(() => checkIfMultipleRowTableHasSeparatorRow(rowArray)).to.throw(Error, 'Row 2: Is not a valid separator row');
    });
 
 
    it('detects invalid separator row in multi row table', () => {
       const rowArray = ['|Title1 |Title2 |', '|:--- |:---:|', '| | | '];
-      expect(() => checkIfMultipleRowTableHasSeparatorRow(rowArray)).to.throw(Error, 'Row 2: Is not valid separator row');
+      expect(() => checkIfMultipleRowTableHasSeparatorRow(rowArray)).to.throw(Error, 'Row 2: Is not a valid separator row');
    });
 
 
