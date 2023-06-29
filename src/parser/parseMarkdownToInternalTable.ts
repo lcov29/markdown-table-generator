@@ -12,18 +12,30 @@ function isLinkString(string: string): boolean {
 }
 
 
+function removeLeadingAndTrailingPipeCharacters(rowList: string[]): string[] {
+   return rowList.map((row) => row.replaceAll(/^\||\|$/g, ''));
+}
+
+
+function splitRowIntoColumnsByUnescapedPipeCharacters(rowList: string[]): string[][] {
+   return rowList.map((row) => row.split(/(?<!\\)\|/g));
+}
+
+
+function trimColumnContent(tableArray: string[][]): string[][] {
+   const trim = (columnContent: string) => columnContent.trim();
+   return tableArray.map((row) => row.map(trim));
+}
+
+
 function parseMarkdownTableIntoArray(markdownTable: string): string[][] {
-   let rowArray = markdownTable.split('\n');
+   let rowList: string[];
+   let tableArray: string[][];
 
-   // remove leading and trailing pipe characters per row
-   rowArray = rowArray.map((row) => row.substring(1, row.length - 1));
-
-   const tableArray = rowArray.map(
-      (row) => {
-         const splittedRowArray = row.split('|');
-         return splittedRowArray.map((cellContent) => cellContent.trim());
-      }
-   );
+   rowList = markdownTable.split('\n');
+   rowList = removeLeadingAndTrailingPipeCharacters(rowList);
+   tableArray = splitRowIntoColumnsByUnescapedPipeCharacters(rowList);
+   tableArray = trimColumnContent(tableArray);
 
    return tableArray;
 }
@@ -180,6 +192,9 @@ function parseMarkdownToInternalTable(markdown: string): TableContent[][] {
 export {
    isImageString,
    isLinkString,
+   removeLeadingAndTrailingPipeCharacters,
+   splitRowIntoColumnsByUnescapedPipeCharacters,
+   trimColumnContent,
    parseMarkdownTableIntoArray,
    parseTitleSeparator,
    parseTitleContent,
