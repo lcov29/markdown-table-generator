@@ -2,8 +2,13 @@ function checkValidAmountOfPipeCharacters(rowArray: string[]) {
    let pipeCharacterAmount = 0;
 
    const checkPipeCharacters = (row: string, index: number) => {
-      const pipeCharacterList = row.match(/(?<!\\)\|/g);
-      const rowPipeCharacterAmount = (pipeCharacterList) ? pipeCharacterList.length : 0;
+      const unescapedPipeCharacterList = row.match(/(?<!\\)\|/g);
+
+      let rowPipeCharacterAmount = 0;
+      if (unescapedPipeCharacterList) {
+         rowPipeCharacterAmount = unescapedPipeCharacterList.length;
+      }
+
       const isInitializationRequired = pipeCharacterAmount === 0;
       const hasRowNoPipeCharacter = rowPipeCharacterAmount === 0;
       const hasRowInvalidPipeCharacterAmount = rowPipeCharacterAmount < 2;
