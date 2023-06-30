@@ -28,16 +28,17 @@ function trimColumnContent(tableArray: string[][]): string[][] {
 }
 
 
-function parseMarkdownTableIntoArray(markdownTable: string): string[][] {
-   let rowList: string[];
-   let tableArray: string[][];
+function extractAttributeValue(attribute: string, string: string): string {
+   const regExp = new RegExp(`${attribute}=".*?"`, 'i');
+   const attributeMatch = regExp.exec(string);
 
-   rowList = markdownTable.split('\n');
-   rowList = removeLeadingAndTrailingPipeCharacters(rowList);
-   tableArray = splitRowIntoColumnsByUnescapedPipeCharacters(rowList);
-   tableArray = trimColumnContent(tableArray);
-
-   return tableArray;
+   if (attributeMatch) {
+      let value = attributeMatch[0];
+      value = value.replace(`${attribute}=`, '');
+      value = value.replaceAll('"', '');
+      return value;
+   }
+   return '';
 }
 
 
@@ -61,44 +62,6 @@ function parseTitleSeparator(separator: string): ColumnAlignmentOption {
 }
 
 
-function parseTitleContent(title: string, separator: string): TitleContent {
-   return {
-      type: 'title',
-      title,
-      columnAlignment: parseTitleSeparator(separator)
-   };
-}
-
-
-function parseTitleRow(markdownTable: string[][]): TitleContent[] {
-   const titleRow: TitleContent[] = [];
-   const hasSeparator = markdownTable.length > 1;
-
-   for (let columnIndex = 0; columnIndex < markdownTable[0].length; columnIndex++) {
-      const titleElement = markdownTable[0][columnIndex];
-      const separatorElement = (hasSeparator) ? markdownTable[1][columnIndex] : '';
-      const titleContent = parseTitleContent(titleElement, separatorElement);
-      titleRow.push(titleContent);
-   }
-
-   return titleRow;
-}
-
-
-function extractAttributeValue(attribute: string, string: string): string {
-   const regExp = new RegExp(`${attribute}=".*?"`, 'i');
-   const attributeMatch = regExp.exec(string);
-
-   if (attributeMatch) {
-      let value = attributeMatch[0];
-      value = value.replace(`${attribute}=`, '');
-      value = value.replaceAll('"', '');
-      return value;
-   }
-   return '';
-}
-
-
 function parseLinkText(string: string): string {
    const innerContent = />.+</g.exec(string);
 
@@ -111,22 +74,11 @@ function parseLinkText(string: string): string {
 }
 
 
-function parseTextContent(string: string): TextContent {
-   if (isLinkString(string)) {
-      return {
-         type: 'text',
-         text: parseLinkText(string),
-         isLink: true,
-         href: extractAttributeValue('href', string),
-         target: extractAttributeValue('target', string) as LinkTargetOption,
-      };
-   }
+function parseTitleContent(title: string, separator: string): TitleContent {
    return {
-      type: 'text',
-      text: string,
-      isLink: false,
-      href: '',
-      target: ''
+      type: 'title',
+      title,
+      columnAlignment: parseTitleSeparator(separator)
    };
 }
 
@@ -159,11 +111,59 @@ function parseImageContent(string: string): ImageContent {
 }
 
 
+function parseTextContent(string: string): TextContent {
+   if (isLinkString(string)) {
+      return {
+         type: 'text',
+         text: parseLinkText(string),
+         isLink: true,
+         href: extractAttributeValue('href', string),
+         target: extractAttributeValue('target', string) as LinkTargetOption,
+      };
+   }
+   return {
+      type: 'text',
+      text: string,
+      isLink: false,
+      href: '',
+      target: ''
+   };
+}
+
+
 function parseNonTitleContent(string: string): TableContent {
    if (isImageString(string)) {
       return parseImageContent(string);
    }
    return (string) ? parseTextContent(string) : null;
+}
+
+
+function parseMarkdownTableIntoArray(markdownTable: string): string[][] {
+   let rowList: string[];
+   let tableArray: string[][];
+
+   rowList = markdownTable.split('\n');
+   rowList = removeLeadingAndTrailingPipeCharacters(rowList);
+   tableArray = splitRowIntoColumnsByUnescapedPipeCharacters(rowList);
+   tableArray = trimColumnContent(tableArray);
+
+   return tableArray;
+}
+
+
+function parseTitleRow(markdownTable: string[][]): TitleContent[] {
+   const titleRow: TitleContent[] = [];
+   const hasSeparator = markdownTable.length > 1;
+
+   for (let columnIndex = 0; columnIndex < markdownTable[0].length; columnIndex++) {
+      const titleElement = markdownTable[0][columnIndex];
+      const separatorElement = (hasSeparator) ? markdownTable[1][columnIndex] : '';
+      const titleContent = parseTitleContent(titleElement, separatorElement);
+      titleRow.push(titleContent);
+   }
+
+   return titleRow;
 }
 
 
@@ -202,12 +202,13 @@ export {
    removeLeadingAndTrailingPipeCharacters,
    splitRowIntoColumnsByUnescapedPipeCharacters,
    trimColumnContent,
-   parseMarkdownTableIntoArray,
+   extractAttributeValue,
    parseTitleSeparator,
+   parseLinkText,
    parseTitleContent,
+   parseMarkdownTableIntoArray,
    parseTitleRow,
    parseContentRows,
-   extractAttributeValue,
-   parseImageContent,
+   addTitleRow,
    parseMarkdownToInternalTable
 };
