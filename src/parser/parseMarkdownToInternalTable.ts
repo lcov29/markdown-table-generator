@@ -48,6 +48,7 @@ function extractAttributeValue(attribute: string, string: string): string {
       value = value.replaceAll('"', '');
       return value;
    }
+
    return '';
 }
 
@@ -123,11 +124,46 @@ function parseLinkTitle(string: string): string {
       return extractAttributeValue('title', string);
    }
 
-   if (isMarkdownLinkString(string)) {
+   if (isMarkdownLinkString(string) || isMarkdownImageString(string)) {
       const innerContent = /".*"/g.exec(string);
       if (innerContent) {
          const title = innerContent[0].replaceAll('"', '');
          return title.trim();
+      }
+   }
+
+   return '';
+}
+
+
+function parseImageAltText(string: string): string {
+   if (isImageString(string)) {
+      return extractAttributeValue('alt', string);
+   }
+
+   if (isMarkdownImageString(string)) {
+      const innerContent = /\[.+\]/g.exec(string);
+      if (innerContent) {
+         const alt = innerContent[0].substring(1, innerContent[0].length - 1);
+         return alt.trim();
+      }
+   }
+
+   return '';
+}
+
+
+function parseImageSrcText(string: string): string {
+   if (isImageString(string)) {
+      return extractAttributeValue('src', string);
+   }
+
+   if (isMarkdownImageString(string)) {
+      const innerContent = /\(.+\)/g.exec(string);
+      if (innerContent) {
+         let src = innerContent[0].substring(1, innerContent[0].length - 1);
+         src = src.replaceAll(/".*"/g, '');
+         return src.trim();
       }
    }
 
@@ -145,17 +181,20 @@ function parseTitleContent(title: string, separator: string): TitleContent {
 
 
 function parseImageContent(string: string): ImageContent {
-   const isLink = isLinkString(string);
+   const isLink = isLinkString(string) || isMarkdownLinkString(string);
+   const href = (isLink) ? parseLinkHref(string) : '';
+   const target = (isLink) ? parseLinkTarget(string) : '';
+
    return {
       type: 'image',
-      src: extractAttributeValue('src', string),
-      alt: extractAttributeValue('alt', string),
+      src: parseImageSrcText(string),
+      alt: parseImageAltText(string),
       width: extractAttributeValue('width', string),
       height: extractAttributeValue('height', string),
-      title: extractAttributeValue('title', string),
+      title: parseLinkTitle(string),
       isLink,
-      href: (isLink) ? extractAttributeValue('href', string) : '',
-      target: (isLink) ? extractAttributeValue('target', string) as LinkTargetOption : ''
+      href,
+      target
    };
 }
 
@@ -172,7 +211,7 @@ function parseTextContent(string: string): TextContent {
 
 
 function parseNonTitleContent(string: string): TableContent {
-   if (isImageString(string)) {
+   if (isImageString(string) || isMarkdownImageString(string)) {
       return parseImageContent(string);
    }
    return (string) ? parseTextContent(string) : null;
