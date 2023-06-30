@@ -62,7 +62,8 @@ describe('parseInternalTableToMarkdown.parseTextContent()', () => {
          text: 'FooBar',
          isLink: false,
          href: '',
-         target: ''
+         target: '',
+         title: ''
       };
       assert.equal(parseTextContent(textContent), 'FooBar ');
    });
@@ -138,7 +139,8 @@ describe('parseInternalTableToMarkdown.parseTableContent()', () => {
          text: 'FooBar',
          isLink: false,
          href: '',
-         target: ''
+         target: '',
+         title: ''
       };
       assert.equal(parseTableContent(textContent), 'FooBar ');
    });
@@ -194,7 +196,7 @@ describe('parseInternalTableToMarkdown.parseInternalTableTitleRowToMarkdown()', 
             { type: 'title', title: 'Header3', columnAlignment: 'center' }
          ],
          [
-            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '', title: '' },
             {
                type: 'image',
                src: 'https://test.com/image.jpg',
@@ -208,7 +210,7 @@ describe('parseInternalTableToMarkdown.parseInternalTableTitleRowToMarkdown()', 
             }
          ],
          [
-            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '', title: '' },
             null,
             {
                type: 'image',
@@ -246,7 +248,7 @@ describe('parseInternalTableToMarkdown.parseInternalTableContentRowsToMarkdown()
             { type: 'title', title: 'Header3', columnAlignment: 'center' }
          ],
          [
-            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '', title: '' },
             null,
             {
                type: 'image',
@@ -261,7 +263,7 @@ describe('parseInternalTableToMarkdown.parseInternalTableContentRowsToMarkdown()
             }
          ],
          [
-            { type: 'text', text: 'Some Other Text', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Some Other Text', isLink: false, href: '', target: '', title: '' },
             null,
             {
                type: 'image',
@@ -311,7 +313,7 @@ describe('parseInternalTableToMarkdown.parseInternalTableToMarkdown()', () => {
             { type: 'title', title: 'Header2', columnAlignment: 'right' },
          ],
          [
-            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '', title: '' },
             {
                type: 'image',
                src: 'https://test.com/image.jpg',

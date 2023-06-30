@@ -220,12 +220,12 @@ describe('parseMarkdownToInternalTable.parseContentRows()', () => {
       ];
       const expectedResult: TableContent[][] = [
          [
-            { type: 'text', text: 'Content1.1', isLink: false, href: '', target: '' },
-            { type: 'text', text: 'Content1.2', isLink: false, href: '', target: '' },
-            { type: 'text', text: 'Content1.3', isLink: false, href: '', target: '' }
+            { type: 'text', text: 'Content1.1', isLink: false, href: '', target: '', title: '' },
+            { type: 'text', text: 'Content1.2', isLink: false, href: '', target: '', title: '' },
+            { type: 'text', text: 'Content1.3', isLink: false, href: '', target: '', title: '' }
          ],
          [
-            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content2.1', isLink: false, href: '', target: '', title: '' },
             {
                type: 'image',
                src: 'image/source/name.jpg',
@@ -237,7 +237,7 @@ describe('parseMarkdownToInternalTable.parseContentRows()', () => {
                href: '',
                target: ''
             },
-            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '' }
+            { type: 'text', text: 'Content2.3', isLink: false, href: '', target: '', title: '' }
          ],
          [
             {
@@ -245,9 +245,10 @@ describe('parseMarkdownToInternalTable.parseContentRows()', () => {
                text: 'Link Text',
                isLink: true,
                href: 'https://test.com',
-               target: '_blank'
+               target: '_blank',
+               title: ''
             },
-            { type: 'text', text: 'Content3.2', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Content3.2', isLink: false, href: '', target: '', title: '' },
             {
                type: 'image',
                src: 'https://domain.com/picture.jpg',
@@ -277,7 +278,7 @@ describe('parseMarkdownToInternalTable.parseMarkdownToInternalTable()', () => {
             { type: 'title', title: 'Header2', columnAlignment: 'right' },
          ],
          [
-            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '' },
+            { type: 'text', text: 'Some Text', isLink: false, href: '', target: '', title: '' },
             {
                type: 'image',
                src: 'https://test.com/image.jpg',
