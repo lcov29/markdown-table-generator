@@ -92,7 +92,8 @@ function TableEmptyContent(props: Props): ReactElement {
          text: keyboardInput,
          isLink: false,
          href: '',
-         target: ''
+         target: '',
+         title: ''
       };
       updateInternalModel(contentPosition, textContent);
 

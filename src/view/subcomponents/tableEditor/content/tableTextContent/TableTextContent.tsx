@@ -29,6 +29,7 @@ function TableTextContent(props: Props): ReactElement {
    const [isLink, setIsLink] = useState(textContent.isLink);
    const [href, setHref] = useState(textContent.href);
    const [target, setTarget] = useState(textContent.target);
+   const [title, setTitle] = useState(textContent.title);
 
    const textDisplay = useRef<HTMLButtonElement>(null);
    const dialog = useRef<HTMLDialogElement>(null);
@@ -92,7 +93,7 @@ function TableTextContent(props: Props): ReactElement {
 
    function generateTextDisplay(): ReactElement {
       const linkText = (
-         <a href={href} target={target} onClick={(e) => e.stopPropagation()}>
+         <a href={href} target={target} title={title} onClick={(e) => e.stopPropagation()}>
             {text}
          </a>
       );
@@ -141,6 +142,17 @@ function TableTextContent(props: Props): ReactElement {
                   <option value="_blank">_blank</option>
                   <option value="_parent">_parent</option>
                </select>
+               <label htmlFor="table-text-content-dialog-title-input">title</label>
+               <input
+                  id="table-text-content-dialog-title-input"
+                  type="text"
+                  name="titleInput"
+                  value={title}
+                  onChange={(e) => {
+                     setTitle(e.target.value);
+                     textContentObj.title = e.target.value;
+                  }}
+               />
             </>
          );
       }
