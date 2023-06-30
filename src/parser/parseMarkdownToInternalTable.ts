@@ -112,21 +112,13 @@ function parseImageContent(string: string): ImageContent {
 
 
 function parseTextContent(string: string): TextContent {
-   if (isLinkString(string)) {
-      return {
-         type: 'text',
-         text: parseLinkText(string),
-         isLink: true,
-         href: extractAttributeValue('href', string),
-         target: extractAttributeValue('target', string) as LinkTargetOption,
-      };
-   }
+   const isLink = isLinkString(string);
    return {
       type: 'text',
-      text: string,
-      isLink: false,
-      href: '',
-      target: ''
+      text: (isLink) ? parseLinkText(string) : string,
+      isLink,
+      href: (isLink) ? extractAttributeValue('href', string) : '',
+      target: (isLink) ? extractAttributeValue('target', string) as LinkTargetOption : ''
    };
 }
 
