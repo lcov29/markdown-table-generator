@@ -22,16 +22,3 @@
    justify-content: space-between;
    margin: 5rem 2rem 2rem 2rem;
 }
-
-
-.table-editor-page-control-wrapper button {
-   border: 1px solid black;
-   border-radius: 5px;
-   font-size: medium;
-   font-weight: bold;
-}
-
-
-.table-editor-page-control-wrapper button:hover {
-   background-color: lightgray;
-}

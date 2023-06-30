@@ -59,8 +59,8 @@ function TableDimensionInputPage(props: Props): ReactElement {
                   />
                </label>
                <div className="table-dimension-input-page-control-wrapper">
-                  <button type="button" onClick={handleBackClick}>Back</button>
-                  <button type="button" onClick={handleInputCompletion}>OK</button>
+                  <button type="button" className="app-button" onClick={handleBackClick}>Back</button>
+                  <button type="button" className="app-button" onClick={handleInputCompletion}>OK</button>
                </div>
             </div>
          </div>

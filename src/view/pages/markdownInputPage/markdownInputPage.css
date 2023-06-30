@@ -46,16 +46,10 @@
 
 
 .markdown-input-page-edit-button {
-   background-color: green;
-   border: 1px solid black;
-   border-radius: 10px;
-   color: white;
-   font-size: medium;
-   font-weight: bold;
-   padding: .5rem;
+   background-color: rgb(6, 112, 6) !important;
 }
 
 
 .markdown-input-page-edit-button:hover {
-   background-color: darkgreen;
+   background-color: rgb(9, 92, 9) !important;
 }

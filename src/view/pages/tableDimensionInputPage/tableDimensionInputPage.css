@@ -49,20 +49,6 @@
 }
 
 
-.table-dimension-input-page-input-wrapper button {
-   border: 1px solid black;
-   border-radius: 5px;
-   font-weight: bold;
-}
-
-
-.table-dimension-input-page-input-wrapper button:hover,
-.table-dimension-input-page-input-wrapper button:focus {
-   background-color: gray;
-   outline: none;
-}
-
-
 .table-dimension-input-page-control-wrapper {
    display: flex;
    justify-content: space-between;

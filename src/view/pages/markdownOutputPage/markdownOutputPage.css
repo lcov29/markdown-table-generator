@@ -30,16 +30,3 @@
    min-height: 5rem;
    min-width: 100%;
 }
-
-
-.markdown-output-page-control-wrapper button {
-   border: 1px solid black;
-   border-radius: 10px;
-   font-size: medium;
-   font-weight: bold;
-}
-
-
-.markdown-output-page-control-wrapper button:hover {
-   background-color: lightgray;
-}

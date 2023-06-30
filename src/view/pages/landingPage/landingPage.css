@@ -28,17 +28,5 @@
 
 
 .landing-page-button {
-   background: none;
-   border: 2px solid black;
-   border-radius: 10px;
-   box-shadow: 2px 2px 2px black;
-   font-size: x-large;
-   font-weight: 900;
-}
-
-
-.landing-page-button:hover,
-.landing-page-button:focus {
-   background-color: gray;
-   transition: background-color 1s;
+   font-size: x-large !important;
 }

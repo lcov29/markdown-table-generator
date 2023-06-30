@@ -19,10 +19,10 @@ function TableEditorPage(props: Props): ReactElement {
          <h2>Table Editor</h2>
          <TableEditor internalTable={internalTable} />
          <div className="table-editor-page-control-wrapper">
-            <button type="button" onClick={() => setPageId('landing-page')}>
+            <button type="button" className="app-button" onClick={() => setPageId('landing-page')}>
                Back
             </button>
-            <button type="button" onClick={() => setPageId('markdown-output-page')}>
+            <button type="button" className="app-button" onClick={() => setPageId('markdown-output-page')}>
                Generate Markdown
             </button>
          </div>

@@ -17,14 +17,14 @@ function LandingPage(props: Props): ReactElement {
             <h2>Markdown Table Generator</h2>
             <button
                type="button"
-               className="landing-page-button"
+               className="app-button landing-page-button"
                onClick={() => setPageId('table-dimension-input-page')}
             >
                Create New Table
             </button>
             <button
                type="button"
-               className="landing-page-button"
+               className="app-button landing-page-button"
                onClick={() => setPageId('markdown-input-page')}
             >
                Edit Existing Table

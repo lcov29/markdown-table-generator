@@ -33,7 +33,7 @@ function MarkdownInputPage(props: Props): ReactElement {
          return (
             <button
                type="button"
-               className="markdown-input-page-edit-button"
+               className="app-button markdown-input-page-edit-button"
                onClick={handleEditButtonClick}
             >
                Edit Markdown Table

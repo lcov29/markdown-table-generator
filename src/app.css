@@ -14,3 +14,21 @@ dialog {
    left: 40%;
    top: 40%;
 }
+
+
+.app-button {
+   background-color: rgb(19, 19, 104);
+   border: 1px solid black;
+   border-radius: 10px;
+   color: white;
+   font-size: medium;
+   font-weight: bold;
+   padding: .5rem;
+}
+
+
+.app-button:hover,
+.app-button:focus {
+   background-color: rgb(46, 46, 219);
+   transition: background-color .7s;
+}

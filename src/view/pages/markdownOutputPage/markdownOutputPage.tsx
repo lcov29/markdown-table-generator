@@ -22,10 +22,18 @@ function MarkdownOutputPage(props: Props): ReactElement {
             <h2>Markdown Table Definition</h2>
             <textarea defaultValue={markdown} />
             <div className="markdown-output-page-control-wrapper">
-               <button type="button" onClick={() => setPageId('table-editor-page')}>
+               <button
+                  type="button"
+                  className="app-button"
+                  onClick={() => setPageId('table-editor-page')}
+               >
                   Back
                </button>
-               <button type="button" onClick={() => setPageId('landing-page')}>
+               <button
+                  type="button"
+                  className="app-button"
+                  onClick={() => setPageId('landing-page')}
+               >
                   Close
                </button>
             </div>
