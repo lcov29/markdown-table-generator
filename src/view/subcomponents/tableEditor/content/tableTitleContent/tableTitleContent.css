@@ -42,6 +42,7 @@
 
 .table-title-content-dialog-control-close-button {
    border: 1px solid black;
+   border-radius: 10px;
    font-weight: bold;
 }
 

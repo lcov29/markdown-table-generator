@@ -67,14 +67,14 @@ function TableEmptyContent(props: Props): ReactElement {
                <div className="table-empty-content-dialog-button-wrapper">
                   <button
                      type="button"
-                     className="table-empty-content-dialog-button"
+                     className="app-button table-empty-content-dialog-button"
                      onClick={() => setContentStatus('text')}
                   >
                      Text
                   </button>
                   <button
                      type="button"
-                     className="table-empty-content-dialog-button"
+                     className="app-button table-empty-content-dialog-button"
                      onClick={() => setContentStatus('image')}
                   >
                      Image

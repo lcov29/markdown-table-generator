@@ -38,6 +38,7 @@
 .table-text-content-dialog-control-delete-button {
    background-color: rgb(255, 0, 0);
    border: 1px solid black;
+   border-radius: 10px;
    color: white;
    font-weight: bold;
 }
@@ -50,6 +51,7 @@
 
 .table-text-content-dialog-control-close-button {
    border: 1px solid black;
+   border-radius: 10px;
    font-weight: bold;
 }
 
