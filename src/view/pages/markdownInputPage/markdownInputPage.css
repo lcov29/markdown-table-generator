@@ -1,12 +1,3 @@
-.markdown-input-page-wrapper {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 100vw;
-   height: 100vh;
-}
-
-
 .markdown-input-page-content-wrapper {
    display: flex;
    flex-direction: column;

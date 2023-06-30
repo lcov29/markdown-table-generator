@@ -16,6 +16,15 @@ dialog {
 }
 
 
+.page-wrapper {
+   align-items: center;
+   display: flex;
+   height: 100vh;
+   justify-content: center;
+   width: 100vw;
+}
+
+
 .control-wrapper {
    border-color: rgb(19, 19, 104);
    border: 3px solid black;

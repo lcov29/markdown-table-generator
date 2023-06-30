@@ -56,7 +56,7 @@ function MarkdownInputPage(props: Props): ReactElement {
 
 
    return (
-      <div className="markdown-input-page-wrapper">
+      <div className="page-wrapper">
          <div className="control-wrapper markdown-input-page-content-wrapper">
             <h2>Enter Markdown Table Definition</h2>
             <textarea

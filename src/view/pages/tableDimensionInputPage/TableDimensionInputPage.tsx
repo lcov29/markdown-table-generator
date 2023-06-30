@@ -36,7 +36,7 @@ function TableDimensionInputPage(props: Props): ReactElement {
 
 
    return (
-      <div className="table-dimension-input-page-wrapper">
+      <div className="page-wrapper table-dimension-input-page-wrapper">
          <div className="table-dimension-input-page-content-wrapper">
             <div className="control-wrapper table-dimension-input-page-input-wrapper">
                <h2>Table Dimension</h2>

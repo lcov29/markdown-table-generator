@@ -17,7 +17,7 @@ function MarkdownOutputPage(props: Props): ReactElement {
    const markdown = parseInternalTableToMarkdown(internalTable);
 
    return (
-      <div className="markdown-output-page-wrapper">
+      <div className="page-wrapper">
          <div className="control-wrapper markdown-output-page-content-wrapper">
             <h2>Markdown Table Definition</h2>
             <textarea defaultValue={markdown} />
