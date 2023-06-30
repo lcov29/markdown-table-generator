@@ -170,10 +170,9 @@ function parseTitleRow(markdownTable: string[][]): TitleContent[] {
 function parseContentRows(markdownTable: string[][]): TableContent[][] {
    const parsedContentRowList: TableContent[][] = [];
 
-   for (let row = 2; row < markdownTable.length; row++) {
-      const parsedContentRow = markdownTable[row].map(
-         (cellContent) => parseNonTitleContent(cellContent)
-      );
+   for (let rowIndex = 2; rowIndex < markdownTable.length; rowIndex++) {
+      const row = markdownTable[rowIndex];
+      const parsedContentRow = row.map((cellContent) => parseNonTitleContent(cellContent));
       parsedContentRowList.push(parsedContentRow);
    }
 
