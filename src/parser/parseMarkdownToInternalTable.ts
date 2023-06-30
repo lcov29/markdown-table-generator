@@ -7,8 +7,18 @@ function isImageString(string: string): boolean {
 }
 
 
+function isMarkdownImageString(string: string): boolean {
+   return /!\[.*?\]\(.*?\)/g.test(string);
+}
+
+
 function isLinkString(string: string): boolean {
    return /<a\s*href=".*".*>.*<\/a>/g.test(string);
+}
+
+
+function isMarkdownLinkString(string: string): boolean {
+   return /^\[.*?\]\(.*?\)/g.test(string);
 }
 
 
@@ -63,11 +73,62 @@ function parseTitleSeparator(separator: string): ColumnAlignmentOption {
 
 
 function parseLinkText(string: string): string {
-   const innerContent = />.+</g.exec(string);
+   let innerContent;
+
+   if (isLinkString(string)) {
+      innerContent = />.+</g.exec(string);
+   }
+
+   if (isMarkdownLinkString(string)) {
+      innerContent = /\[.+\]/g.exec(string);
+   }
 
    if (innerContent) {
       const linkText = innerContent[0].substring(1, innerContent[0].length - 1);
       return linkText;
+   }
+
+   return '';
+}
+
+
+function parseLinkHref(string: string): string {
+   if (isLinkString(string)) {
+      return extractAttributeValue('href', string);
+   }
+
+   if (isMarkdownLinkString(string)) {
+      const innerContent = /\([^"]*/g.exec(string);
+      if (innerContent) {
+         let href = innerContent[0].replace('(', '');
+         href = href.replace(')', '');
+         return href.trim();
+      }
+   }
+
+   return '';
+}
+
+
+function parseLinkTarget(string: string): LinkTargetOption {
+   if (isLinkString(string)) {
+      return extractAttributeValue('target', string) as LinkTargetOption;
+   }
+   return '_blank';
+}
+
+
+function parseLinkTitle(string: string): string {
+   if (isLinkString(string)) {
+      return extractAttributeValue('title', string);
+   }
+
+   if (isMarkdownLinkString(string)) {
+      const innerContent = /".*"/g.exec(string);
+      if (innerContent) {
+         const title = innerContent[0].replaceAll('"', '');
+         return title.trim();
+      }
    }
 
    return '';
@@ -100,14 +161,13 @@ function parseImageContent(string: string): ImageContent {
 
 
 function parseTextContent(string: string): TextContent {
-   const isLink = isLinkString(string);
-   return {
-      type: 'text',
-      text: (isLink) ? parseLinkText(string) : string,
-      isLink,
-      href: (isLink) ? extractAttributeValue('href', string) : '',
-      target: (isLink) ? extractAttributeValue('target', string) as LinkTargetOption : ''
-   };
+   const isLink = isLinkString(string) || isMarkdownLinkString(string);
+   const text = (isLink) ? parseLinkText(string) : string;
+   const href = (isLink) ? parseLinkHref(string) : '';
+   const target = (isLink) ? parseLinkTarget(string) : '';
+   const title = (isLink) ? parseLinkTitle(string) : '';
+
+   return { type: 'text', text, isLink, href, target, title };
 }
 
 
