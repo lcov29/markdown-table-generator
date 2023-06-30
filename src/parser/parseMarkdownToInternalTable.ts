@@ -136,7 +136,7 @@ function parseLinkTitle(string: string): string {
 }
 
 
-function parseImageAltText(string: string): string {
+function parseImageAlt(string: string): string {
    if (isImageString(string)) {
       return extractAttributeValue('alt', string);
    }
@@ -153,7 +153,7 @@ function parseImageAltText(string: string): string {
 }
 
 
-function parseImageSrcText(string: string): string {
+function parseImageSrc(string: string): string {
    if (isImageString(string)) {
       return extractAttributeValue('src', string);
    }
@@ -187,8 +187,8 @@ function parseImageContent(string: string): ImageContent {
 
    return {
       type: 'image',
-      src: parseImageSrcText(string),
-      alt: parseImageAltText(string),
+      src: parseImageSrc(string),
+      alt: parseImageAlt(string),
       width: extractAttributeValue('width', string),
       height: extractAttributeValue('height', string),
       title: parseLinkTitle(string),
