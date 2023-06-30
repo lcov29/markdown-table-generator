@@ -8,14 +8,10 @@
 
 
 .landing-page-control-wrapper {
-   border: 2px solid black;
-   border-radius: 10px;
-   box-shadow: 2px 2px 2px;
    display: grid;
    grid-template-columns: 1fr 1fr;
    grid-template-rows: min-content auto;
    height: 40vh;
-   padding: 1rem 2rem 2rem 2rem;
    row-gap: 1.5rem;
    column-gap: 2rem;
    width: 40vw;

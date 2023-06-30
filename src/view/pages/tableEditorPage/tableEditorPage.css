@@ -1,14 +1,11 @@
 .table-editor-page-wrapper {
-   border: 1px solid black;
-   border-radius: 10px;
-   box-shadow: 2px 2px 2px black;
    display: flex;
    flex-direction: column;
    height: 88vh;
    justify-content: space-between;
    margin: 4vh 4vw;
    overflow: auto;
-   padding: 2vh 2vw;
+   padding: 2vh 2vw !important;
 }
 
 

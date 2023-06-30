@@ -15,7 +15,7 @@ function TableEditorPage(props: Props): ReactElement {
    const { internalTable, setPageId } = props;
 
    return (
-      <div className="table-editor-page-wrapper">
+      <div className="control-wrapper table-editor-page-wrapper">
          <h2>Table Editor</h2>
          <TableEditor internalTable={internalTable} />
          <div className="table-editor-page-control-wrapper">

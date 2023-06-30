@@ -16,6 +16,15 @@ dialog {
 }
 
 
+.control-wrapper {
+   border-color: rgb(19, 19, 104);
+   border: 3px solid black;
+   border-radius: 10px;
+   box-shadow: 2px 2px 2px black;
+   padding: 2rem;
+}
+
+
 .app-button {
    background-color: rgb(19, 19, 104);
    border: 1px solid black;

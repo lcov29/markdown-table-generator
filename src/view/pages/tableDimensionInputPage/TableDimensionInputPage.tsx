@@ -38,7 +38,7 @@ function TableDimensionInputPage(props: Props): ReactElement {
    return (
       <div className="table-dimension-input-page-wrapper">
          <div className="table-dimension-input-page-content-wrapper">
-            <div className="table-dimension-input-page-input-wrapper">
+            <div className="control-wrapper table-dimension-input-page-input-wrapper">
                <h2>Table Dimension</h2>
                <label>
                   Row
@@ -64,7 +64,7 @@ function TableDimensionInputPage(props: Props): ReactElement {
                </div>
             </div>
          </div>
-         <div className="table-dimension-input-page-preview-wrapper">
+         <div className="control-wrapper table-dimension-input-page-preview-wrapper">
             <h2>Table Preview</h2>
             <TablePreview rowTotal={rowInput} columnTotal={columnInput} />
          </div>

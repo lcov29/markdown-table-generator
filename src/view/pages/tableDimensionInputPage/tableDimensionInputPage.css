@@ -18,12 +18,8 @@
 
 .table-dimension-input-page-input-wrapper,
 .table-dimension-input-page-preview-wrapper {
-   border: 1px solid black;
-   border-radius: 10px;
-   box-shadow: 2px 2px 2px black;
    display: flex;
    flex-direction: column;
-   padding: 1rem;
    row-gap: .5rem;
 }
 

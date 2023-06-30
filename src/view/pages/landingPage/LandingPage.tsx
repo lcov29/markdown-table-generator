@@ -13,7 +13,7 @@ function LandingPage(props: Props): ReactElement {
 
    return (
       <div className="landing-page-wrapper">
-         <div className="landing-page-control-wrapper">
+         <div className="control-wrapper landing-page-control-wrapper">
             <h2>Markdown Table Generator</h2>
             <button
                type="button"

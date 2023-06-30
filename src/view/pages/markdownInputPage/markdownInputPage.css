@@ -8,13 +8,9 @@
 
 
 .markdown-input-page-content-wrapper {
-   border: 1px solid black;
-   border-radius: 10px;
-   box-shadow: 2px 2px 2px black;
    display: flex;
    flex-direction: column;
    min-width: 50%;
-   padding: 2rem;
    row-gap: 2rem;
 }
 

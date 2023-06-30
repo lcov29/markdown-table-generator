@@ -18,7 +18,7 @@ function MarkdownOutputPage(props: Props): ReactElement {
 
    return (
       <div className="markdown-output-page-wrapper">
-         <div className="markdown-output-page-content-wrapper">
+         <div className="control-wrapper markdown-output-page-content-wrapper">
             <h2>Markdown Table Definition</h2>
             <textarea defaultValue={markdown} />
             <div className="markdown-output-page-control-wrapper">
