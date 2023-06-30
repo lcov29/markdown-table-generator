@@ -84,19 +84,7 @@ function parseTitleContent(title: string, separator: string): TitleContent {
 
 
 function parseImageContent(string: string): ImageContent {
-   if (isLinkString(string)) {
-      return {
-         type: 'image',
-         src: extractAttributeValue('src', string),
-         alt: extractAttributeValue('alt', string),
-         width: extractAttributeValue('width', string),
-         height: extractAttributeValue('height', string),
-         title: extractAttributeValue('title', string),
-         isLink: true,
-         href: extractAttributeValue('href', string),
-         target: extractAttributeValue('target', string) as LinkTargetOption,
-      };
-   }
+   const isLink = isLinkString(string);
    return {
       type: 'image',
       src: extractAttributeValue('src', string),
@@ -104,9 +92,9 @@ function parseImageContent(string: string): ImageContent {
       width: extractAttributeValue('width', string),
       height: extractAttributeValue('height', string),
       title: extractAttributeValue('title', string),
-      isLink: false,
-      href: '',
-      target: ''
+      isLink,
+      href: (isLink) ? extractAttributeValue('href', string) : '',
+      target: (isLink) ? extractAttributeValue('target', string) as LinkTargetOption : ''
    };
 }
 
