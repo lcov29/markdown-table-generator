@@ -12,6 +12,7 @@
     - [**Use Case Diagram**](#use-case-diagram)
   - [**Implementation**](#implementation)
     - [**Overview**](#overview)
+    - [**Table Editor**](#table-editor)
     - [**Internal Table Model**](#internal-table-model)
       - [**Class Diagram**](#class-diagram)
       - [**Internal Table Representation**](#internal-table-representation)
@@ -89,6 +90,16 @@ flowchart LR
     c -- parsing --> b
     b -- parsing --> c
 ```
+
+<br>
+<br>
+<br>
+
+### **Table Editor**
+<br>
+<br>
+
+![Table Editor](./table-editor-diagram/table-editor-diagram.svg)
 
 <br>
 <br>
