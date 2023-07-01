@@ -20,8 +20,6 @@ describe('<TableTextContent />', () => {
             alignment="left"
             deleteFromInternalTable={() => {}}
             triggerRerender={() => {}}
-            showDialogOnInitialRender={false}
-            focusTextDisplayOnInitialRender={false}
          />
       );
    });
@@ -33,6 +31,51 @@ describe('<TableTextContent />', () => {
    it('is rendered with closed dialog and correct text', () => {
       cy.get('#table-text-content-dialog-text-input').should('not.be.visible');
       cy.get('.table-text-content-text-display-button').should('have.text', 'Text Input');
+   });
+
+
+   it('shows dialog on initial render if component parameter is set', () => {
+      const textContent: TextContent = {
+         type: 'text',
+         text: 'Text Input',
+         isLink: false,
+         href: 'https://domain.com',
+         target: '_blank',
+         title: 'Text Title'
+      };
+      cy.mount(
+         <TableTextContent
+            textContent={textContent}
+            alignment="left"
+            deleteFromInternalTable={() => {}}
+            triggerRerender={() => {}}
+            showDialogOnInitialRender
+            focusTextDisplayOnInitialRender={false}
+         />
+      );
+      cy.get('#table-text-content-dialog-text-input').should('be.visible');
+   });
+
+
+   it('focus text display element on initial render if component parameter is set', () => {
+      const textContent: TextContent = {
+         type: 'text',
+         text: 'Text Input',
+         isLink: false,
+         href: 'https://domain.com',
+         target: '_blank',
+         title: 'Text Title'
+      };
+      cy.mount(
+         <TableTextContent
+            textContent={textContent}
+            alignment="left"
+            deleteFromInternalTable={() => {}}
+            triggerRerender={() => {}}
+            focusTextDisplayOnInitialRender
+         />
+      );
+      cy.get('.table-text-content-text-display-button').should('be.focused');
    });
 
 
