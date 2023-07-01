@@ -59,6 +59,26 @@
 ### **Overview**
 <br>
 
+
+```mermaid
+flowchart TB
+  a[App.tsx] --> b[InternalTableModel.ts]
+  a --> c[LandingPage.tsx]
+  a --> d[MarkdownInputPage.tsx]
+  d --> z[MarkdownValidator.ts]
+  d --> y[parseMarkdownToInternalTable.ts]
+  a --> e[MarkdownOutputPage.tsx]
+  a --> f[TableDimensionInputPage.tsx]
+  f --> x[parseInternalTableToMarkdown.ts]
+  a --> g[TableEditorPage.tsx]
+  f --> h[TablePreview.tsx]
+  g --> i[TableEditor.tsx]
+  i --> j[structure]
+  i --> k[content]
+```
+
+
+**Table Data Flow:**
 ```mermaid
 flowchart LR
     a[TableEditor]
@@ -72,7 +92,7 @@ flowchart LR
 
 <br>
 <br>
-<br> 
+<br>
 
 ### **Internal Table Model**
 <br>
@@ -183,7 +203,8 @@ type TextContent = {
    text: string,
    isLink: boolean,
    href: string,
-   target: LinkTargetOption
+   target: LinkTargetOption,
+   title: string
 };
 ```
 
