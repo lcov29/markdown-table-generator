@@ -4,7 +4,6 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const config = {
    mode: 'development',
-   devtool: 'eval-source-map',
    entry: path.resolve('src', 'index.tsx'),
    output: {
       path: path.resolve(__dirname, 'dist'),
