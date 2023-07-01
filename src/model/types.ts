@@ -25,7 +25,7 @@ type TextContent = {
    text: string,
    isLink: boolean,
    href: string,
-   target: LinkTargetOption
+   target: LinkTargetOption,
    title: string
 };
 
