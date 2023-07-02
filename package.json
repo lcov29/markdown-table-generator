@@ -2,7 +2,7 @@
   "name": "markdown-table-generator",
   "version": "1.0",
   "author": "voss29",
-  "license": "MITS",
+  "license": "MIT",
   "scripts": {
     "start": "webpack server",
     "compile": "webpack",
