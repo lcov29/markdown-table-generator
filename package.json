@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack server",
     "compile": "webpack",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.ts'"
+    "test-mocha": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.ts'",
+    "test-cypress": "npx cypress run --component"
   },
   "repository": {
     "type": "git",
