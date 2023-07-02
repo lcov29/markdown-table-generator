@@ -6,7 +6,7 @@
 ## **Live**
 <br>
 
-[GithubPages]()
+[GithubPages](https://voss29.github.io/markdown-table-generator/)
 
 <br>
 <br>
@@ -128,7 +128,7 @@ Visit `localhost:8080`.
 npm run compile
 ```
 
-Open `dist/index.html` in web browser.
+Open `docs/index.html` in web browser.
 
 
 
