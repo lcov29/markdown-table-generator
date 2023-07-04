@@ -45,7 +45,7 @@ Since the images are links and have the same user defined dimension the markdown
 <br>
 <br>
 
-To simplify creating and editing markdown tables like this the tool provices the following features:
+To simplify creating and editing markdown tables like this the tool provides the following features:
 
 1. create new / load existing markdown table
 2. visually edit markdown table
