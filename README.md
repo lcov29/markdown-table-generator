@@ -84,24 +84,17 @@ You can find the documentation [here](./documentation/documentation.md)
 ## **How To Run Code Locally**
 <br>
 
-1. Create application directory
-
-```bash
-mkdir markdown-table-generator
-```
-
-<br>
-
-2. Clone repository
+1. Clone repository
    
 ```bash
-git clone https://github.com/voss29/grocery-item-tracker.git
+git clone https://github.com/voss29/markdown-table-generator.git
+cd markdown-table-generator
 git fetch
 ```
 
 <br>
 
-3. Install dependencies
+2. Install dependencies
 
 ```bash
 npm install
@@ -109,7 +102,7 @@ npm install
 
 <br>
 
-4. Open application
+3. Open application
 
 
 **Option 1: Start development server**
@@ -129,6 +122,3 @@ npm run compile
 ```
 
 Open `docs/index.html` in web browser.
-
-
-
