@@ -37,31 +37,29 @@ function TableDimensionInputPage(props: Props): ReactElement {
 
    return (
       <div className="page-wrapper table-dimension-input-page-wrapper">
-         <div className="table-dimension-input-page-content-wrapper">
-            <div className="control-wrapper table-dimension-input-page-input-wrapper">
-               <h2>Table Dimension</h2>
-               <label>
-                  Row
-                  <input
-                     type="number"
-                     min={1}
-                     value={rowInput}
-                     onChange={(e) => setRowInput(Number.parseInt(e.target.value, 10))}
-                  />
-               </label>
-               <label>
-                  Column
-                  <input
-                     type="number"
-                     min={1}
-                     value={columnInput}
-                     onChange={(e) => setColumnInput(Number.parseInt(e.target.value, 10))}
-                  />
-               </label>
-               <div className="table-dimension-input-page-control-wrapper">
-                  <button type="button" className="app-button" onClick={handleBackClick}>Back</button>
-                  <button type="button" className="app-button" onClick={handleInputCompletion}>OK</button>
-               </div>
+         <div className="control-wrapper table-dimension-input-page-input-wrapper">
+            <h2>Table Dimension</h2>
+            <label>
+               Row
+               <input
+                  type="number"
+                  min={1}
+                  value={rowInput}
+                  onChange={(e) => setRowInput(Number.parseInt(e.target.value, 10))}
+               />
+            </label>
+            <label>
+               Column
+               <input
+                  type="number"
+                  min={1}
+                  value={columnInput}
+                  onChange={(e) => setColumnInput(Number.parseInt(e.target.value, 10))}
+               />
+            </label>
+            <div className="table-dimension-input-page-control-wrapper">
+               <button type="button" className="app-button" onClick={handleBackClick}>Back</button>
+               <button type="button" className="app-button" onClick={handleInputCompletion}>OK</button>
             </div>
          </div>
          <div className="control-wrapper table-dimension-input-page-preview-wrapper">
