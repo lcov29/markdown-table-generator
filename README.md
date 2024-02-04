@@ -6,7 +6,7 @@
 ## **Live**
 <br>
 
-[GithubPages](https://voss29.github.io/markdown-table-generator/)
+[GithubPages](https://lcov29.github.io/markdown-table-generator/)
 
 <br>
 <br>
